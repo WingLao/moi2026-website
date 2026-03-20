@@ -1,36 +1,128 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MOI2026 Website MVP
 
-## Getting Started
+## Stack
+- Next.js App Router
+- PostgreSQL + Prisma
+- NextAuth credentials login
+- Redis + BullMQ judge queue
+- Host-run local judge adapter (`g++` / `python3`)
 
-First, run the development server:
+## Important limitation
+Docker is unavailable on this host, so this MVP does **not** claim full sandbox isolation. The judge is intentionally kept behind a worker/adapter boundary so it can later be swapped for a containerized or stronger sandbox runner.
 
+## Current data issues
+- `J-exchnage.pdf` is mapped to problem slug `j-exchange` and data dir `data/J/exchange`.
+- `data/S/climb/climb-0.in` is missing matching `climb-0.out`; importer marks that testcase invalid and stores a warning in DB.
+- `.DS_Store` files in the data tree are ignored.
+
+## Local setup
+### 1) Environment
+Copy `.env.example` to `.env`.
+
+Default `.env` values expect:
+- PostgreSQL on `localhost:5432`
+- Redis on `localhost:6379`
+- data root at `/Users/itlao_cdsj5school/Desktop/MOI2026_website`
+
+### 2) Start services on this Mac
+If PostgreSQL/Redis are not installed yet:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+brew install postgresql@16 redis
+brew services start postgresql@16
+brew services start redis
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create/update the local DB role + database expected by `.env`:
+```bash
+export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+psql -d postgres -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname='postgres') THEN CREATE ROLE postgres LOGIN SUPERUSER PASSWORD 'postgres'; ELSE ALTER ROLE postgres WITH LOGIN SUPERUSER PASSWORD 'postgres'; END IF; END \$\$;"
+createdb moi2026 2>/dev/null || true
+psql -d postgres -c "ALTER DATABASE moi2026 OWNER TO postgres;"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3) Initialize app data
+From `app/`:
+```bash
+npm install
+npm run db:init
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+That will:
+- generate Prisma client
+- run Prisma migration(s)
+- seed accounts
+- import problems + testcases
 
-## Learn More
+### 4) Run app + worker
+Terminal 1:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Terminal 2:
+```bash
+npm run worker
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Open: <http://localhost:3000>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Seed accounts
+- `admin` / `Admin@MOI2026`
+- `moi01` ~ `moi30` / `MOI2026-01` ~ `MOI2026-30`
 
-## Deploy on Vercel
+## Main pages available
+- `/login`
+- `/problems`
+- `/problems/[slug]`
+- `/submissions`
+- `/submissions/[id]`
+- `/leaderboard`
+- `/admin`
+- `/admin/problems`
+- `/admin/submissions`
+- `/admin/users`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
+- `npm run prisma:generate`
+- `npm run prisma:migrate`
+- `npm run db:init`
+- `npm run seed`
+- `npm run import:problems`
+- `npm run audit:data`
+- `npm run worker`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Scoring rules
+- Every problem is worth 100 points.
+- Testcases evenly split the 100 points; any remainder goes to earlier cases.
+- Unlimited submissions.
+- Highest score per problem counts on the leaderboard.
+- Tie-break uses the earliest recorded time the counted score was reached.
+
+## Practical local test procedure
+1. Log in with `admin`.
+2. Open `/problems` and verify all 9 problems are listed.
+3. Open a problem detail page and submit code.
+4. Check `/submissions/[id]` for status / testcase results.
+5. Check `/leaderboard` after creating student submissions.
+6. Check `/admin/*` pages as admin.
+
+### Tested on this host
+- `npm run lint` ✅
+- `npm run build` ✅
+- `npm run db:init` ✅
+- login via browser as `admin` ✅
+- problem import into PostgreSQL ✅
+- submission creation + queue handoff to BullMQ worker ✅
+- worker judging of Python submission ✅ (finished with score 0 / WA)
+- worker handling of C++ compile error ✅
+
+### Notes from testing
+- The default C++ template on the problem page originally used `#include <bits/stdc++.h>`, which fails with the host compiler toolchain on this Mac; compile-error handling was verified through that path.
+- A Python submission (`print('hello')`) was judged successfully by the worker and stored testcase results.
+- `s-climb` remains partially invalid because source data is missing one output file.
+
+## Known incomplete items
+- Statement PDF rendering/extraction into HTML is not implemented; pages currently show metadata only.
+- No hardened sandbox/isolation yet; host-run execution is for MVP/local testing only.
+- Admin UI is intentionally minimal and read-only.
+- No polished contest rules, rate limiting, or production hardening yet.

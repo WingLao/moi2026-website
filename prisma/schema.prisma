@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STUDENT
+}
+
+enum ProblemLevel {
+  P
+  J
+  S
+}
+
+enum SubmissionStatus {
+  PENDING
+  JUDGING
+  FINISHED
+  COMPILE_ERROR
+  FAILED
+}
+
+enum TestCaseStatus {
+  PENDING
+  AC
+  WA
+  TLE
+  RE
+  CE
+  SKIPPED
+  INVALID
+}
+
+model User {
+  id             String       @id @default(cuid())
+  username       String       @unique
+  name           String?
+  passwordHash   String
+  role           Role         @default(STUDENT)
+  mustChangePass Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  submissions    Submission[]
+}
+
+model Problem {
+  id            String        @id @default(cuid())
+  code          String        @unique
+  slug          String        @unique
+  title         String
+  level         ProblemLevel
+  pdfFilename   String?
+  pdfPath       String?
+  timeLimitMs   Int           @default(2000)
+  memoryLimitMb Int           @default(256)
+  maxScore      Int           @default(100)
+  isActive      Boolean       @default(true)
+  isJudgeable   Boolean       @default(true)
+  warning       String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  testCases     TestCase[]
+  submissions   Submission[]
+}
+
+model TestCase {
+  id         String           @id @default(cuid())
+  problemId  String
+  index      Int
+  inputPath  String
+  outputPath String?
+  score      Int
+  isValid    Boolean          @default(true)
+  warning    String?
+  problem    Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  results    TestCaseResult[]
+
+  @@unique([problemId, index])
+}
+
+model Submission {
+  id            String           @id @default(cuid())
+  userId        String
+  problemId     String
+  language      String
+  sourceCode    String
+  status        SubmissionStatus @default(PENDING)
+  compileOutput String?
+  score         Int              @default(0)
+  queuedAt      DateTime         @default(now())
+  judgedAt      DateTime?
+  reachedScoreAt DateTime?
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem       Problem          @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  results       TestCaseResult[]
+}
+
+model TestCaseResult {
+  id           String         @id @default(cuid())
+  submissionId String
+  testCaseId   String
+  status       TestCaseStatus @default(PENDING)
+  score        Int            @default(0)
+  timeMs       Int?
+  memoryKb     Int?
+  stdout       String?
+  stderr       String?
+  message      String?
+  submission   Submission     @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  testCase     TestCase       @relation(fields: [testCaseId], references: [id], onDelete: Cascade)
+
+  @@unique([submissionId, testCaseId])
+}
+
+model ImportReport {
+  id        String   @id @default(cuid())
+  summary   String
+  detail    String
+  createdAt DateTime @default(now())
+}
