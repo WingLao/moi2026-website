@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 
 export function getDataRoot() {
@@ -17,5 +18,16 @@ export function resolveStoredPath(storedPath: string, root = getDataRoot()) {
   if (path.isAbsolute(storedPath)) {
     return storedPath;
   }
-  return path.join(root, storedPath);
+
+  const rootCandidate = path.resolve(root, storedPath);
+  if (fs.existsSync(rootCandidate)) {
+    return rootCandidate;
+  }
+
+  const cwdCandidate = path.resolve(process.cwd(), storedPath);
+  if (fs.existsSync(cwdCandidate)) {
+    return cwdCandidate;
+  }
+
+  return rootCandidate;
 }

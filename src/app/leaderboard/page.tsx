@@ -13,52 +13,62 @@ export default async function LeaderboardPage() {
 
   const rows = users
     .map((user) => {
-      const bestByProblem = new Map<string, { score: number; reachedAt: Date | null }>();
+      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string }>();
       for (const submission of user.submissions) {
-        const previous = bestByProblem.get(submission.problemId);
         const reachedAt = submission.reachedScoreAt ?? submission.judgedAt ?? submission.queuedAt;
-        if (!previous || submission.score > previous.score || (submission.score === previous.score && reachedAt < (previous.reachedAt ?? reachedAt))) {
-          bestByProblem.set(submission.problemId, { score: submission.score, reachedAt });
+        const previous = bestByProblem.get(submission.problemId);
+        if (!previous || submission.score > previous.score || (submission.score === previous.score && reachedAt < previous.reachedAt)) {
+          bestByProblem.set(submission.problemId, { score: submission.score, reachedAt, problemCode: submission.problem.code });
         }
       }
 
-      const total = [...bestByProblem.values()].reduce((sum, item) => sum + item.score, 0);
-      const latestTieBreaker = [...bestByProblem.values()]
-        .map((item) => item.reachedAt?.getTime() ?? Number.MAX_SAFE_INTEGER)
-        .sort((a, b) => a - b)[0] ?? Number.MAX_SAFE_INTEGER;
+      const bestScores = [...bestByProblem.values()];
+      const total = bestScores.reduce((sum, item) => sum + item.score, 0);
+      const solvedProblems = bestScores.filter((item) => item.score > 0).length;
+      const tieBreaker = bestScores.reduce((min, item) => Math.min(min, item.reachedAt.getTime()), Number.MAX_SAFE_INTEGER);
+      const breakdown = bestScores
+        .filter((item) => item.score > 0)
+        .sort((a, b) => b.score - a.score || a.problemCode.localeCompare(b.problemCode))
+        .map((item) => `${item.problemCode} ${item.score}`)
+        .join(', ');
 
-      return {
-        username: user.username,
-        total,
-        solvedProblems: [...bestByProblem.values()].filter((item) => item.score > 0).length,
-        tieBreaker: latestTieBreaker,
-      };
+      return { username: user.username, total, solvedProblems, tieBreaker, breakdown };
     })
     .sort((left, right) => right.total - left.total || right.solvedProblems - left.solvedProblems || left.tieBreaker - right.tieBreaker || left.username.localeCompare(right.username));
 
   return (
-    <main style={{ display: 'grid', gap: 16 }}>
-      <div>
-        <h1 style={{ marginBottom: 8 }}>Leaderboard</h1>
-        <p style={{ marginTop: 0 }}>Best score per problem counts. Tie-break uses earliest time that score was reached.</p>
-      </div>
-      <div style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <main className="page">
+      <section className="card">
+        <div className="section-title">
+          <div>
+            <h1>Leaderboard</h1>
+            <p className="subtle" style={{ marginTop: 8 }}>
+              Best score per problem counts. Ties prefer the user who reached the counted score earlier.
+            </p>
+          </div>
+          <span className="badge info">Students ranked: {rows.length}</span>
+        </div>
+      </section>
+
+      <div className="table-wrap">
+        <table className="table">
           <thead>
-            <tr style={{ background: '#eef3fb', textAlign: 'left' }}>
-              <th style={{ padding: 12 }}>Rank</th>
-              <th style={{ padding: 12 }}>User</th>
-              <th style={{ padding: 12 }}>Solved (&gt;0)</th>
-              <th style={{ padding: 12 }}>Total</th>
+            <tr>
+              <th>Rank</th>
+              <th>User</th>
+              <th>Solved (&gt;0)</th>
+              <th>Total</th>
+              <th>Best-score breakdown</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row, index) => (
-              <tr key={row.username} style={{ borderTop: '1px solid #e4e9f2' }}>
-                <td style={{ padding: 12 }}>{index + 1}</td>
-                <td style={{ padding: 12 }}>{row.username}</td>
-                <td style={{ padding: 12 }}>{row.solvedProblems}</td>
-                <td style={{ padding: 12 }}>{row.total}</td>
+              <tr key={row.username}>
+                <td>{index + 1}</td>
+                <td>{row.username}</td>
+                <td>{row.solvedProblems}</td>
+                <td>{row.total}</td>
+                <td className="subtle">{row.breakdown || 'No positive scores yet'}</td>
               </tr>
             ))}
           </tbody>

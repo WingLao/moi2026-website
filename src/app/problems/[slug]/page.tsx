@@ -53,12 +53,16 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
               <textarea
                 name="sourceCode"
                 required
+                minLength={1}
                 rows={18}
                 defaultValue={'#include <iostream>\nusing namespace std;\n\nint main() {\n  return 0;\n}\n'}
                 style={{ fontFamily: 'monospace' }}
               />
             </label>
-            <button type="submit">Queue submission</button>
+            <p style={{ margin: 0, color: '#536076' }}>
+              After you submit, the system should create a submission record immediately and then judge it in the queue.
+            </p>
+            <button type="submit" disabled={!problem.isJudgeable}>{problem.isJudgeable ? 'Queue submission' : 'Judging unavailable'}</button>
           </form>
         ) : (
           <p>

@@ -6,7 +6,6 @@ import path from 'node:path';
 import { type TestCaseStatus } from '@prisma/client';
 import { prisma } from '../src/lib/prisma';
 import { resolveStoredPath } from '../src/lib/data-root';
-import { resolveStoredPath } from '../src/lib/data-root';
 
 const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 const normalizeOutput = (value: string) => value.replace(/[ \t]+$/gm, '').trimEnd();

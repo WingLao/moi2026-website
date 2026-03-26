@@ -3,17 +3,53 @@ import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { getSubmissionQueue } from '@/lib/queue';
 
+const ALLOWED_LANGUAGES = new Set(['cpp', 'python']);
+
 async function createSubmission(payload: { problemId: string; language: string; sourceCode: string; userId: string }) {
+  const problem = await prisma.problem.findUnique({
+    where: { id: payload.problemId },
+    include: { testCases: { orderBy: { index: 'asc' } } },
+  });
+
+  if (!problem) {
+    throw new Error('Problem not found');
+  }
+
+  if (!problem.isJudgeable) {
+    throw new Error(problem.warning || 'This problem is not ready for judging');
+  }
+
   const submission = await prisma.submission.create({
     data: {
       userId: payload.userId,
       problemId: payload.problemId,
       language: payload.language,
       sourceCode: payload.sourceCode,
+      results: {
+        create: problem.testCases.map((testCase) => ({
+          testCaseId: testCase.id,
+          status: testCase.isValid ? 'PENDING' : 'INVALID',
+          score: 0,
+          message: testCase.isValid ? null : testCase.warning || 'Invalid testcase',
+        })),
+      },
     },
   });
 
-  await getSubmissionQueue().add('judge', { submissionId: submission.id });
+  try {
+    await getSubmissionQueue().add('judge', { submissionId: submission.id });
+  } catch (error) {
+    await prisma.submission.update({
+      where: { id: submission.id },
+      data: {
+        status: 'FAILED',
+        compileOutput: error instanceof Error ? error.message : String(error),
+        judgedAt: new Date(),
+      },
+    });
+    throw new Error('Submission saved, but queueing failed. Please contact the admin.');
+  }
+
   return submission;
 }
 
@@ -44,16 +80,29 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
-  const submission = await createSubmission({
-    problemId,
-    language,
-    sourceCode,
-    userId: session.user.id,
-  });
-
-  if (contentType.includes('application/json')) {
-    return NextResponse.json({ ok: true, id: submission.id });
+  if (!ALLOWED_LANGUAGES.has(language)) {
+    return NextResponse.json({ error: 'Unsupported language' }, { status: 400 });
   }
 
-  return NextResponse.redirect(new URL(`/submissions/${submission.id}`, req.url), { status: 303 });
+  try {
+    const submission = await createSubmission({
+      problemId,
+      language,
+      sourceCode,
+      userId: session.user.id,
+    });
+
+    if (contentType.includes('application/json')) {
+      return NextResponse.json({ ok: true, id: submission.id, status: submission.status });
+    }
+
+    return NextResponse.redirect(new URL(`/submissions/${submission.id}`, req.url), { status: 303 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Submission failed';
+    if (contentType.includes('application/json')) {
+      return NextResponse.json({ error: message }, { status: 400 });
+    }
+
+    return NextResponse.redirect(new URL(`/problems?error=${encodeURIComponent(message)}`, req.url), { status: 303 });
+  }
 }

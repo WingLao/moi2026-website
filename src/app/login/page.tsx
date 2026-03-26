@@ -44,11 +44,11 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
           <label style={{ display: 'grid', gap: 6 }}>
             <span>Username</span>
-            <input value={username} onChange={(event) => setUsername(event.target.value)} required />
+            <input value={username} onChange={(event) => setUsername(event.target.value)} autoComplete="username" required />
           </label>
           <label style={{ display: 'grid', gap: 6 }}>
             <span>Password</span>
-            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
+            <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required />
           </label>
           {error ? <p style={{ color: '#b42318', margin: 0 }}>{error}</p> : null}
           <button type="submit" disabled={pending}>{pending ? 'Signing in…' : 'Sign in'}</button>
