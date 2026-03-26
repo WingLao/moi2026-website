@@ -1,2 +1,10 @@
 import { importProblems } from '../src/lib/problem-import';
-importProblems(process.argv[2] || process.cwd() + '/..').then(w => console.log(JSON.stringify({warnings:w},null,2))).catch(e=>{console.error(e);process.exit(1)});
+
+const root = process.argv[2] || process.env.JUDGE_DATA_ROOT;
+
+importProblems(root)
+  .then((warnings) => console.log(JSON.stringify({ warnings }, null, 2)))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

@@ -5,6 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { type TestCaseStatus } from '@prisma/client';
 import { prisma } from '../src/lib/prisma';
+import { resolveStoredPath } from '../src/lib/data-root';
+import { resolveStoredPath } from '../src/lib/data-root';
 
 const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
 const normalizeOutput = (value: string) => value.replace(/[ \t]+$/gm, '').trimEnd();
@@ -69,8 +71,8 @@ async function judgeSubmission(id: string) {
         result.status = 'INVALID';
         result.message = testCase.warning || 'Invalid testcase';
       } else {
-        const input = fs.readFileSync(testCase.inputPath);
-        const expected = fs.readFileSync(testCase.outputPath, 'utf8');
+        const input = fs.readFileSync(resolveStoredPath(testCase.inputPath));
+        const expected = fs.readFileSync(resolveStoredPath(testCase.outputPath), 'utf8');
         const run = submission.language === 'cpp'
           ? spawnSync(executablePath, { input, encoding: 'utf8', timeout: submission.problem.timeLimitMs })
           : spawnSync('python3', [executablePath], { input, encoding: 'utf8', timeout: submission.problem.timeLimitMs });

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { prisma } from './prisma';
+import { getDataRoot, toStoredPath } from './data-root';
 
 const MAP = {
   'P-gaps.pdf': { slug: 'p-gaps', title: 'gaps', level: 'P' },
@@ -14,12 +15,13 @@ const MAP = {
   'S-comm.pdf': { slug: 's-comm', title: 'comm', level: 'S' },
 } as const;
 
-export async function importProblems(projectRoot: string) {
+export async function importProblems(projectRoot?: string) {
+  const root = projectRoot ? path.resolve(projectRoot) : getDataRoot();
   const warnings: string[] = [];
 
   for (const [pdf, meta] of Object.entries(MAP)) {
-    const pdfPath = path.join(projectRoot, pdf);
-    const dataDir = path.join(projectRoot, 'data', meta.level, meta.title);
+    const pdfPath = path.join(root, pdf);
+    const dataDir = path.join(root, 'data', meta.level, meta.title);
 
     const problem = await prisma.problem.upsert({
       where: { slug: meta.slug },
@@ -27,7 +29,7 @@ export async function importProblems(projectRoot: string) {
         title: meta.title,
         level: meta.level as 'P' | 'J' | 'S',
         pdfFilename: pdf,
-        pdfPath,
+        pdfPath: toStoredPath(pdfPath, root),
         isJudgeable: true,
         warning: null,
       },
@@ -37,7 +39,7 @@ export async function importProblems(projectRoot: string) {
         title: meta.title,
         level: meta.level as 'P' | 'J' | 'S',
         pdfFilename: pdf,
-        pdfPath,
+        pdfPath: toStoredPath(pdfPath, root),
       },
     });
 
@@ -68,8 +70,8 @@ export async function importProblems(projectRoot: string) {
           data: {
             problemId: problem.id,
             index,
-            inputPath: path.join(dataDir, inputFile),
-            outputPath,
+            inputPath: toStoredPath(path.join(dataDir, inputFile), root),
+            outputPath: outputPath ? toStoredPath(outputPath, root) : null,
             score: baseScore + (index < remainder ? 1 : 0),
             isValid: Boolean(outputPath),
             warning: outputPath ? null : `Missing .out for ${inputFile}`,

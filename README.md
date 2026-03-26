@@ -124,5 +124,13 @@ Open: <http://localhost:3000>
 ## Known incomplete items
 - Statement PDF rendering/extraction into HTML is not implemented; pages currently show metadata only.
 - No hardened sandbox/isolation yet; host-run execution is for MVP/local testing only.
-- Admin UI is intentionally minimal and read-only.
+- Admin UI is still lightweight, but student progress overview is available.
 - No polished contest rules, rate limiting, or production hardening yet.
+
+## Railway deployment note
+A Railway deployment is feasible for the web app, PostgreSQL, and Redis.
+For long-term student practice, the safer recommendation is:
+- Railway for web + DB + Redis
+- separate worker host / VPS for judging
+
+See `RAILWAY_DEPLOY.md` for the deployment recommendation and service split.
