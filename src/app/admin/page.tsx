@@ -10,11 +10,11 @@ export default async function AdminPage() {
 
   return (
     <main style={{ display: 'grid', gap: 16 }}>
-      <h1 style={{ margin: 0 }}>Admin</h1>
+      <h1 style={{ margin: 0 }}>Admin · 管理頁</h1>
       <div style={{ display: 'grid', gap: 12 }}>
-        <Link href="/admin/problems">Problem management</Link>
-        <Link href="/admin/submissions">Submission management</Link>
-        <Link href="/admin/users">User management</Link>
+        <Link href="/admin/problems">Problem Management · 題目管理</Link>
+        <Link href="/admin/submissions">Submission Management · 提交管理</Link>
+        <Link href="/admin/users">User Management · 用戶管理</Link>
       </div>
     </main>
   );

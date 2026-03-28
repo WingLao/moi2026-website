@@ -28,7 +28,7 @@ export default function LoginPage() {
     setPending(false);
 
     if (!result || result.error) {
-      setError('Invalid username or password.');
+      setError('Invalid username or password. 帳號或密碼錯誤。');
       return;
     }
 
@@ -39,19 +39,19 @@ export default function LoginPage() {
   return (
     <main style={{ maxWidth: 460, margin: '0 auto' }}>
       <div style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
-        <h1 style={{ marginTop: 0 }}>Login</h1>
-        <p>Use seeded accounts like <code>admin</code> / <code>Admin@MOI2026</code> or <code>moi01</code> / <code>MOI2026-01</code>.</p>
+        <h1 style={{ marginTop: 0 }}>Login · 登入</h1>
+        <p>Use seeded accounts like <code>admin</code> / <code>Admin@MOI2026</code> or <code>moi01</code> / <code>MOI2026-01</code>. 請使用已建立帳號登入。</p>
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
           <label style={{ display: 'grid', gap: 6 }}>
-            <span>Username</span>
+            <span>Username · 帳號</span>
             <input value={username} onChange={(event) => setUsername(event.target.value)} autoComplete="username" required />
           </label>
           <label style={{ display: 'grid', gap: 6 }}>
-            <span>Password</span>
+            <span>Password · 密碼</span>
             <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoComplete="current-password" required />
           </label>
           {error ? <p style={{ color: '#b42318', margin: 0 }}>{error}</p> : null}
-          <button type="submit" disabled={pending}>{pending ? 'Signing in…' : 'Sign in'}</button>
+          <button type="submit" disabled={pending}>{pending ? 'Signing in… 登入中' : 'Sign in · 登入'}</button>
         </form>
       </div>
     </main>

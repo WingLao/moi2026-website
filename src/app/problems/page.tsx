@@ -25,14 +25,14 @@ export default async function ProblemsPage() {
       <section className="card">
         <div className="section-title">
           <div>
-            <h1>Problems</h1>
+            <h1>Problems · 題目</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Imported from local MOI2026 statements and testcase folders. Open a problem to submit code and inspect recent runs.
+              Imported from local MOI2026 statements and testcase folders. Open a problem to submit code and inspect recent runs. 可打開題目後提交程式。
             </p>
           </div>
           <div className="inline-actions">
-            <span className="badge success">Judgeable: {judgeableCount}</span>
-            {warningCount ? <span className="badge warning">Warnings: {warningCount}</span> : null}
+            <span className="badge success">Judgeable 可判題: {judgeableCount}</span>
+            {warningCount ? <span className="badge warning">Warnings 警告: {warningCount}</span> : null}
           </div>
         </div>
       </section>
@@ -45,9 +45,9 @@ export default async function ProblemsPage() {
               <th>Code</th>
               <th>Title</th>
               <th>Cases</th>
-              <th>Your best</th>
-              <th>Last status</th>
-              <th>Judge status</th>
+              <th>Your best · 最佳分數</th>
+              <th>Last status · 最近狀態</th>
+              <th>Judge status · 判題狀態</th>
             </tr>
           </thead>
           <tbody>
@@ -66,13 +66,13 @@ export default async function ProblemsPage() {
                     </Link>
                   </td>
                   <td>{problem.testCases.length}</td>
-                  <td>{session?.user ? `${best} / ${problem.maxScore}` : 'Login to view'}</td>
+                  <td>{session?.user ? `${best} / ${problem.maxScore}` : 'Login to view · 登入後查看'}</td>
                   <td>{latest ? `${latest.status} · ${latest.score}` : '—'}</td>
                   <td>
                     {problem.isJudgeable ? (
-                      <span className="badge success">Ready</span>
+                      <span className="badge success">Ready · 可用</span>
                     ) : (
-                      <span className="badge warning">{problem.warning || 'Needs attention'}</span>
+                      <span className="badge warning">{problem.warning || 'Needs attention · 需處理'}</span>
                     )}
                   </td>
                 </tr>

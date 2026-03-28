@@ -41,12 +41,12 @@ export default async function LeaderboardPage() {
       <section className="card">
         <div className="section-title">
           <div>
-            <h1>Leaderboard</h1>
+            <h1>Leaderboard · 排名榜</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Best score per problem counts. Ties prefer the user who reached the counted score earlier.
+              Best score per problem counts. Ties prefer the user who reached the counted score earlier. 以每題最佳分計算。
             </p>
           </div>
-          <span className="badge info">Students ranked: {rows.length}</span>
+          <span className="badge info">Students ranked 排名人數: {rows.length}</span>
         </div>
       </section>
 
@@ -54,11 +54,11 @@ export default async function LeaderboardPage() {
         <table className="table">
           <thead>
             <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Solved (&gt;0)</th>
-              <th>Total</th>
-              <th>Best-score breakdown</th>
+              <th>Rank · 名次</th>
+              <th>User · 用戶</th>
+              <th>Solved (&gt;0) · 已得分題數</th>
+              <th>Total · 總分</th>
+              <th>Best-score breakdown · 最佳分明細</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +68,7 @@ export default async function LeaderboardPage() {
                 <td>{row.username}</td>
                 <td>{row.solvedProblems}</td>
                 <td>{row.total}</td>
-                <td className="subtle">{row.breakdown || 'No positive scores yet'}</td>
+                <td className="subtle">{row.breakdown || 'No positive scores yet · 暫未得分'}</td>
               </tr>
             ))}
           </tbody>

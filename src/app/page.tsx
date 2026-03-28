@@ -20,24 +20,24 @@ export default async function Home() {
       <section className="card">
         <div className="section-title">
           <div>
-            <h1>MOI2026 contest portal</h1>
+            <h1>MOI2026 Contest Portal</h1>
             <p className="subtle" style={{ marginTop: 10 }}>
-              Local training and judging portal for P / J / S groups. Students can browse problems, submit code, and track results. Admins can monitor imports, submissions, and users.
+              Local training and judging portal for P / J / S groups. Students can browse problems, submit code, and track results. 管理員可查看學生、提交與題目狀態。
             </p>
           </div>
           <div className="inline-actions">
-            <Link href="/problems" className="button-link">Browse problems</Link>
-            <Link href="/leaderboard" className="button-link secondary">Leaderboard</Link>
-            {session?.user ? <Link href="/submissions" className="button-link secondary">My submissions</Link> : <Link href="/login" className="button-link secondary">Login</Link>}
+            <Link href="/problems" className="button-link">Browse Problems · 瀏覽題目</Link>
+            <Link href="/leaderboard" className="button-link secondary">Leaderboard · 排名</Link>
+            {session?.user ? <Link href="/submissions" className="button-link secondary">My Submissions · 我的提交</Link> : <Link href="/login" className="button-link secondary">Login · 登入</Link>}
           </div>
         </div>
       </section>
 
       <section className="grid-tiles">
         {[
-          { label: 'Problems', value: problemCount, note: 'Imported and listed for contestants' },
-          { label: 'Students', value: studentCount, note: 'Seeded training accounts' },
-          { label: 'Submissions', value: submissionCount, note: 'Queued and judged attempts' },
+          { label: 'Problems · 題目', value: problemCount, note: 'Imported and listed for contestants 已匯入題目' },
+          { label: 'Students · 學生', value: studentCount, note: 'Seeded training accounts 已建立帳號' },
+          { label: 'Submissions · 提交', value: submissionCount, note: 'Queued and judged attempts 已提交與判題' },
         ].map((item) => (
           <div key={item.label} className="card compact">
             <div className="subtle">{item.label}</div>
@@ -50,22 +50,22 @@ export default async function Home() {
       <section className="card">
         <div className="section-title">
           <div>
-            <h2>Quick reminders</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>Current platform behavior and operator-facing caveats.</p>
+            <h2>Quick Reminders · 重要提示</h2>
+            <p className="subtle" style={{ marginTop: 8 }}>Current platform behavior and operator-facing caveats. 以下是目前平台重點。</p>
           </div>
         </div>
         <ul className="list" style={{ marginTop: 14 }}>
-          <li>Judging currently runs on the host via the worker queue, so this is suitable for local rehearsal, not hardened production isolation.</li>
-          <li>Students only see their own submissions. Admins can inspect all users, problems, and judged runs.</li>
-          <li>Some imported problem data may contain warnings if testcase files are incomplete.</li>
+          <li>Judging currently runs on the host via the worker queue, so this is suitable for local rehearsal, not hardened production isolation. 目前較適合教學 / 測試用途。</li>
+          <li>Students only see their own submissions. Admins can inspect all users, problems, and judged runs. 學生只會看到自己的提交。</li>
+          <li>Some imported problem data may contain warnings if testcase files are incomplete. 若測資不完整，系統會顯示警告。</li>
         </ul>
       </section>
 
       <section className="card">
         <div className="section-title">
           <div>
-            <h2>Recent activity</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>Useful for quick smoke-checks after startup.</p>
+            <h2>Recent Activity · 最近活動</h2>
+            <p className="subtle" style={{ marginTop: 8 }}>Useful for quick smoke-checks after startup. 可快速檢查系統是否正常。</p>
           </div>
         </div>
         {recentSubmissions.length ? (
@@ -94,7 +94,7 @@ export default async function Home() {
             </table>
           </div>
         ) : (
-          <div className="empty" style={{ marginTop: 14 }}>No submissions yet. Create one from any problem page to verify the queue + worker path.</div>
+          <div className="empty" style={{ marginTop: 14 }}>No submissions yet. Create one from any problem page to verify the queue + worker path. 目前尚未有提交紀錄。</div>
         )}
       </section>
     </main>
