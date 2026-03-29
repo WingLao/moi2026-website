@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 export function getDataRoot() {
-  return process.env.JUDGE_DATA_ROOT || path.resolve(process.cwd(), '..');
+  return process.env.JUDGE_DATA_ROOT || path.resolve(process.cwd());
 }
 
 export function toStoredPath(absolutePath: string, root = getDataRoot()) {
