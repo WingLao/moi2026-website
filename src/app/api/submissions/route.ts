@@ -9,7 +9,7 @@ async function createSubmission(payload: { problemId: string; language: string; 
   const problem = await prisma.problem.findUnique({
     where: { id: payload.problemId },
     include: { testCases: { orderBy: { index: 'asc' } } },
-  });
+  })
 
   if (!problem) {
     throw new Error('Problem not found');
@@ -96,13 +96,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, id: submission.id, status: submission.status });
     }
 
-    return NextResponse.redirect(new URL(`/submissions/${submission.id}`, req.url), { status: 303 });
+        const baseUrl = process.env.NEXTAUTH_URL || req.url;
+        return NextResponse.redirect(new URL(`/submissions/${submission.id}`, baseUrl), { status: 303 });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Submission failed';
     if (contentType.includes('application/json')) {
       return NextResponse.json({ error: message }, { status: 400 });
     }
 
-    return NextResponse.redirect(new URL(`/problems?error=${encodeURIComponent(message)}`, req.url), { status: 303 });
+        const baseUrl = process.env.NEXTAUTH_URL || req.url;
+        return NextResponse.redirect(new URL(`/problems?error=${encodeURIComponent(message)}`, baseUrl), { status: 303 });
   }
 }
