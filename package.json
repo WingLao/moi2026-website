@@ -2,6 +2,9 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,10 +13,12 @@
     "lint": "eslint",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
     "db:init": "npm run prisma:generate && npx prisma migrate dev --name init && npm run seed && npm run import:problems",
+    "db:bootstrap": "npm run prisma:deploy && npm run seed && npm run import:problems",
     "seed": "tsx scripts/seed.ts",
-    "import:problems": "tsx scripts/import-problems.ts ../",
-    "audit:data": "tsx scripts/data-audit.ts ../",
+    "import:problems": "tsx scripts/import-problems.ts",
+    "audit:data": "tsx scripts/data-audit.ts",
     "worker": "tsx scripts/judge-worker.ts"
   },
   "dependencies": {
@@ -28,6 +33,7 @@
     "prisma": "^6.16.2",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "tsx": "^4.21.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -37,7 +43,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.0",
-    "tsx": "^4.21.0",
     "typescript": "^5"
   }
 }
