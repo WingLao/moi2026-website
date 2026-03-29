@@ -96,15 +96,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, id: submission.id, status: submission.status });
     }
 
-        const baseUrl = process.env.NEXTAUTH_URL || req.url;
-        return NextResponse.redirect(new URL(`/submissions/${submission.id}`, baseUrl), { status: 303 });
+    const baseUrl = process.env.NEXTAUTH_URL || req.url;
+    return NextResponse.redirect(new URL(`/submissions/${submission.id}`, baseUrl), { status: 303 });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Submission failed';
     if (contentType.includes('application/json')) {
       return NextResponse.json({ error: message }, { status: 400 });
     }
 
-        const baseUrl = process.env.NEXTAUTH_URL || req.url;
-        return NextResponse.redirect(new URL(`/problems?error=${encodeURIComponent(message)}`, baseUrl), { status: 303 });
+    const baseUrl = process.env.NEXTAUTH_URL || req.url;
+    return NextResponse.redirect(new URL(`/problems?error=${encodeURIComponent(message)}`, baseUrl), { status: 303 });
   }
 }
