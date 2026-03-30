@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getProblemPdfUrl } from '@/lib/pdf';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -22,6 +23,8 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
     return notFound();
   }
 
+  const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
+
   return (
     <main style={{ display: 'grid', gap: 20 }}>
       <section style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
@@ -31,6 +34,12 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
         </p>
         <p style={{ margin: '8px 0' }}>Time limit: {problem.timeLimitMs} ms · Memory limit: {problem.memoryLimitMb} MB · Max score: {problem.maxScore}</p>
         <p style={{ margin: '8px 0' }}>Statement PDF: {problem.pdfFilename ?? 'N/A'}</p>
+        {pdfUrl ? (
+          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', margin: '8px 0 12px' }}>
+            <a href={pdfUrl} target="_blank" rel="noreferrer">View PDF · 開啟題目</a>
+            <a href={pdfUrl} download={problem.pdfFilename ?? undefined}>Download PDF · 下載 PDF</a>
+          </div>
+        ) : null}
         <p style={{ margin: '8px 0', color: problem.isJudgeable ? '#067647' : '#b42318' }}>
           {problem.isJudgeable ? 'Judgeable on local host-run adapter' : `Not fully judgeable: ${problem.warning ?? 'warning'}`}
         </p>

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getProblemPdfUrl } from '@/lib/pdf';
 
 export default async function ProblemsPage() {
   const session = await auth();
@@ -44,6 +45,7 @@ export default async function ProblemsPage() {
               <th>Level</th>
               <th>Code</th>
               <th>Title</th>
+              <th>PDF</th>
               <th>Cases</th>
               <th>Your best · 最佳分數</th>
               <th>Last status · 最近狀態</th>
@@ -55,6 +57,7 @@ export default async function ProblemsPage() {
               const submissions = Array.isArray(problem.submissions) ? problem.submissions : [];
               const best = submissions.reduce((max, submission) => Math.max(max, submission.score), 0);
               const latest = submissions[0];
+              const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
 
               return (
                 <tr key={problem.id}>
@@ -64,6 +67,16 @@ export default async function ProblemsPage() {
                     <Link href={`/problems/${problem.slug}`} style={{ color: 'var(--primary)', fontWeight: 700 }}>
                       {problem.title}
                     </Link>
+                  </td>
+                  <td>
+                    {pdfUrl ? (
+                      <div style={{ display: 'grid', gap: 6 }}>
+                        <a href={pdfUrl} target="_blank" rel="noreferrer">View PDF</a>
+                        <a href={pdfUrl} download={problem.pdfFilename ?? undefined}>Download PDF</a>
+                      </div>
+                    ) : (
+                      <span className="subtle">No PDF</span>
+                    )}
                   </td>
                   <td>{problem.testCases.length}</td>
                   <td>{session?.user ? `${best} / ${problem.maxScore}` : 'Login to view · 登入後查看'}</td>
