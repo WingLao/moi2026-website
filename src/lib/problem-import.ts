@@ -34,6 +34,8 @@ export async function importProblems(projectRoot?: string) {
   for (const [pdf, meta] of Object.entries(MAP)) {
     const pdfPath = path.join(root, pdf);
     const dataDir = path.join(root, 'data', meta.level, meta.title);
+// v2
+
 
     const problem = await prisma.problem.upsert({
       where: { slug: meta.slug },
