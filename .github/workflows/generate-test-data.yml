@@ -1,0 +1,356 @@
+name: Generate Contest Test Data
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install reportlab
+        run: pip install reportlab --quiet
+
+      - name: Generate test cases + PDFs
+        run: |
+          python3 << 'PYEOF'
+          import os, random, bisect
+          from pathlib import Path
+          from collections import deque
+
+          random.seed(42)
+          ROOT = Path('.')
+          DATA = ROOT / 'data'
+
+          # ── helpers ──────────────────────────────────────────────────────────
+          def w(path, text):
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_text(text)
+
+          # ── stairs (DP) ───────────────────────────────────────────────────────
+          def stairs_cases():
+              cases = []
+              for n in [1,2,5,10,20,30,3,7,15,25,28]:
+                  f=[0]*(n+2); f[1]=1
+                  for i in range(2,n+1): f[i]=f[i-1]+f[i-2]
+                  cases.append((str(n), str(f[n])))
+              return cases[:11]
+
+          # ── islands (DFS) ─────────────────────────────────────────────────────
+          def count_islands(grid):
+              rows,cols=len(grid),len(grid[0])
+              vis=[[False]*cols for _ in range(rows)]
+              def dfs(r,c):
+                  if r<0 or r>=rows or c<0 or c>=cols or vis[r][c] or grid[r][c]=='0': return
+                  vis[r][c]=True
+                  for dr,dc in[(-1,0),(1,0),(0,-1),(0,1)]: dfs(r+dr,c+dc)
+              cnt=0
+              for r in range(rows):
+                  for c in range(cols):
+                      if not vis[r][c] and grid[r][c]=='1': dfs(r,c); cnt+=1
+              return cnt
+
+          def islands_cases():
+              grids=[
+                  (4,5,['11000','11000','00100','00011']),
+                  (3,3,['101','010','101']),
+                  (1,1,['1']),(2,2,['11','11']),
+                  (3,4,['1010','0101','1010']),
+                  (5,5,['11100','11000','00100','00011','00001']),
+                  (4,4,['0000','0110','0100','0000']),
+                  (3,5,['10101','01010','10101']),
+                  (5,3,['100','010','001','010','100']),
+                  (2,5,['11011','11011']),
+                  (6,6,['110000','110000','001000','000100','000011','000011']),
+              ]
+              cases=[]
+              for r,c,g in grids:
+                  cases.append((f"{r} {c}\n"+"\n".join(g), str(count_islands(g))))
+              return cases[:11]
+
+          # ── steps (BFS) ───────────────────────────────────────────────────────
+          def bfs_maze(grid):
+              n,m=len(grid),len(grid[0])
+              if grid[0][0]=='1' or grid[n-1][m-1]=='1': return -1
+              dist=[[-1]*m for _ in range(n)]; dist[0][0]=0
+              q=deque([(0,0)])
+              while q:
+                  x,y=q.popleft()
+                  if x==n-1 and y==m-1: return dist[x][y]
+                  for dx,dy in[(-1,0),(1,0),(0,-1),(0,1)]:
+                      nx,ny=x+dx,y+dy
+                      if 0<=nx<n and 0<=ny<m and dist[nx][ny]==-1 and grid[nx][ny]=='0':
+                          dist[nx][ny]=dist[x][y]+1; q.append((nx,ny))
+              return -1
+
+          def steps_cases():
+              mazes=[
+                  ['000','010','000'],['00','00'],['01','00'],
+                  ['0000','0110','0000'],['010','010','000'],['000','000','000'],
+                  ['01','11'],['0001','1101','0000'],
+                  ['00000','01110','00000','01110','00000'],
+                  ['00','01'],['000000','010110','000010','011000','000000'],
+              ]
+              return [(f"{len(g)} {len(g[0])}\n"+"\n".join(g), str(bfs_maze(g))) for g in mazes[:11]]
+
+          # ── grade (Sort) ──────────────────────────────────────────────────────
+          def solve_grade(students):
+              students.sort(key=lambda x:(-x[1],x[0]))
+              return '\n'.join(f"{n} {s}" for n,s in students)
+
+          def grade_cases():
+              dsets=[
+                  [('Alice',90),('Bob',85),('Carol',90)],
+                  [('Zen',100)],[('Ann',70),('Bob',70),('Cal',70)],
+                  [('Dave',55),('Eve',88),('Frank',72),('Grace',88)],
+                  [('Ha',60),('Ib',90),('Jc',75),('Kd',90),('Le',60)],
+                  [('Ma',100),('Nb',99),('Oc',98),('Pd',97),('Qe',96)],
+                  [('Ra',50),('Sb',50),('Tc',50),('Ud',50)],
+                  [('Va',85),('Wb',92),('Xc',78),('Yd',92),('Ze',85)],
+                  [('Aa',100),('Bb',0),('Cc',50)],
+                  [('Ja',77),('Jb',77),('Jc',77),('Jd',77),('Je',77),('Jf',77)],
+                  [('Pa',88),('Pb',76),('Pc',95),('Pd',88),('Pe',76),('Pf',95)],
+              ]
+              cases=[]
+              for ds in dsets:
+                  inp=str(len(ds))+'\n'+'\n'.join(f"{n} {s}" for n,s in ds)
+                  cases.append((inp, solve_grade(list(ds))))
+              return cases[:11]
+
+          # ── coin (Greedy) ─────────────────────────────────────────────────────
+          def solve_coin(v):
+              cnt=0
+              for c in[100,50,10,5,1]: cnt+=v//c; v%=c
+              return cnt
+
+          def coin_cases():
+              return [(str(v),str(solve_coin(v))) for v in [1,5,10,50,100,126,999,3769,10000,55,247]][:11]
+
+          # ── lis (DP) ──────────────────────────────────────────────────────────
+          def lis_len(seq):
+              tails=[]
+              for x in seq:
+                  p=bisect.bisect_left(tails,x)
+                  if p==len(tails): tails.append(x)
+                  else: tails[p]=x
+              return len(tails)
+
+          def lis_cases():
+              seqs=[
+                  [10,9,2,5,3,7,101,18],[0,1,0,3,2,3],[7,7,7,7],[1],
+                  [1,2,3,4,5,6,7,8],[8,7,6,5,4,3,2,1],
+                  [3,1,4,1,5,9,2,6,5,3],[10,9,2,5,3,4],
+                  [1,3,6,7,9,4,10,5,6],[2,2,2,3,3,3,4,4,4],
+                  [100,200,150,300,250,400],
+              ]
+              return [(f"{len(s)}\n{' '.join(map(str,s))}", str(lis_len(s))) for s in seqs[:11]]
+
+          # ── components (DFS) ─────────────────────────────────────────────────
+          def solve_comp(n, edges):
+              adj=[[] for _ in range(n+1)]
+              for u,v in edges: adj[u].append(v); adj[v].append(u)
+              vis=[False]*(n+1); cnt=0
+              for node in range(1,n+1):
+                  if not vis[node]:
+                      cnt+=1; stk=[node]
+                      while stk:
+                          cur=stk.pop()
+                          if vis[cur]: continue
+                          vis[cur]=True
+                          stk.extend(nb for nb in adj[cur] if not vis[nb])
+              return cnt
+
+          def components_cases():
+              graphs=[
+                  (5,[(1,2),(2,3),(4,5)]),(4,[]),(3,[(1,2),(2,3),(1,3)]),
+                  (6,[(1,2),(3,4),(5,6)]),(7,[(1,2),(1,3),(4,5),(4,6),(4,7)]),(1,[]),
+                  (10,[(1,2),(2,3),(3,4),(4,5),(6,7),(7,8),(9,10)]),
+                  (8,[(1,8),(2,7),(3,6),(4,5)]),(5,[(1,2),(2,3),(3,4),(4,5),(5,1)]),
+                  (6,[(1,2),(2,3),(4,5)]),(9,[(1,2),(3,4),(5,6),(7,8),(1,3),(5,7)]),
+              ]
+              cases=[]
+              for n,edges in graphs:
+                  inp=f"{n} {len(edges)}\n"+'\n'.join(f"{u} {v}" for u,v in edges)
+                  cases.append((inp, str(solve_comp(n,edges))))
+              return cases[:11]
+
+          # ── spread (BFS) ──────────────────────────────────────────────────────
+          def solve_spread(grid):
+              n,m=len(grid),len(grid[0])
+              dist=[[-1]*m for _ in range(n)]; q=deque()
+              for r in range(n):
+                  for c in range(m):
+                      if grid[r][c]==1: dist[r][c]=0; q.append((r,c))
+              while q:
+                  x,y=q.popleft()
+                  for dx,dy in[(-1,0),(1,0),(0,-1),(0,1)]:
+                      nx,ny=x+dx,y+dy
+                      if 0<=nx<n and 0<=ny<m and dist[nx][ny]==-1:
+                          dist[nx][ny]=dist[x][y]+1; q.append((nx,ny))
+              return max(dist[r][c] for r in range(n) for c in range(m))
+
+          def spread_cases():
+              grids=[
+                  [[0,1,0],[0,0,0],[0,0,0]],[[1,0,0],[0,0,0],[0,0,1]],
+                  [[1,1,1],[1,1,1],[1,1,1]],[[0,0,0],[0,1,0],[0,0,0]],
+                  [[1,0,0,0,0],[0,0,0,0,0],[0,0,0,0,1]],[[1,0,0,0,0]],
+                  [[0,0,0,0,0],[0,0,0,0,0],[1,0,0,0,0]],[[1,0],[0,0]],
+                  [[0,0,0],[0,0,0],[0,0,1]],[[1,0,1],[0,0,0],[1,0,1]],
+                  [[1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,1]],
+              ]
+              cases=[]
+              for g in grids:
+                  n,m=len(g),len(g[0])
+                  inp=f"{n} {m}\n"+'\n'.join(' '.join(map(str,row)) for row in g)
+                  cases.append((inp, str(solve_spread(g))))
+              return cases[:11]
+
+          # ── inversions (Sort) ─────────────────────────────────────────────────
+          def merge_cnt(arr):
+              if len(arr)<=1: return arr,0
+              mid=len(arr)//2
+              L,lc=merge_cnt(arr[:mid]); R,rc=merge_cnt(arr[mid:])
+              merged,mc=[],0; i=j=0
+              while i<len(L) and j<len(R):
+                  if L[i]<=R[j]: merged.append(L[i]); i+=1
+                  else: merged.append(R[j]); j+=1; mc+=len(L)-i
+              merged+=L[i:]; merged+=R[j:]
+              return merged,lc+rc+mc
+
+          def inversions_cases():
+              seqs=[
+                  [3,1,2,5,4],[1,2,3,4,5],[5,4,3,2,1],[2,1],[1],[3,3,3,3],
+                  [10,1,5,3,7],[6,5,4,3,2,1],[1,20,6,4,5],
+                  [9,8,7,6,5,4,3,2,1,0],[2,4,1,3,5],
+              ]
+              cases=[]
+              for s in seqs:
+                  _,inv=merge_cnt(list(s))
+                  cases.append((f"{len(s)}\n{' '.join(map(str,s))}", str(inv)))
+              return cases[:11]
+
+          # ── schedule (Greedy) ─────────────────────────────────────────────────
+          def solve_sched(ivs):
+              ivs.sort(key=lambda x:x[1]); cnt,last=-1,-1  # Correct init
+              cnt=0; last=-1
+              for s,e in ivs:
+                  if s>=last: cnt+=1; last=e
+              return cnt
+
+          def schedule_cases():
+              isets=[
+                  [(1,3),(2,5),(3,6),(5,7)],[(1,2),(3,4),(5,6),(7,8)],
+                  [(1,10),(2,3),(3,4),(4,5)],[(1,5)],
+                  [(0,6),(1,4),(3,5),(3,8),(4,7),(5,9)],[(1,2),(1,2),(1,2)],
+                  [(1,3),(2,4),(3,5),(4,6),(5,7)],[(0,1),(1,2),(2,3),(3,4),(4,5)],
+                  [(1,100),(2,10),(10,50),(50,100)],[(1,3),(3,5),(5,7),(7,9),(9,11)],
+                  [(0,5),(1,3),(2,6),(4,7),(6,8),(5,9)],
+              ]
+              cases=[]
+              for ivs in isets:
+                  inp=str(len(ivs))+'\n'+'\n'.join(f"{s} {e}" for s,e in ivs)
+                  cases.append((inp, str(solve_sched(ivs))))
+              return cases[:11]
+
+          # ── write all test cases ──────────────────────────────────────────────
+          PROBLEMS = {
+              'P': {'stairs':stairs_cases,'islands':islands_cases,'steps':steps_cases,
+                    'grade':grade_cases,'coin':coin_cases},
+              'J': {'lis':lis_cases,'components':components_cases,'spread':spread_cases,
+                    'inversions':inversions_cases,'schedule':schedule_cases},
+          }
+          for level, probs in PROBLEMS.items():
+              for title, fn in probs.items():
+                  d=DATA/level/title; d.mkdir(parents=True,exist_ok=True)
+                  for i,(inp,out) in enumerate(fn()):
+                      w(d/f"{title}-{i}.in",  inp+'\n')
+                      w(d/f"{title}-{i}.out", out+'\n')
+                  print(f"  ✓ {level}/{title}")
+
+          print("Test cases done!")
+          PYEOF
+
+      - name: Generate PDFs
+        run: |
+          python3 << 'PYEOF'
+          from pathlib import Path
+          from reportlab.lib.pagesizes import A4
+          from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+          from reportlab.lib.units import mm
+          from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+          from reportlab.lib import colors
+          from reportlab.pdfbase import pdfmetrics
+          from reportlab.pdfbase.cidfonts import UnicodeCIDFont
+
+          pdfmetrics.registerFont(UnicodeCIDFont('STSong-Light'))
+          F = 'STSong-Light'
+          styles = getSampleStyleSheet()
+
+          def ms(name, parent='Normal', fontSize=11, leading=16, **kw):
+              return ParagraphStyle(name, parent=styles[parent], fontName=F,
+                                    fontSize=fontSize, leading=leading, **kw)
+
+          PROBLEMS = {
+            'P': {
+              'stairs': ('爬樓梯','DP','有一段樓梯共 N 級，每次可以走 1 步或 2 步，請計算從地面（第 0 級）走到第 N 級共有多少種不同的走法。','一行，包含一個正整數 N（1 ≤ N ≤ 30）。','一行，輸出走到第 N 級的方法數。','5','8'),
+              'islands': ('島嶼計數','DFS','給定一個 N×M 的網格，每個格子為 "1"（陸地）或 "0"（海洋）。島嶼由水平或垂直方向相連的陸地格子組成。請計算圖中島嶼的數量。','第一行包含 N、M（1 ≤ N, M ≤ 10）。接下來 N 行，每行 M 個字元（0 或 1）。','一行，輸出島嶼的數量。','4 5\n11000\n11000\n00100\n00011','3'),
+              'steps': ('迷宮最短路','BFS','給定一個 N×M 的網格迷宮，"0" 可通行，"1" 為牆壁。從 (0,0) 出發，求到達 (N-1,M-1) 的最少步數。若無法到達，輸出 -1。','第一行包含 N、M（2 ≤ N, M ≤ 10）。接下來 N 行，每行 M 個字元。','一行，輸出最少步數，若無法到達則輸出 -1。','3 3\n000\n010\n000','4'),
+              'grade': ('成績排序','Sort','給定 N 個學生的姓名和分數，請按分數由高到低排序後輸出。若分數相同，按姓名字典序由小到大排序。','第一行包含 N（1 ≤ N ≤ 20）。接下來 N 行，每行包含姓名和分數。','N 行，按排序後的順序每行輸出「姓名 分數」。','3\nAlice 90\nBob 85\nCarol 90','Alice 90\nCarol 90\nBob 85'),
+              'coin': ('最少硬幣','Greedy','有面值為 1、5、10、50、100 的硬幣，數量無限。給定金額 V，請計算最少需要幾枚硬幣能湊成這個金額。','一行，包含一個正整數 V（1 ≤ V ≤ 10000）。','一行，輸出最少需要的硬幣數量。','126','4'),
+            },
+            'J': {
+              'lis': ('最長遞增子序列','DP','給定一個長度為 N 的整數序列，求其最長嚴格遞增子序列（LIS）的長度。','第一行包含 N（1 ≤ N ≤ 1000）。第二行包含 N 個整數。','一行，輸出最長嚴格遞增子序列的長度。','8\n10 9 2 5 3 7 101 18','4'),
+              'components': ('連通分量','DFS','給定包含 N 個節點和 E 條邊的無向圖，請計算圖中連通分量的數量。','第一行包含 N（1 ≤ N ≤ 1000）和 E（0 ≤ E ≤ 5000）。接下來 E 行，每行包含兩個整數 u、v。','一行，輸出連通分量的數量。','5 3\n1 2\n2 3\n4 5','2'),
+              'spread': ('病毒擴散','BFS','給定一個 N×M 的網格，每分鐘已感染格子向四方向傳播病毒。求多少分鐘後所有格子都被感染？','第一行包含 N、M（1 ≤ N, M ≤ 50）。接下來 N 行，每行 M 個整數（0 或 1）。','一行，輸出最少需要的分鐘數。','3 3\n0 1 0\n0 0 0\n0 0 0','3'),
+              'inversions': ('逆序對數','Sort','給定一個長度為 N 的整數序列，計算逆序對的總數量。','第一行包含 N（1 ≤ N ≤ 10^5）。第二行包含 N 個整數。','一行，輸出逆序對的數量。','5\n3 1 2 5 4','3'),
+              'schedule': ('區間調度','Greedy','有 N 個任務，每個任務有開始時間 s 和結束時間 e。同一時間只能執行一個任務，時間不能重疊。請問最多可以選擇幾個任務？','第一行包含 N（1 ≤ N ≤ 10^5）。接下來 N 行，每行包含 s、e。','一行，輸出最多可以選擇的任務數量。','4\n1 3\n2 5\n3 6\n5 7','2'),
+            },
+          }
+
+          lv_colors = {'P': colors.HexColor('#0066CC'), 'J': colors.HexColor('#009933')}
+          lv_names  = {'P': '初階 (Preliminary)', 'J': '進階 (Junior)'}
+
+          for level, probs in PROBLEMS.items():
+            for slug, data in probs.items():
+              title_zh,topic,desc,inp_desc,out_desc,sample_in,sample_out = data
+              out_path = Path(f"{level}-{slug}.pdf")
+              doc = SimpleDocTemplate(str(out_path), pagesize=A4,
+                    leftMargin=25*mm,rightMargin=25*mm,topMargin=20*mm,bottomMargin=20*mm)
+              TS = ms('TS','Title',18,24,alignment=1)
+              HS = ms('HS',fontSize=12,leading=18,spaceBefore=10,spaceAfter=4,textColor=colors.HexColor('#003399'))
+              BS = ms('BS',fontSize=10,leading=15)
+              CS = ParagraphStyle('CS',fontName='Courier',fontSize=9,leading=13,
+                    backColor=colors.HexColor('#f5f5f5'),leftIndent=10,rightIndent=10,spaceBefore=2,spaceAfter=2)
+              story=[]
+              hdr=Table([[
+                Paragraph(f'<font color="white"><b>{level}</b></font>',ms('h1',fontSize=28,leading=32,alignment=1)),
+                Paragraph(f'<font color="white"><b>{topic}</b></font>',ms('h2',fontSize=14,leading=18,alignment=1)),
+                Paragraph(f'<font color="white">{lv_names[level]}</font>',ms('h3',fontSize=9,leading=13,alignment=2)),
+              ]],colWidths=[20*mm,40*mm,None])
+              hdr.setStyle(TableStyle([('BACKGROUND',(0,0),(-1,-1),lv_colors[level]),
+                ('VALIGN',(0,0),(-1,-1),'MIDDLE'),('TOPPADDING',(0,0),(-1,-1),8),
+                ('BOTTOMPADDING',(0,0),(-1,-1),8),('LEFTPADDING',(0,0),(-1,-1),8)]))
+              story+=[hdr,Spacer(1,8*mm),Paragraph(title_zh,TS),Spacer(1,4*mm)]
+              story+=[Paragraph('【題目說明】',HS),Paragraph(desc,BS),Spacer(1,3*mm)]
+              story+=[Paragraph('【輸入說明】',HS)]+[Paragraph(l,BS) for l in inp_desc.split('\n')]+[Spacer(1,3*mm)]
+              story+=[Paragraph('【輸出說明】',HS),Paragraph(out_desc,BS),Spacer(1,3*mm)]
+              story+=[Paragraph('【範例輸入】',HS)]+[Paragraph(l,CS) for l in sample_in.split('\n')]+[Spacer(1,2*mm)]
+              story+=[Paragraph('【範例輸出】',HS)]+[Paragraph(l,CS) for l in sample_out.split('\n')]
+              doc.build(story)
+              print(f"  ✓ PDF: {level}-{slug}.pdf")
+          PYEOF
+
+      - name: Commit and push
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/ P-*.pdf J-*.pdf 2>/dev/null || git add data/ *-*.pdf
+          git diff --staged --quiet || git commit -m 'auto: generate 10 contest problems test data and PDFs'
+          git push
