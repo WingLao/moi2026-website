@@ -11,7 +11,7 @@
 Docker is unavailable on this host, so this MVP does **not** claim full sandbox isolation. The judge is intentionally kept behind a worker/adapter boundary so it can later be swapped for a containerized or stronger sandbox runner.
 
 ## Current data issues
-- `J-exchnage.pdf` is mapped to problem slug `j-exchange` and data dir `data/J/exchange`.
+- `J-exchange.pdf` is mapped to problem slug `j-exchange` and data dir `data/J/exchange`.
 - `data/S/climb/climb-0.in` is missing matching `climb-0.out`; importer marks that testcase invalid and stores a warning in DB.
 - `.DS_Store` files in the data tree are ignored.
 

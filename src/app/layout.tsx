@@ -13,33 +13,22 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
   const isAdmin = session?.user?.role === 'ADMIN';
 
   return (
-    <html lang="en">
+    <html lang="zh-Hant">
       <body>
-        <header style={{ borderBottom: '1px solid var(--border)', background: 'var(--surface)' }}>
-          <div
-            style={{
-              maxWidth: 1180,
-              margin: '0 auto',
-              padding: '16px 24px',
-              display: 'flex',
-              gap: 16,
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-            }}
-          >
-            <div style={{ display: 'flex', gap: 18, alignItems: 'center', flexWrap: 'wrap' }}>
+        <header className="site-header">
+          <div className="site-header-inner">
+            <div className="site-brand">
               <Link href="/" style={{ fontWeight: 800, color: 'var(--foreground)' }}>
                 MOI2026 Contest Portal
               </Link>
-              <nav style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <nav className="site-nav">
                 <Link href="/problems">Problems</Link>
                 <Link href="/submissions">Submissions</Link>
                 <Link href="/leaderboard">Leaderboard</Link>
                 {isAdmin ? <Link href="/admin">Admin</Link> : null}
               </nav>
             </div>
-            <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div className="site-meta">
               {session?.user ? (
                 <>
                   <span className="badge info">{session.user.username} · {session.user.role}</span>
@@ -53,7 +42,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             </div>
           </div>
         </header>
-        <div style={{ maxWidth: 1180, margin: '0 auto', padding: '24px' }}>{children}</div>
+        <div className="site-shell">{children}</div>
       </body>
     </html>
   );
