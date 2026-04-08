@@ -300,6 +300,122 @@ pre {
   gap: 8px;
 }
 
+.problem-layout {
+  display: grid;
+  gap: 20px;
+}
+
+.problem-main,
+.problem-side {
+  display: grid;
+  gap: 20px;
+}
+
+.statement-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.statement-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(33, 85, 214, 0.04), rgba(33, 85, 214, 0)),
+    var(--surface);
+}
+
+.statement-viewer {
+  padding: 18px;
+  background:
+    linear-gradient(180deg, #e9eef9 0%, #dfe8f6 100%);
+}
+
+.statement-article {
+  padding: 28px;
+  display: grid;
+  gap: 18px;
+  line-height: 1.75;
+}
+
+.statement-article h1,
+.statement-article h2,
+.statement-article h3 {
+  margin: 0;
+  color: var(--foreground);
+}
+
+.statement-article h1 {
+  font-size: 32px;
+}
+
+.statement-article h2 {
+  font-size: 22px;
+  padding-top: 4px;
+}
+
+.statement-article p {
+  margin: 0;
+}
+
+.statement-quote {
+  margin: 0;
+  padding: 14px 16px;
+  border-left: 4px solid var(--primary);
+  background: var(--primary-soft);
+  border-radius: 0 14px 14px 0;
+}
+
+.statement-list {
+  margin: 0;
+  padding-left: 22px;
+  display: grid;
+  gap: 8px;
+}
+
+.statement-table-wrap {
+  overflow-x: auto;
+}
+
+.statement-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.statement-table th,
+.statement-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.statement-table th {
+  border-top: 0;
+  background: var(--surface-muted);
+}
+
+.statement-code {
+  margin: 0;
+  background: #0f1728;
+  color: #e9eefc;
+}
+
+.statement-frame {
+  width: 100%;
+  min-height: 900px;
+  border: 0;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 16px 40px rgba(23, 32, 51, 0.12);
+}
+
 .problem-title {
   font-weight: 800;
   color: var(--primary);
@@ -366,6 +482,23 @@ pre {
   .card.compact {
     padding: 18px;
   }
+
+  .statement-toolbar {
+    padding: 18px;
+  }
+
+  .statement-viewer {
+    padding: 12px;
+  }
+
+  .statement-article {
+    padding: 18px;
+  }
+
+  .statement-frame {
+    min-height: 68vh;
+    border-radius: 12px;
+  }
 }
 
 summary {
@@ -382,5 +515,21 @@ summary {
   .table th,
   .table td {
     padding: 10px;
+  }
+}
+
+@media (min-width: 1040px) {
+  .problem-layout {
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.9fr);
+    align-items: start;
+  }
+
+  .problem-side {
+    position: sticky;
+    top: 24px;
+  }
+
+  .statement-frame {
+    min-height: 1180px;
   }
 }

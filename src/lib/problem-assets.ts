@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { type ProblemCatalogEntry, getProblemCatalogEntryByPdfFilename } from './problem-catalog';
+import { getProblemStatementPath } from './problem-statements';
 
 const DUPLICATE_COPY_RE = / \d+\.(in|out)$/;
 
@@ -33,6 +34,8 @@ export type AuditedTestCase = {
 export type ProblemAssetAudit = {
   dataDir: string;
   hasDataDir: boolean;
+  statementFilename: string;
+  statementPath: string | null;
   pdfFilename: string;
   pdfPath: string | null;
   duplicateFiles: string[];
@@ -72,8 +75,28 @@ export function resolveProblemPdf(root: string, requestedFilename: string) {
 
 export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): ProblemAssetAudit {
   const dataDir = path.join(root, 'data', entry.level, entry.title);
+  const statementPath = getProblemStatementPath(entry, root);
   const pdf = resolveProblemPdf(root, entry.pdfFilename);
   const warnings: string[] = [];
+
+  if (!fs.existsSync(statementPath)) {
+    warnings.push(`Missing statement: ${entry.statementFilename}`);
+  } else {
+    const statement = fs.readFileSync(statementPath, 'utf8');
+    const expectedDataDir = `data/${entry.level}/${entry.title}`;
+
+    if (!statement.includes(expectedDataDir)) {
+      warnings.push(`Statement data dir mismatch: expected ${expectedDataDir}`);
+    }
+
+    if (!statement.includes(entry.pdfFilename)) {
+      warnings.push(`Statement source mismatch: expected ${entry.pdfFilename}`);
+    }
+
+    if (!statement.includes('## 輸入格式') || !statement.includes('## 輸出格式')) {
+      warnings.push(`Statement structure incomplete: ${entry.statementFilename}`);
+    }
+  }
 
   if (!pdf?.pdfPath) {
     warnings.push(`Missing PDF: ${entry.pdfFilename}`);
@@ -86,6 +109,8 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     return {
       dataDir,
       hasDataDir: false,
+      statementFilename: entry.statementFilename,
+      statementPath: fs.existsSync(statementPath) ? statementPath : null,
       pdfFilename: entry.pdfFilename,
       pdfPath: pdf?.pdfPath ?? null,
       duplicateFiles: [],
@@ -141,6 +166,8 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
   return {
     dataDir,
     hasDataDir: true,
+    statementFilename: entry.statementFilename,
+    statementPath: fs.existsSync(statementPath) ? statementPath : null,
     pdfFilename: entry.pdfFilename,
     pdfPath: pdf?.pdfPath ?? null,
     duplicateFiles,

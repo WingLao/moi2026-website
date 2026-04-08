@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { getProblemPdfUrl } from '@/lib/pdf';
+import { resolveProblemStatementBySlug } from '@/lib/problem-statements';
 
 export default async function ProblemsPage() {
   const session = await auth();
@@ -58,6 +59,7 @@ export default async function ProblemsPage() {
               const best = submissions.reduce((max, submission) => Math.max(max, submission.score), 0);
               const latest = submissions[0];
               const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
+              const statement = resolveProblemStatementBySlug(problem.slug);
               const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
               const warningItems = problem.warning?.split('; ').filter(Boolean) ?? [];
 
@@ -73,13 +75,13 @@ export default async function ProblemsPage() {
                     </div>
                   </td>
                   <td>
-                    {pdfUrl ? (
+                    {statement?.exists ? (
                       <div className="dense-list">
-                        <a href={pdfUrl} target="_blank" rel="noreferrer" className="inline-link">View PDF</a>
-                        <a href={pdfUrl} download={problem.pdfFilename ?? undefined} className="inline-link">Download PDF</a>
+                        <Link href={`/problems/${problem.slug}`} className="inline-link">Read Markdown</Link>
+                        {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer" className="inline-link">PDF archive</a> : null}
                       </div>
                     ) : (
-                      <span className="badge warning">Missing PDF</span>
+                      <span className="badge warning">Missing statement</span>
                     )}
                   </td>
                   <td>

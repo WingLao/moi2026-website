@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { auth } from '@/lib/auth';
-import { getProblemPdfUrl } from '@/lib/pdf';
+import { getProblemPdfDownloadUrl, getProblemPdfUrl } from '@/lib/pdf';
 import { prisma } from '@/lib/prisma';
+import { readProblemStatementBySlug } from '@/lib/problem-statements';
+import { renderStatementMarkdown } from '@/lib/statement-markdown';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -24,6 +26,8 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   }
 
   const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
+  const pdfDownloadUrl = getProblemPdfDownloadUrl(problem.pdfFilename);
+  const statementMarkdown = readProblemStatementBySlug(problem.slug);
   const warningItems = problem.warning?.split('; ').filter(Boolean) ?? [];
   const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
 
@@ -57,19 +61,20 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
             <div className="kv-value">{validCases} / {problem.testCases.length}</div>
           </div>
           <div className="kv">
-            <div className="kv-label">Statement PDF</div>
-            <div className="kv-value" style={{ fontSize: 16 }}>{problem.pdfFilename ?? 'N/A'}</div>
+            <div className="kv-label">Statement format</div>
+            <div className="kv-value" style={{ fontSize: 16 }}>{statementMarkdown ? 'Markdown first' : 'Missing statement'}</div>
           </div>
         </div>
 
-        {pdfUrl ? (
+        {statementMarkdown ? (
           <div className="action-links" style={{ marginTop: 18 }}>
-            <a href={pdfUrl} target="_blank" rel="noreferrer">View PDF · 開啟題目</a>
-            <a href={pdfUrl} download={problem.pdfFilename ?? undefined}>Download PDF · 下載 PDF</a>
+            <span className="badge info">Markdown statement · 題面主來源</span>
+            {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer">Original PDF</a> : null}
+            {pdfDownloadUrl ? <a href={pdfDownloadUrl}>Download PDF · 下載 PDF</a> : null}
           </div>
         ) : (
           <div className="notice warning" style={{ marginTop: 18 }}>
-            Statement PDF is missing. 題目 PDF 尚未就緒。
+            Statement Markdown is missing. 題目 Markdown 題面尚未就緒。
           </div>
         )}
 
@@ -84,112 +89,150 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
           </div>
         ) : (
           <div className="notice success" style={{ marginTop: 18 }}>
-            Statement and testcase structure look clean. 題目 PDF 與測資結構目前正常。
+            Statement and testcase structure look clean. 題面與測資結構目前正常。
           </div>
         )}
       </section>
 
-      <section className="card">
-        <h2 style={{ marginTop: 0 }}>Submit solution</h2>
-        {session?.user ? (
-          <form action="/api/submissions" method="post" className="page" style={{ gap: 12 }}>
-            <input type="hidden" name="problemId" value={problem.id} />
-            <label className="dense-list">
-              <span>Language</span>
-              <select name="language" defaultValue="cpp">
-                <option value="cpp">C++17</option>
-                <option value="python">Python 3</option>
-              </select>
-            </label>
-            <label className="dense-list">
-              <span>Source code</span>
-              <textarea
-                name="sourceCode"
-                required
-                minLength={1}
-                rows={18}
-                defaultValue={'#include <iostream>\nusing namespace std;\n\nint main() {\n  return 0;\n}\n'}
-                className="mono"
-              />
-            </label>
-            <p className="subtle">
-              After you submit, the system should create a submission record immediately and then judge it in the queue.
-            </p>
-            <button type="submit" disabled={!problem.isJudgeable}>{problem.isJudgeable ? 'Queue submission' : 'Judging unavailable'}</button>
-          </form>
-        ) : (
-          <p>
-            <Link href={`/login?callbackUrl=/problems/${problem.slug}`} className="inline-link">Log in</Link> to submit.
-          </p>
-        )}
-      </section>
+      <section className="problem-layout">
+        <div className="problem-main">
+          <section className="card statement-card">
+            <div className="statement-toolbar">
+              <div>
+                <h2 style={{ margin: 0 }}>Statement · 題目說明</h2>
+                <p className="subtle" style={{ marginTop: 8 }}>
+                  This page now uses Markdown as the primary source, and the sample is aligned to `data/*/*-0`.
+                </p>
+              </div>
+              {statementMarkdown ? (
+                <div className="action-links">
+                  <a href="#statement-body">Jump to statement</a>
+                  {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer">Open PDF archive</a> : null}
+                  {pdfDownloadUrl ? <a href={pdfDownloadUrl}>Download PDF</a> : null}
+                </div>
+              ) : null}
+            </div>
 
-      <section className="card">
-        <div className="section-title">
-          <div>
-            <h2>Testcases</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>Canonical testcase pairs only. 系統只會匯入正式測資，不會把重複複製檔算進去。</p>
-          </div>
-          <span className={validCases === problem.testCases.length ? 'badge success' : 'badge warning'}>
-            {validCases} / {problem.testCases.length} valid
-          </span>
-        </div>
-        <div className="table-wrap" style={{ marginTop: 14 }}>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Input</th>
-                <th>Output</th>
-                <th>Score</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {problem.testCases.map((testCase) => (
-                <tr key={testCase.id}>
-                  <td>{testCase.index}</td>
-                  <td className="mono">{testCase.inputPath.split('/').at(-1)}</td>
-                  <td className="mono">{testCase.outputPath?.split('/').at(-1) ?? '—'}</td>
-                  <td>{testCase.score}</td>
-                  <td>{testCase.warning ?? (testCase.isValid ? 'valid' : 'invalid')}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+            {statementMarkdown ? (
+              <article id="statement-body" className="statement-article">
+                {renderStatementMarkdown(statementMarkdown)}
+              </article>
+            ) : (
+              <div className="empty">
+                Statement preview is unavailable because the Markdown file is missing. 目前無法預覽 Markdown 題面。
+              </div>
+            )}
 
-      <section className="card">
-        <h2 style={{ marginTop: 0 }}>Recent submissions for this problem</h2>
-        {problem.submissions.length ? (
-          <div className="table-wrap" style={{ marginTop: 14 }}>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>User</th>
-                  <th>Language</th>
-                  <th>Status</th>
-                  <th>Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {problem.submissions.map((submission) => (
-                  <tr key={submission.id}>
-                    <td><Link href={`/submissions/${submission.id}`} className="inline-link mono">{submission.id}</Link></td>
-                    <td>{submission.user.username}</td>
-                    <td>{submission.language}</td>
-                    <td>{submission.status}</td>
-                    <td>{submission.score}</td>
+            <div className="small-text" style={{ marginTop: 12 }}>
+              The example input / output in this page is generated from `data/*/*-0.in` and `data/*/*-0.out`, so it stays aligned with the actual testcase set.
+            </div>
+          </section>
+        </div>
+
+        <div className="problem-side">
+          <section className="card">
+            <h2 style={{ marginTop: 0 }}>Submit solution</h2>
+            {session?.user ? (
+              <form action="/api/submissions" method="post" className="page" style={{ gap: 12 }}>
+                <input type="hidden" name="problemId" value={problem.id} />
+                <label className="dense-list">
+                  <span>Language</span>
+                  <select name="language" defaultValue="cpp">
+                    <option value="cpp">C++17</option>
+                    <option value="python">Python 3</option>
+                  </select>
+                </label>
+                <label className="dense-list">
+                  <span>Source code</span>
+                  <textarea
+                    name="sourceCode"
+                    required
+                    minLength={1}
+                    rows={18}
+                    defaultValue={'#include <iostream>\nusing namespace std;\n\nint main() {\n  return 0;\n}\n'}
+                    className="mono"
+                  />
+                </label>
+                <p className="subtle">
+                  After you submit, the system should create a submission record immediately and then judge it in the queue.
+                </p>
+                <button type="submit" disabled={!problem.isJudgeable}>{problem.isJudgeable ? 'Queue submission' : 'Judging unavailable'}</button>
+              </form>
+            ) : (
+              <p>
+                <Link href={`/login?callbackUrl=/problems/${problem.slug}`} className="inline-link">Log in</Link> to submit.
+              </p>
+            )}
+          </section>
+
+          <section className="card">
+            <div className="section-title">
+              <div>
+                <h2>Testcases</h2>
+                <p className="subtle" style={{ marginTop: 8 }}>Canonical testcase pairs only. 系統只會匯入正式測資，不會把重複複製檔算進去。</p>
+              </div>
+              <span className={validCases === problem.testCases.length ? 'badge success' : 'badge warning'}>
+                {validCases} / {problem.testCases.length} valid
+              </span>
+            </div>
+            <div className="table-wrap" style={{ marginTop: 14 }}>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Input</th>
+                    <th>Output</th>
+                    <th>Score</th>
+                    <th>Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="empty" style={{ marginTop: 14 }}>No submissions yet for this problem. 這題目前還沒有提交。</div>
-        )}
+                </thead>
+                <tbody>
+                  {problem.testCases.map((testCase) => (
+                    <tr key={testCase.id}>
+                      <td>{testCase.index}</td>
+                      <td className="mono">{testCase.inputPath.split('/').at(-1)}</td>
+                      <td className="mono">{testCase.outputPath?.split('/').at(-1) ?? '—'}</td>
+                      <td>{testCase.score}</td>
+                      <td>{testCase.warning ?? (testCase.isValid ? 'valid' : 'invalid')}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section className="card">
+            <h2 style={{ marginTop: 0 }}>Recent submissions</h2>
+            {problem.submissions.length ? (
+              <div className="table-wrap" style={{ marginTop: 14 }}>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>User</th>
+                      <th>Language</th>
+                      <th>Status</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {problem.submissions.map((submission) => (
+                      <tr key={submission.id}>
+                        <td><Link href={`/submissions/${submission.id}`} className="inline-link mono">{submission.id}</Link></td>
+                        <td>{submission.user.username}</td>
+                        <td>{submission.language}</td>
+                        <td>{submission.status}</td>
+                        <td>{submission.score}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="empty" style={{ marginTop: 14 }}>No submissions yet for this problem. 這題目前還沒有提交。</div>
+            )}
+          </section>
+        </div>
       </section>
     </main>
   );

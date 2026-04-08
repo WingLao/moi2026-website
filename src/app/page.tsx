@@ -59,7 +59,7 @@ export default async function Home() {
           </div>
         </div>
         <ul className="list" style={{ marginTop: 14 }}>
-          <li>Problem PDFs are now served from the source dataset, so the site no longer depends on `public/problem-pdfs` being manually synced each time. 題目 PDF 不再依賴手動同步公開資料夾。</li>
+          <li>Problem statements now use Markdown as the primary website source, with testcase-aligned examples generated from `data/*/*-0.in` and `data/*/*-0.out`. 題面顯示以 Markdown 為主。</li>
           <li>Judging currently runs on the host via the worker queue, so this is suitable for local rehearsal, not hardened production isolation. 目前較適合教學 / 測試用途。</li>
           <li>Students only see their own submissions. Admins can inspect all users, problems, and judged runs. 學生只會看到自己的提交。</li>
           <li>Imported problems now keep data warnings even when still judgeable, so duplicate testcase copies and missing PDFs are easier to spot. 有資料警告時會直接在頁面顯示。</li>
