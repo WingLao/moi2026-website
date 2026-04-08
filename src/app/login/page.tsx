@@ -40,7 +40,6 @@ export default function LoginPage() {
     <main style={{ maxWidth: 460, margin: '0 auto' }}>
       <div style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
         <h1 style={{ marginTop: 0 }}>Login · 登入</h1>
-        <p>Use seeded accounts like <code>admin</code> / <code>Admin@MOI2026</code> or <code>moi01</code> / <code>MOI2026-01</code>. 請使用已建立帳號登入。</p>
         <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 12 }}>
           <label style={{ display: 'grid', gap: 6 }}>
             <span>Username · 帳號</span>
