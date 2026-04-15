@@ -191,6 +191,32 @@ pre {
   gap: 16px;
 }
 
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+}
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pill-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .tile-number {
   font-size: 34px;
   font-weight: 800;
@@ -374,6 +400,26 @@ pre {
   padding-left: 22px;
   display: grid;
   gap: 8px;
+}
+
+.statement-figure {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.statement-image {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: white;
+  box-shadow: var(--shadow);
+}
+
+.statement-figure figcaption {
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .statement-table-wrap {

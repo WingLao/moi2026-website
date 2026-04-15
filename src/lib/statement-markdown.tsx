@@ -56,6 +56,21 @@ export function renderStatementMarkdown(markdown: string): ReactNode[] {
       continue;
     }
 
+    const imageMatch = line.match(/^!\[(.*)\]\((.+)\)$/);
+    if (imageMatch) {
+      const alt = imageMatch[1].trim() || 'Teaching illustration';
+      const src = imageMatch[2].trim();
+
+      nodes.push(
+        <figure key={`image-${nodes.length}`} className="statement-figure">
+          <img src={src} alt={alt} className="statement-image" />
+          <figcaption>{alt}</figcaption>
+        </figure>,
+      );
+      index += 1;
+      continue;
+    }
+
     const headingMatch = line.match(/^(#{1,3})\s+(.*)$/);
     if (headingMatch) {
       const level = headingMatch[1].length;

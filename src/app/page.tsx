@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { listTeachingTopics } from '@/lib/teaching-content';
 
 export default async function Home() {
   const session = await auth();
+  const teachingCount = listTeachingTopics().length;
   const [problemCount, judgeableCount, warningProblemCount, submissionCount, studentCount, recentSubmissions] = await Promise.all([
     prisma.problem.count().catch(() => 0),
     prisma.problem.count({ where: { isJudgeable: true } }).catch(() => 0),
@@ -30,6 +32,7 @@ export default async function Home() {
           <div className="inline-actions">
             <Link href="/problems" className="button-link">Browse Problems · 瀏覽題目</Link>
             <Link href="/leaderboard" className="button-link secondary">Leaderboard · 排名</Link>
+            <Link href="/teaching" className="button-link secondary">演算法教學</Link>
             {session?.user ? <Link href="/submissions" className="button-link secondary">My Submissions · 我的提交</Link> : <Link href="/login" className="button-link secondary">Login · 登入</Link>}
           </div>
         </div>
@@ -40,6 +43,7 @@ export default async function Home() {
           { label: 'Problems · 題目', value: problemCount, note: 'Imported and listed for contestants 已匯入題目' },
           { label: 'Ready · 可判題', value: judgeableCount, note: 'Problems with complete testcase pairs 測資可正常判題' },
           { label: 'Issues · 資料提醒', value: warningProblemCount, note: 'Problems with PDF or testcase warnings 需要留意的題目' },
+          { label: 'Teaching · 教學', value: teachingCount, note: 'Protected algorithm notes 登入後可查看教材' },
           { label: 'Students · 學生', value: studentCount, note: 'Seeded training accounts 已建立帳號' },
           { label: 'Submissions · 提交', value: submissionCount, note: 'Queued and judged attempts 已提交與判題' },
         ].map((item) => (
@@ -49,6 +53,20 @@ export default async function Home() {
             <div className="subtle">{item.note}</div>
           </div>
         ))}
+      </section>
+
+      <section className="card">
+        <div className="section-title">
+          <div>
+            <h2>Teaching Hub · 教學入口</h2>
+            <p className="subtle" style={{ marginTop: 8 }}>
+              新增演算法教學專區，現已收錄動態規劃與 Josephus。未登入時會先導向登入頁，登入後返回教材內容。
+            </p>
+          </div>
+          <div className="inline-actions">
+            <Link href="/teaching" className="button-link">前往演算法教學</Link>
+          </div>
+        </div>
       </section>
 
       <section className="card">

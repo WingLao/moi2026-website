@@ -1,0 +1,48 @@
+<svg width="960" height="520" viewBox="0 0 960 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="520" rx="28" fill="#F8FBFF"/>
+  <rect x="36" y="36" width="888" height="448" rx="24" fill="white" stroke="#D9E0EE" stroke-width="2"/>
+  <text x="72" y="96" fill="#172033" font-size="34" font-family="Avenir Next, Noto Sans TC, sans-serif" font-weight="700">Coin Change 範例</text>
+  <text x="72" y="136" fill="#536076" font-size="20" font-family="Avenir Next, Noto Sans TC, sans-serif">coins = [1, 3, 4], amount = 6，觀察如何由較小金額推到較大金額</text>
+  <text x="72" y="188" fill="#2155D6" font-size="24" font-family="SFMono-Regular, monospace">dp[i] = min(dp[i], dp[i - coin] + 1)</text>
+  <rect x="84" y="234" width="792" height="168" rx="18" fill="#F9FBFF" stroke="#D9E0EE" stroke-width="2"/>
+  <g font-family="Avenir Next, Noto Sans TC, sans-serif" font-size="20" fill="#172033" text-anchor="middle">
+    <text x="146" y="280">金額</text>
+    <text x="146" y="348">最少硬幣</text>
+    <text x="146" y="382">組合</text>
+  </g>
+  <g font-family="SFMono-Regular, monospace" font-size="24" text-anchor="middle">
+    <rect x="184" y="246" width="88" height="136" rx="14" fill="#EEF3FB"/>
+    <text x="228" y="282" fill="#172033">0</text>
+    <text x="228" y="348" fill="#2155D6">0</text>
+    <text x="228" y="382" fill="#536076">-</text>
+    <rect x="284" y="246" width="88" height="136" rx="14" fill="#EEF3FB"/>
+    <text x="328" y="282" fill="#172033">1</text>
+    <text x="328" y="348" fill="#2155D6">1</text>
+    <text x="328" y="382" fill="#536076">1</text>
+    <rect x="384" y="246" width="88" height="136" rx="14" fill="#EEF3FB"/>
+    <text x="428" y="282" fill="#172033">2</text>
+    <text x="428" y="348" fill="#2155D6">2</text>
+    <text x="428" y="382" fill="#536076">1+1</text>
+    <rect x="484" y="246" width="88" height="136" rx="14" fill="#EAF1FF" stroke="#2155D6" stroke-width="2"/>
+    <text x="528" y="282" fill="#172033">3</text>
+    <text x="528" y="348" fill="#2155D6">1</text>
+    <text x="528" y="382" fill="#536076">3</text>
+    <rect x="584" y="246" width="88" height="136" rx="14" fill="#EAF1FF" stroke="#2155D6" stroke-width="2"/>
+    <text x="628" y="282" fill="#172033">4</text>
+    <text x="628" y="348" fill="#2155D6">1</text>
+    <text x="628" y="382" fill="#536076">4</text>
+    <rect x="684" y="246" width="88" height="136" rx="14" fill="#EEF3FB"/>
+    <text x="728" y="282" fill="#172033">5</text>
+    <text x="728" y="348" fill="#2155D6">2</text>
+    <text x="728" y="382" fill="#536076">4+1</text>
+    <rect x="784" y="246" width="88" height="136" rx="14" fill="#DBF5E8" stroke="#067647" stroke-width="2"/>
+    <text x="828" y="282" fill="#172033">6</text>
+    <text x="828" y="348" fill="#067647">2</text>
+    <text x="828" y="382" fill="#536076">3+3</text>
+  </g>
+  <path d="M532 214L532 190L828 190L828 222" stroke="#2155D6" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="532" cy="190" r="7" fill="#2155D6"/>
+  <circle cx="828" cy="190" r="7" fill="#2155D6"/>
+  <text x="680" y="176" fill="#2155D6" font-size="22" font-family="Avenir Next, Noto Sans TC, sans-serif" font-weight="700">6 可以由 3 再加一枚 3 得到</text>
+  <text x="682" y="434" fill="#067647" font-size="22" font-family="Avenir Next, Noto Sans TC, sans-serif" font-weight="700">所以 dp[6] = dp[3] + 1 = 2</text>
+</svg>
