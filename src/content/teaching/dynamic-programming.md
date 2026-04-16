@@ -128,14 +128,6 @@ def length_of_lis(nums):
 | LeetCode | 300. Longest Increasing Subsequence | LIS |
 | LeetCode | 1143. Longest Common Subsequence | 二維 DP |
 
-## 10. 圖片對照
-
-| 檔名 | 用途 |
-| --- | --- |
-| `images/dp_01_climbing_stairs.png` | 爬樓梯 DP 狀態圖 |
-| `images/dp_02_coin_change.png` | Coin Change 狀態轉移圖 |
-| `images/dp_03_lis.png` | LIS 狀態定義圖 |
-
-## 11. 一句總結
+## 10. 一句總結
 
 > DP 最重要的不是背公式，而是先定義清楚狀態，再決定怎樣由小推大。

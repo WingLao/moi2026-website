@@ -108,14 +108,6 @@ def josephus_last(n, k):
 | LeetCode | 1823. Find the Winner of the Circular Game | 標準 Josephus |
 | LeetCode | 649. Dota2 Senate | 模擬與淘汰延伸 |
 
-## 10. 圖片對照
-
-| 檔名 | 用途 |
-| --- | --- |
-| `images/josephus_01_circle_counting.png` | 環形報數示意圖 |
-| `images/josephus_02_elimination_order.png` | 出圈順序流程圖 |
-| `images/josephus_03_recurrence_formula.png` | 遞推公式圖解 |
-
-## 11. 一句總結
+## 10. 一句總結
 
 > Josephus 題目先分清楚是要整個出圈過程，還是只要最後答案，再選模擬或遞推。
