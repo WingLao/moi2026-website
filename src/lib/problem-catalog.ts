@@ -1,4 +1,4 @@
-export type ProblemLevel = 'Beginner' | 'P' | 'J' | 'S';
+export type ProblemLevel = 'Beginner' | 'GA' | 'P' | 'J' | 'S';
 
 export type ProblemCatalogEntry = {
   slug: string;
@@ -44,8 +44,17 @@ const F5B_BEGINNER_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'beginner-f5b-31-matrix-transpose', title: '31 · Matrix Transpose', level: 'Beginner', dataDirName: 'f5b-31-matrix-transpose', statementFilename: 'beginner-f5b-31-matrix-transpose.md' },
 ];
 
+const GREEDY_ALGORITHM_PROBLEMS: readonly ProblemCatalogEntry[] = [
+  { slug: 'ga-01-lemonade-change', title: '01 · Lemonade Change', level: 'GA', dataDirName: 'ga-01-lemonade-change', statementFilename: 'ga-01-lemonade-change.md' },
+  { slug: 'ga-02-maximum-units-truck', title: '02 · Maximum Units on a Truck', level: 'GA', dataDirName: 'ga-02-maximum-units-truck', statementFilename: 'ga-02-maximum-units-truck.md' },
+  { slug: 'ga-03-non-overlapping-intervals', title: '03 · Non-overlapping Intervals', level: 'GA', dataDirName: 'ga-03-non-overlapping-intervals', statementFilename: 'ga-03-non-overlapping-intervals.md' },
+  { slug: 'ga-04-task-scheduler', title: '04 · Task Scheduler', level: 'GA', dataDirName: 'ga-04-task-scheduler', statementFilename: 'ga-04-task-scheduler.md' },
+  { slug: 'ga-05-item-stacking', title: '05 · Item Stacking', level: 'GA', dataDirName: 'ga-05-item-stacking', statementFilename: 'ga-05-item-stacking.md' },
+];
+
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
   ...F5B_BEGINNER_PROBLEMS,
+  ...GREEDY_ALGORITHM_PROBLEMS,
   { slug: 'p-gaps', title: 'gaps', level: 'P', statementFilename: 'p-gaps.md', pdfFilename: 'P-gaps.pdf' },
   { slug: 'p-letters', title: 'letters', level: 'P', statementFilename: 'p-letters.md', pdfFilename: 'P-letters.pdf' },
   { slug: 'p-round', title: 'round', level: 'P', statementFilename: 'p-round.md', pdfFilename: 'P-round.pdf' },
