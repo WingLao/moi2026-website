@@ -1,6 +1,6 @@
-# F5B 25 · Audit
+# 25 · Audit
 
-> F5B Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-25-audit` 測資。
+> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-25-audit` 測資。
 
 |項目|內容|
 |---|---|

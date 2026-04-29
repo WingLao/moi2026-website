@@ -1,6 +1,6 @@
-# F5B 15 · Normalize Data
+# 15 · Normalize Data
 
-> F5B Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-15-normalize-data` 測資。
+> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-15-normalize-data` 測資。
 
 |項目|內容|
 |---|---|

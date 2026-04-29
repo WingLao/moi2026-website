@@ -71,7 +71,7 @@ export default async function ProblemsPage() {
                       <Link href={`/problems/${problem.slug}`} className="problem-title">
                         {problem.title}
                       </Link>
-                      <div className="problem-subtitle mono">{problem.code}</div>
+                      {String(problem.level) !== 'Beginner' ? <div className="problem-subtitle mono">{problem.code}</div> : null}
                     </div>
                   </td>
                   <td>

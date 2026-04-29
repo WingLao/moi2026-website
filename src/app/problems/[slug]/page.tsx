@@ -38,7 +38,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
           <div>
             <h1>{problem.title}</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              <span className="mono">{problem.code}</span> · Level {problem.level}
+              {String(problem.level) === 'Beginner' ? `Level ${problem.level}` : <><span className="mono">{problem.code}</span> · Level {problem.level}</>}
             </p>
           </div>
           <div className="status-stack">

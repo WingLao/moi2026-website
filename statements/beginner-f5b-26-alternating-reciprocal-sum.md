@@ -1,6 +1,6 @@
-# F5B 26 · Alternating Reciprocal Sum
+# 26 · Alternating Reciprocal Sum
 
-> F5B Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-26-alternating-reciprocal-sum` 測資。
+> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-26-alternating-reciprocal-sum` 測資。
 
 |項目|內容|
 |---|---|

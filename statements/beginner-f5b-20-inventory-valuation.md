@@ -1,6 +1,6 @@
-# F5B 20 · Inventory Valuation
+# 20 · Inventory Valuation
 
-> F5B Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-20-inventory-valuation` 測資。
+> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-20-inventory-valuation` 測資。
 
 |項目|內容|
 |---|---|
