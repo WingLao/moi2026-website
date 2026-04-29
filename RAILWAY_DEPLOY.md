@@ -55,7 +55,7 @@ npm install && npm run prisma:generate && npm run build
 
 Start command:
 ```bash
-npx prisma migrate deploy && npm run start
+npm run start
 ```
 
 ### Worker service

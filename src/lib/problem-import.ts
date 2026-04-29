@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { type Prisma } from '@prisma/client';
 import { prisma } from './prisma';
 import { getDataRoot, toStoredPath } from './data-root';
 import { auditProblemAssets } from './problem-assets';
@@ -11,11 +12,12 @@ export async function importProblems(projectRoot?: string) {
 
   for (const meta of PROBLEM_CATALOG) {
     const audit = auditProblemAssets(root, meta);
+    const level = meta.level as unknown as Prisma.ProblemCreateInput['level'];
     const problem = await prisma.problem.upsert({
       where: { slug: meta.slug },
       update: {
         title: meta.title,
-        level: meta.level as 'P' | 'J' | 'S',
+        level,
         pdfFilename: meta.pdfFilename,
         pdfPath: audit.pdfPath ? toStoredPath(audit.pdfPath, root) : null,
         isJudgeable: true,
@@ -25,32 +27,51 @@ export async function importProblems(projectRoot?: string) {
         code: meta.slug.toUpperCase().replace(/-/g, '_'),
         slug: meta.slug,
         title: meta.title,
-        level: meta.level as 'P' | 'J' | 'S',
+        level,
         pdfFilename: meta.pdfFilename,
         pdfPath: audit.pdfPath ? toStoredPath(audit.pdfPath, root) : null,
       },
     });
 
-    await prisma.testCase.deleteMany({ where: { problemId: problem.id } });
-
     const baseScore = Math.floor(100 / Math.max(audit.cases.length, 1));
     const remainder = 100 - baseScore * audit.cases.length;
+    const importedIndexes: number[] = [];
 
     for (let index = 0; index < audit.cases.length; index += 1) {
       const testCase = audit.cases[index];
+      const score = baseScore + (index < remainder ? 1 : 0);
+      const inputPath = toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.inputFile)), root);
+      const outputPath = testCase.outputFile ? toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.outputFile)), root) : null;
 
-      await prisma.testCase.create({
-        data: {
+      importedIndexes.push(testCase.index);
+
+      await prisma.testCase.upsert({
+        where: { problemId_index: { problemId: problem.id, index: testCase.index } },
+        update: {
+          inputPath,
+          outputPath,
+          score,
+          isValid: testCase.isValid,
+          warning: testCase.warning,
+        },
+        create: {
           problemId: problem.id,
-          index,
-          inputPath: toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.inputFile)), root),
-          outputPath: testCase.outputFile ? toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.outputFile)), root) : null,
-          score: baseScore + (index < remainder ? 1 : 0),
+          index: testCase.index,
+          inputPath,
+          outputPath,
+          score,
           isValid: testCase.isValid,
           warning: testCase.warning,
         },
       });
     }
+
+    await prisma.testCase.deleteMany({
+      where: {
+        problemId: problem.id,
+        index: { notIn: importedIndexes },
+      },
+    });
 
     await prisma.problem.update({
       where: { id: problem.id },

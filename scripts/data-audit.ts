@@ -28,7 +28,7 @@ const summary = {
   problemsWithWarnings: problems.filter((problem) => problem.warnings.length > 0).length,
   nonJudgeableProblems: problems.filter((problem) => !problem.judgeable).length,
   missingStatementProblems: problems.filter((problem) => !problem.statementPresent).length,
-  missingPdfProblems: problems.filter((problem) => !problem.pdfPresent).length,
+  missingPdfProblems: problems.filter((problem) => problem.pdfFilename && !problem.pdfPresent).length,
   duplicateFiles: problems.reduce((count, problem) => count + problem.duplicateFiles.length, 0),
 };
 

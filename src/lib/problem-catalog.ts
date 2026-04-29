@@ -1,15 +1,51 @@
-export type ProblemLevel = 'P' | 'J' | 'S';
+export type ProblemLevel = 'Beginner' | 'P' | 'J' | 'S';
 
 export type ProblemCatalogEntry = {
   slug: string;
   title: string;
   level: ProblemLevel;
   statementFilename: string;
-  pdfFilename: string;
+  pdfFilename?: string;
   pdfAliases?: string[];
+  dataDirName?: string;
 };
 
+const F5B_BEGINNER_PROBLEMS: readonly ProblemCatalogEntry[] = [
+  { slug: 'beginner-f5b-01-number-sequences', title: 'F5B 01 · Number Sequences with range()', level: 'Beginner', dataDirName: 'f5b-01-number-sequences', statementFilename: 'beginner-f5b-01-number-sequences.md' },
+  { slug: 'beginner-f5b-02-even-squares', title: 'F5B 02 · Square of Even Numbers', level: 'Beginner', dataDirName: 'f5b-02-even-squares', statementFilename: 'beginner-f5b-02-even-squares.md' },
+  { slug: 'beginner-f5b-03-factorial-5', title: 'F5B 03 · Factorial of 5', level: 'Beginner', dataDirName: 'f5b-03-factorial-5', statementFilename: 'beginner-f5b-03-factorial-5.md' },
+  { slug: 'beginner-f5b-04-even-sum', title: 'F5B 04 · Sum of Even Numbers (1-10)', level: 'Beginner', dataDirName: 'f5b-04-even-sum', statementFilename: 'beginner-f5b-04-even-sum.md' },
+  { slug: 'beginner-f5b-05-divisible-by-13', title: 'F5B 05 · Divisible by 13 (1-500)', level: 'Beginner', dataDirName: 'f5b-05-divisible-by-13', statementFilename: 'beginner-f5b-05-divisible-by-13.md' },
+  { slug: 'beginner-f5b-06-reverse-multiplication-table', title: 'F5B 06 · Multiplication Table in Reverse Order', level: 'Beginner', dataDirName: 'f5b-06-reverse-multiplication-table', statementFilename: 'beginner-f5b-06-reverse-multiplication-table.md' },
+  { slug: 'beginner-f5b-07-append-list', title: 'F5B 07 · Create a List with append()', level: 'Beginner', dataDirName: 'f5b-07-append-list', statementFilename: 'beginner-f5b-07-append-list.md' },
+  { slug: 'beginner-f5b-08-list-statistics', title: 'F5B 08 · List Statistics with NumPy', level: 'Beginner', dataDirName: 'f5b-08-list-statistics', statementFilename: 'beginner-f5b-08-list-statistics.md' },
+  { slug: 'beginner-f5b-09-filter-transform', title: 'F5B 09 · Filter and Transform with NumPy', level: 'Beginner', dataDirName: 'f5b-09-filter-transform', statementFilename: 'beginner-f5b-09-filter-transform.md' },
+  { slug: 'beginner-f5b-10-even-above-average', title: 'F5B 10 · Filter Even Numbers Above Average', level: 'Beginner', dataDirName: 'f5b-10-even-above-average', statementFilename: 'beginner-f5b-10-even-above-average.md' },
+  { slug: 'beginner-f5b-11-count-average', title: 'F5B 11 · Count Above and Below Average', level: 'Beginner', dataDirName: 'f5b-11-count-average', statementFilename: 'beginner-f5b-11-count-average.md' },
+  { slug: 'beginner-f5b-12-replace-below-average', title: 'F5B 12 · Replace Values Below Average', level: 'Beginner', dataDirName: 'f5b-12-replace-below-average', statementFilename: 'beginner-f5b-12-replace-below-average.md' },
+  { slug: 'beginner-f5b-13-standard-deviation', title: 'F5B 13 · Standard Deviation Challenge', level: 'Beginner', dataDirName: 'f5b-13-standard-deviation', statementFilename: 'beginner-f5b-13-standard-deviation.md' },
+  { slug: 'beginner-f5b-14-cumulative-sum', title: 'F5B 14 · Cumulative Sum', level: 'Beginner', dataDirName: 'f5b-14-cumulative-sum', statementFilename: 'beginner-f5b-14-cumulative-sum.md' },
+  { slug: 'beginner-f5b-15-normalize-data', title: 'F5B 15 · Normalize Data', level: 'Beginner', dataDirName: 'f5b-15-normalize-data', statementFilename: 'beginner-f5b-15-normalize-data.md' },
+  { slug: 'beginner-f5b-16-character-frequency', title: 'F5B 16 · Character Frequency', level: 'Beginner', dataDirName: 'f5b-16-character-frequency', statementFilename: 'beginner-f5b-16-character-frequency.md' },
+  { slug: 'beginner-f5b-17-two-sum', title: 'F5B 17 · Two Sum', level: 'Beginner', dataDirName: 'f5b-17-two-sum', statementFilename: 'beginner-f5b-17-two-sum.md' },
+  { slug: 'beginner-f5b-18-first-unique-character', title: 'F5B 18 · First Unique Character', level: 'Beginner', dataDirName: 'f5b-18-first-unique-character', statementFilename: 'beginner-f5b-18-first-unique-character.md' },
+  { slug: 'beginner-f5b-19-most-frequent-word', title: 'F5B 19 · Most Frequent Word', level: 'Beginner', dataDirName: 'f5b-19-most-frequent-word', statementFilename: 'beginner-f5b-19-most-frequent-word.md' },
+  { slug: 'beginner-f5b-20-inventory-valuation', title: 'F5B 20 · Inventory Valuation', level: 'Beginner', dataDirName: 'f5b-20-inventory-valuation', statementFilename: 'beginner-f5b-20-inventory-valuation.md' },
+  { slug: 'beginner-f5b-21-roman-to-integer', title: 'F5B 21 · Roman to Integer', level: 'Beginner', dataDirName: 'f5b-21-roman-to-integer', statementFilename: 'beginner-f5b-21-roman-to-integer.md' },
+  { slug: 'beginner-f5b-22-minimum-coins', title: 'F5B 22 · Minimum Coins', level: 'Beginner', dataDirName: 'f5b-22-minimum-coins', statementFilename: 'beginner-f5b-22-minimum-coins.md' },
+  { slug: 'beginner-f5b-23-alternating-series', title: 'F5B 23 · Alternating Series Value', level: 'Beginner', dataDirName: 'f5b-23-alternating-series', statementFilename: 'beginner-f5b-23-alternating-series.md' },
+  { slug: 'beginner-f5b-24-match-equipment', title: 'F5B 24 · Match Players with Equipment', level: 'Beginner', dataDirName: 'f5b-24-match-equipment', statementFilename: 'beginner-f5b-24-match-equipment.md' },
+  { slug: 'beginner-f5b-25-audit', title: 'F5B 25 · Audit', level: 'Beginner', dataDirName: 'f5b-25-audit', statementFilename: 'beginner-f5b-25-audit.md' },
+  { slug: 'beginner-f5b-26-alternating-reciprocal-sum', title: 'F5B 26 · Alternating Reciprocal Sum', level: 'Beginner', dataDirName: 'f5b-26-alternating-reciprocal-sum', statementFilename: 'beginner-f5b-26-alternating-reciprocal-sum.md' },
+  { slug: 'beginner-f5b-27-pair-sum-finder', title: 'F5B 27 · Pair Sum Finder', level: 'Beginner', dataDirName: 'f5b-27-pair-sum-finder', statementFilename: 'beginner-f5b-27-pair-sum-finder.md' },
+  { slug: 'beginner-f5b-28-selection-sort-median', title: 'F5B 28 · Selection Sort + Median', level: 'Beginner', dataDirName: 'f5b-28-selection-sort-median', statementFilename: 'beginner-f5b-28-selection-sort-median.md' },
+  { slug: 'beginner-f5b-29-row-sum-champion', title: 'F5B 29 · Row Sum Champion', level: 'Beginner', dataDirName: 'f5b-29-row-sum-champion', statementFilename: 'beginner-f5b-29-row-sum-champion.md' },
+  { slug: 'beginner-f5b-30-closest-pair-difference', title: 'F5B 30 · Closest Pair Difference', level: 'Beginner', dataDirName: 'f5b-30-closest-pair-difference', statementFilename: 'beginner-f5b-30-closest-pair-difference.md' },
+  { slug: 'beginner-f5b-31-matrix-transpose', title: 'F5B 31 · Matrix Transpose', level: 'Beginner', dataDirName: 'f5b-31-matrix-transpose', statementFilename: 'beginner-f5b-31-matrix-transpose.md' },
+];
+
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
+  ...F5B_BEGINNER_PROBLEMS,
   { slug: 'p-gaps', title: 'gaps', level: 'P', statementFilename: 'p-gaps.md', pdfFilename: 'P-gaps.pdf' },
   { slug: 'p-letters', title: 'letters', level: 'P', statementFilename: 'p-letters.md', pdfFilename: 'P-letters.pdf' },
   { slug: 'p-round', title: 'round', level: 'P', statementFilename: 'p-round.md', pdfFilename: 'P-round.pdf' },
@@ -38,11 +74,18 @@ const catalogBySlug = new Map<string, ProblemCatalogEntry>();
 
 for (const entry of PROBLEM_CATALOG) {
   catalogBySlug.set(entry.slug, entry);
-  catalogByPdfFilename.set(entry.pdfFilename, entry);
+
+  if (entry.pdfFilename) {
+    catalogByPdfFilename.set(entry.pdfFilename, entry);
+  }
 
   for (const alias of entry.pdfAliases ?? []) {
     catalogByPdfFilename.set(alias, entry);
   }
+}
+
+export function getProblemDataDirName(entry: ProblemCatalogEntry) {
+  return entry.dataDirName ?? entry.title;
 }
 
 export function getProblemCatalogEntryByPdfFilename(pdfFilename: string) {

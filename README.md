@@ -22,7 +22,7 @@ Copy `.env.example` to `.env`.
 Default `.env` values expect:
 - PostgreSQL on `localhost:5432`
 - Redis on `localhost:6379`
-- data root at `/Users/itlao_cdsj5school/Desktop/MOI2026_website`
+- data root at `/Users/macbook/Desktop/MOI2026_website/app`
 
 ### 2) Start services on this Mac
 If PostgreSQL/Redis are not installed yet:

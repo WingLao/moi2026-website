@@ -36,17 +36,6 @@ const teachingTopics: TeachingTopic[] = [
     tags: ['模擬', '遞推', '取模', '環狀結構'],
     highlights: ['完整出圈順序與最後存活者', '模擬版與遞推版公式', '典型錯誤整理'],
   },
-  {
-    slug: 'f5b-python-practice',
-    title: 'F5B Python 課堂練習',
-    subtitle: 'Python / C++ Practice · F5B 2025–2026',
-    description: '涵蓋 for 迴圈、list、NumPy、dictionary、貪心與雙層迴圈，共 31 題。',
-    sourceFilename: 'F5B_2025_2026_20260416.ipynb',
-    contentFilename: 'f5b-python-practice.md',
-    level: '入門',
-    tags: ['for', 'list', 'NumPy', 'dictionary', 'Greedy'],
-    highlights: ['for 迴圈 + if 篩選應用', 'NumPy 統計運算', 'dictionary 計數與查表', '貪心與雙層迴圈'],
-  },
 ];
 
 function getTeachingContentRoot() {

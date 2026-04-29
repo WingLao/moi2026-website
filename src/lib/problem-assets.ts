@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { type ProblemCatalogEntry, getProblemCatalogEntryByPdfFilename } from './problem-catalog';
+import { type ProblemCatalogEntry, getProblemCatalogEntryByPdfFilename, getProblemDataDirName } from './problem-catalog';
 import { getProblemStatementPath } from './problem-statements';
 
 const DUPLICATE_COPY_RE = / \d+\.(in|out)$/;
@@ -36,7 +36,7 @@ export type ProblemAssetAudit = {
   hasDataDir: boolean;
   statementFilename: string;
   statementPath: string | null;
-  pdfFilename: string;
+  pdfFilename: string | null;
   pdfPath: string | null;
   duplicateFiles: string[];
   extraOutputs: string[];
@@ -47,7 +47,7 @@ export type ProblemAssetAudit = {
 
 export function resolveProblemPdf(root: string, requestedFilename: string) {
   const entry = getProblemCatalogEntryByPdfFilename(requestedFilename);
-  if (!entry) {
+  if (!entry?.pdfFilename) {
     return null;
   }
 
@@ -74,22 +74,23 @@ export function resolveProblemPdf(root: string, requestedFilename: string) {
 }
 
 export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): ProblemAssetAudit {
-  const dataDir = path.join(root, 'data', entry.level, entry.title);
+  const dataDirName = getProblemDataDirName(entry);
+  const dataDir = path.join(root, 'data', entry.level, dataDirName);
   const statementPath = getProblemStatementPath(entry, root);
-  const pdf = resolveProblemPdf(root, entry.pdfFilename);
+  const pdf = entry.pdfFilename ? resolveProblemPdf(root, entry.pdfFilename) : null;
   const warnings: string[] = [];
 
   if (!fs.existsSync(statementPath)) {
     warnings.push(`Missing statement: ${entry.statementFilename}`);
   } else {
     const statement = fs.readFileSync(statementPath, 'utf8');
-    const expectedDataDir = `data/${entry.level}/${entry.title}`;
+    const expectedDataDir = `data/${entry.level}/${dataDirName}`;
 
     if (!statement.includes(expectedDataDir)) {
       warnings.push(`Statement data dir mismatch: expected ${expectedDataDir}`);
     }
 
-    if (!statement.includes(entry.pdfFilename)) {
+    if (entry.pdfFilename && !statement.includes(entry.pdfFilename)) {
       warnings.push(`Statement source mismatch: expected ${entry.pdfFilename}`);
     }
 
@@ -98,9 +99,9 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     }
   }
 
-  if (!pdf?.pdfPath) {
+  if (entry.pdfFilename && !pdf?.pdfPath) {
     warnings.push(`Missing PDF: ${entry.pdfFilename}`);
-  } else if (pdf.matchedFilename !== entry.pdfFilename) {
+  } else if (entry.pdfFilename && pdf && pdf.matchedFilename !== entry.pdfFilename) {
     warnings.push(`Legacy PDF filename in use: ${pdf.matchedFilename} -> ${entry.pdfFilename}`);
   }
 
@@ -111,7 +112,7 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
       hasDataDir: false,
       statementFilename: entry.statementFilename,
       statementPath: fs.existsSync(statementPath) ? statementPath : null,
-      pdfFilename: entry.pdfFilename,
+      pdfFilename: entry.pdfFilename ?? null,
       pdfPath: pdf?.pdfPath ?? null,
       duplicateFiles: [],
       extraOutputs: [],
@@ -127,7 +128,7 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     warnings.push(`Duplicate testcase copies: ${duplicateFiles.length}`);
   }
 
-  const testcasePattern = new RegExp(`^${escapeRegExp(entry.title)}-\\d+\\.(in|out)$`);
+  const testcasePattern = new RegExp(`^${escapeRegExp(dataDirName)}-\\d+\\.(in|out)$`);
   const canonicalFiles = files.filter((file) => testcasePattern.test(file)).sort(sortByCaseIndex);
   const inputFiles = canonicalFiles.filter((file) => file.endsWith('.in'));
   const outputFiles = canonicalFiles.filter((file) => file.endsWith('.out'));
@@ -168,7 +169,7 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     hasDataDir: true,
     statementFilename: entry.statementFilename,
     statementPath: fs.existsSync(statementPath) ? statementPath : null,
-    pdfFilename: entry.pdfFilename,
+    pdfFilename: entry.pdfFilename ?? null,
     pdfPath: pdf?.pdfPath ?? null,
     duplicateFiles,
     extraOutputs,
