@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getProblemPdfUrl } from '@/lib/pdf';
 import { resolveProblemStatementBySlug } from '@/lib/problem-statements';
 
-const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'P', 'J', 'S'] as const;
+const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'DP', 'P', 'J', 'S'] as const;
 
 export default async function ProblemsPage({
   searchParams,

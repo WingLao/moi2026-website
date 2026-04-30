@@ -15,7 +15,7 @@ export default async function LeaderboardPage() {
 
   const rows = users
     .map((user) => {
-      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string; level: 'Beginner' | 'GA' | 'P' | 'J' | 'S' }>();
+      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string; level: 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' }>();
       for (const submission of user.submissions) {
         const reachedAt = submission.reachedScoreAt ?? submission.judgedAt ?? submission.queuedAt;
         const previous = bestByProblem.get(submission.problemId);
@@ -50,7 +50,7 @@ export default async function LeaderboardPage() {
           <div>
             <h1>Leaderboard · 排名榜</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Best score per problem counts. Weighted by level: Beginner x0.1, GA x0.5, P x1, J x2, S x3. Ties prefer the user who reached the counted score earlier.
+              Best score per problem counts. Weighted by level: Beginner x0.1, GA x0.5, DP x1, P x1, J x2, S x3. Ties prefer the user who reached the counted score earlier.
             </p>
           </div>
           <span className="badge info">Students ranked 排名人數: {rows.length}</span>

@@ -1,0 +1,1 @@
+ALTER TYPE "public"."ProblemLevel" ADD VALUE IF NOT EXISTS 'DP' AFTER 'GA';

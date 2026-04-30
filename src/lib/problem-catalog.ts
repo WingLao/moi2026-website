@@ -1,4 +1,4 @@
-export type ProblemLevel = 'Beginner' | 'GA' | 'P' | 'J' | 'S';
+export type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S';
 
 export type ProblemCatalogEntry = {
   slug: string;
@@ -52,9 +52,18 @@ const GREEDY_ALGORITHM_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'ga-05-item-stacking', title: '05 · Item Stacking', level: 'GA', dataDirName: 'ga-05-item-stacking', statementFilename: 'ga-05-item-stacking.md' },
 ];
 
+const DYNAMIC_PROGRAMMING_PROBLEMS: readonly ProblemCatalogEntry[] = [
+  { slug: 'dp-01-fibonacci-number', title: '01 · Fibonacci Number', level: 'DP', dataDirName: 'dp-01-fibonacci-number', statementFilename: 'dp-01-fibonacci-number.md' },
+  { slug: 'dp-02-herb-picking', title: '02 · Herb Picking', level: 'DP', dataDirName: 'dp-02-herb-picking', statementFilename: 'dp-02-herb-picking.md' },
+  { slug: 'dp-03-coin-change', title: '03 · Coin Change', level: 'DP', dataDirName: 'dp-03-coin-change', statementFilename: 'dp-03-coin-change.md' },
+  { slug: 'dp-04-longest-increasing-subsequence', title: '04 · Longest Increasing Subsequence', level: 'DP', dataDirName: 'dp-04-longest-increasing-subsequence', statementFilename: 'dp-04-longest-increasing-subsequence.md' },
+  { slug: 'dp-05-edit-distance', title: '05 · Edit Distance', level: 'DP', dataDirName: 'dp-05-edit-distance', statementFilename: 'dp-05-edit-distance.md' },
+];
+
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
   ...F5B_BEGINNER_PROBLEMS,
   ...GREEDY_ALGORITHM_PROBLEMS,
+  ...DYNAMIC_PROGRAMMING_PROBLEMS,
   { slug: 'p-gaps', title: 'gaps', level: 'P', statementFilename: 'p-gaps.md', pdfFilename: 'P-gaps.pdf' },
   { slug: 'p-letters', title: 'letters', level: 'P', statementFilename: 'p-letters.md', pdfFilename: 'P-letters.pdf' },
   { slug: 'p-round', title: 'round', level: 'P', statementFilename: 'p-round.md', pdfFilename: 'P-round.pdf' },

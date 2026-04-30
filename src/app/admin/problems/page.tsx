@@ -64,7 +64,7 @@ export default async function AdminProblems() {
       <section className="card" style={{ marginTop: 18 }}>
         <div className="section-title">
           <div>
-            <h2 style={{ margin: 0 }}>Beginner / GA Testcase Preview</h2>
+            <h2 style={{ margin: 0 }}>Beginner / GA / DP Testcase Preview</h2>
             <p className="subtle" style={{ marginTop: 8 }}>
               額外顯示教學題的 testcase 表格格式，以及 Input / 中文簡述提示。
             </p>

@@ -41,6 +41,10 @@ function buildShortDescription(level: ProblemLevel, title: string, rawDescriptio
     return `這題是 Beginner 練習，請依照 ${title} 的要求完成指定輸出或基礎計算。`;
   }
 
+  if (level === 'DP') {
+    return `這題是 DP 練習，請根據 ${title} 的條件建立合適的狀態轉移並輸出答案。`;
+  }
+
   return `這題是 GA 練習，請根據 ${title} 的規則讀入資料，運用合適的貪心想法輸出答案。`;
 }
 
@@ -69,7 +73,7 @@ export function getProblemLearningSupport(
   problem: { level: ProblemLevel; title: string },
   statementMarkdown: string | null,
 ) {
-  if (!statementMarkdown || (problem.level !== 'Beginner' && problem.level !== 'GA')) {
+  if (!statementMarkdown || (problem.level !== 'Beginner' && problem.level !== 'GA' && problem.level !== 'DP')) {
     return null;
   }
 

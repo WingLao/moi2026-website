@@ -1,8 +1,9 @@
-type ProblemLevel = 'Beginner' | 'GA' | 'P' | 'J' | 'S';
+type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S';
 
 const LEVEL_MULTIPLIER: Record<ProblemLevel, number> = {
   Beginner: 0.1,
   GA: 0.5,
+  DP: 1,
   P: 1,
   J: 2,
   S: 3,
