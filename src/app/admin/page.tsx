@@ -9,13 +9,35 @@ export default async function AdminPage() {
   }
 
   return (
-    <main style={{ display: 'grid', gap: 16 }}>
-      <h1 style={{ margin: 0 }}>Admin · 管理頁</h1>
-      <div style={{ display: 'grid', gap: 12 }}>
-        <Link href="/admin/problems">Problem Management · 題目管理</Link>
-        <Link href="/admin/submissions">Submission Management · 提交管理</Link>
-        <Link href="/admin/users">User Management · 用戶管理</Link>
-      </div>
+    <main className="page">
+      <section className="card hero">
+        <div className="section-title">
+          <div>
+            <h1>Admin · 管理頁</h1>
+            <p className="subtle" style={{ marginTop: 8 }}>
+              Admin shortcuts for problem, submission, and user operations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid-tiles">
+        <Link href="/admin/problems" className="card compact" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <div className="subtle">Problem Management</div>
+          <div className="tile-number" style={{ fontSize: 28 }}>題目管理</div>
+          <div className="subtle">Inspect imported problems, testcase health, and teaching previews.</div>
+        </Link>
+        <Link href="/admin/submissions" className="card compact" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <div className="subtle">Submission Management</div>
+          <div className="tile-number" style={{ fontSize: 28 }}>提交管理</div>
+          <div className="subtle">Review recent runs, statuses, and judging outcomes.</div>
+        </Link>
+        <Link href="/admin/users" className="card compact" style={{ color: 'inherit', textDecoration: 'none' }}>
+          <div className="subtle">User Management</div>
+          <div className="tile-number" style={{ fontSize: 28 }}>用戶管理</div>
+          <div className="subtle">Create, edit, import, and delete user accounts.</div>
+        </Link>
+      </section>
     </main>
   );
 }

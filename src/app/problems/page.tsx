@@ -4,8 +4,19 @@ import { prisma } from '@/lib/prisma';
 import { getProblemPdfUrl } from '@/lib/pdf';
 import { resolveProblemStatementBySlug } from '@/lib/problem-statements';
 
-export default async function ProblemsPage() {
+const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'P', 'J', 'S'] as const;
+
+export default async function ProblemsPage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ level?: string }>;
+}) {
   const session = await auth();
+  const params = searchParams ? await searchParams : undefined;
+  const requestedLevel = params?.level;
+  const activeLevel = LEVEL_OPTIONS.includes((requestedLevel ?? 'ALL') as (typeof LEVEL_OPTIONS)[number])
+    ? (requestedLevel ?? 'ALL')
+    : 'ALL';
   const problems = await prisma.problem.findMany({
     orderBy: [{ level: 'asc' }, { code: 'asc' }],
     include: {
@@ -18,10 +29,13 @@ export default async function ProblemsPage() {
         : false,
     },
   }).catch(() => []);
+  const filteredProblems = activeLevel === 'ALL'
+    ? problems
+    : problems.filter((problem) => problem.level === activeLevel);
 
-  const judgeableCount = problems.filter((problem) => problem.isJudgeable).length;
-  const blockedCount = problems.length - judgeableCount;
-  const warningCount = problems.filter((problem) => Boolean(problem.warning)).length;
+  const judgeableCount = filteredProblems.filter((problem) => problem.isJudgeable).length;
+  const blockedCount = filteredProblems.length - judgeableCount;
+  const warningCount = filteredProblems.filter((problem) => Boolean(problem.warning)).length;
 
   return (
     <main className="page">
@@ -41,6 +55,34 @@ export default async function ProblemsPage() {
         </div>
       </section>
 
+      <section className="card">
+        <div className="section-title">
+          <div>
+            <h2 style={{ margin: 0 }}>Level Filter · 程度篩選</h2>
+            <p className="subtle" style={{ marginTop: 8 }}>
+              Filter the problem list by level. 目前顯示：{activeLevel === 'ALL' ? '全部題目' : activeLevel}
+            </p>
+          </div>
+          <span className="badge info">Visible problems 顯示題數: {filteredProblems.length}</span>
+        </div>
+        <div className="inline-actions" style={{ marginTop: 14 }}>
+          {LEVEL_OPTIONS.map((level) => {
+            const href = level === 'ALL' ? '/problems' : `/problems?level=${encodeURIComponent(level)}`;
+            const active = level === activeLevel;
+            return (
+              <Link
+                key={level}
+                href={href}
+                className={`button-link${active ? '' : ' secondary'}`}
+                aria-current={active ? 'page' : undefined}
+              >
+                {level}
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
       <div className="table-wrap">
         <table className="table">
           <thead>
@@ -54,7 +96,7 @@ export default async function ProblemsPage() {
             </tr>
           </thead>
           <tbody>
-            {problems.map((problem) => {
+            {filteredProblems.map((problem) => {
               const submissions = Array.isArray(problem.submissions) ? problem.submissions : [];
               const best = submissions.reduce((max, submission) => Math.max(max, submission.score), 0);
               const latest = submissions[0];

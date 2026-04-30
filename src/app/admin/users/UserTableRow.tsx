@@ -14,7 +14,7 @@ type UserTableRowProps = {
   totalSubmissions: number;
   practicedProblems: number;
   solvedProblems: number;
-  totalScore: number;
+  totalScore: string;
   latestActivity: string;
 };
 

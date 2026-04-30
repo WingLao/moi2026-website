@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { formatWeightedScore, getLevelMultiplier, getWeightedScore } from '@/lib/score-utils';
 import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function LeaderboardPage() {
@@ -14,23 +15,28 @@ export default async function LeaderboardPage() {
 
   const rows = users
     .map((user) => {
-      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string }>();
+      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string; level: 'Beginner' | 'GA' | 'P' | 'J' | 'S' }>();
       for (const submission of user.submissions) {
         const reachedAt = submission.reachedScoreAt ?? submission.judgedAt ?? submission.queuedAt;
         const previous = bestByProblem.get(submission.problemId);
         if (!previous || submission.score > previous.score || (submission.score === previous.score && reachedAt < previous.reachedAt)) {
-          bestByProblem.set(submission.problemId, { score: submission.score, reachedAt, problemCode: submission.problem.code });
+          bestByProblem.set(submission.problemId, {
+            score: submission.score,
+            reachedAt,
+            problemCode: submission.problem.code,
+            level: submission.problem.level,
+          });
         }
       }
 
       const bestScores = [...bestByProblem.values()];
-      const total = bestScores.reduce((sum, item) => sum + item.score, 0);
+      const total = bestScores.reduce((sum, item) => sum + getWeightedScore(item.score, item.level), 0);
       const solvedProblems = bestScores.filter((item) => item.score > 0).length;
       const tieBreaker = bestScores.reduce((min, item) => Math.min(min, item.reachedAt.getTime()), Number.MAX_SAFE_INTEGER);
       const breakdown = bestScores
         .filter((item) => item.score > 0)
         .sort((a, b) => b.score - a.score || a.problemCode.localeCompare(b.problemCode))
-        .map((item) => `${item.problemCode} ${item.score}`)
+        .map((item) => `${item.problemCode} ${item.score} x ${getLevelMultiplier(item.level)} = ${formatWeightedScore(getWeightedScore(item.score, item.level))}`)
         .join(', ');
 
       return { id: user.id, displayName: getUserDisplayName(user), total, solvedProblems, tieBreaker, breakdown };
@@ -44,7 +50,7 @@ export default async function LeaderboardPage() {
           <div>
             <h1>Leaderboard · 排名榜</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Best score per problem counts. Ties prefer the user who reached the counted score earlier. 以每題最佳分計算。
+              Best score per problem counts. Weighted by level: Beginner x0.1, GA x0.5, P x1, J x2, S x3. Ties prefer the user who reached the counted score earlier.
             </p>
           </div>
           <span className="badge info">Students ranked 排名人數: {rows.length}</span>
@@ -68,7 +74,7 @@ export default async function LeaderboardPage() {
                 <td>{index + 1}</td>
                 <td>{row.displayName}</td>
                 <td>{row.solvedProblems}</td>
-                <td>{row.total}</td>
+                <td>{formatWeightedScore(row.total)}</td>
                 <td className="subtle">{row.breakdown || 'No positive scores yet · 暫未得分'}</td>
               </tr>
             ))}

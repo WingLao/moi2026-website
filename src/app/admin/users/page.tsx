@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { formatWeightedScore, getWeightedScore } from '@/lib/score-utils';
 import CreateUserForm from './CreateUserForm';
 import NameImportForm from './NameImportForm';
 import UserTableRow from './UserTableRow';
@@ -23,17 +24,17 @@ export default async function AdminUsers() {
   }).catch(() => []);
 
   const rows = users.map((user) => {
-    const bestByProblem = new Map<string, number>();
+    const bestByProblem = new Map<string, { score: number; level: 'Beginner' | 'GA' | 'P' | 'J' | 'S' }>();
     for (const submission of user.submissions) {
-      const previous = bestByProblem.get(submission.problemId) ?? 0;
-      if (submission.score > previous) {
-        bestByProblem.set(submission.problemId, submission.score);
+      const previous = bestByProblem.get(submission.problemId);
+      if (!previous || submission.score > previous.score) {
+        bestByProblem.set(submission.problemId, { score: submission.score, level: submission.problem.level });
       }
     }
 
-    const totalScore = [...bestByProblem.values()].reduce((sum, score) => sum + score, 0);
+    const totalScore = [...bestByProblem.values()].reduce((sum, item) => sum + getWeightedScore(item.score, item.level), 0);
     const practicedProblems = bestByProblem.size;
-    const solvedProblems = [...bestByProblem.values()].filter((score) => score > 0).length;
+    const solvedProblems = [...bestByProblem.values()].filter((item) => item.score > 0).length;
     const latestSubmission = user.submissions[0];
 
     return {
@@ -46,7 +47,7 @@ export default async function AdminUsers() {
       totalSubmissions: user.submissions.length,
       practicedProblems,
       solvedProblems,
-      totalScore,
+      totalScore: formatWeightedScore(totalScore),
       latestActivity: latestSubmission
         ? `${latestSubmission.problem.code} · ${latestSubmission.status} · ${latestSubmission.score}`
         : 'No submissions yet',
@@ -63,7 +64,7 @@ export default async function AdminUsers() {
           <div>
             <h1>Admin · User Management</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Manage all user accounts here, including inline editing, password reset, and deletion.
+              Manage all user accounts here, including inline editing, password reset, deletion, and weighted score totals.
             </p>
           </div>
           <span className="badge info">Users: {rows.length}</span>
@@ -80,7 +81,7 @@ export default async function AdminUsers() {
               <th>Total submissions</th>
               <th>Practiced problems</th>
               <th>Solved (&gt;0)</th>
-              <th>Total best score</th>
+              <th>Total weighted score</th>
               <th>Must change password</th>
               <th>Latest activity</th>
               <th>Actions</th>
