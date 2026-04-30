@@ -1,6 +1,10 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import CreateUserForm from './CreateUserForm';
+import NameImportForm from './NameImportForm';
+import UserTableRow from './UserTableRow';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function AdminUsers() {
   const session = await auth();
@@ -10,7 +14,6 @@ export default async function AdminUsers() {
 
   const users = await prisma.user.findMany({
     orderBy: { username: 'asc' },
-    where: { role: 'STUDENT' },
     include: {
       submissions: {
         include: { problem: true },
@@ -35,27 +38,35 @@ export default async function AdminUsers() {
 
     return {
       id: user.id,
+      name: user.name ?? '',
+      displayName: getUserDisplayName(user),
       username: user.username,
       mustChangePass: user.mustChangePass,
+      role: user.role,
       totalSubmissions: user.submissions.length,
       practicedProblems,
       solvedProblems,
       totalScore,
-      latestSubmission,
+      latestActivity: latestSubmission
+        ? `${latestSubmission.problem.code} · ${latestSubmission.status} · ${latestSubmission.score}`
+        : 'No submissions yet',
     };
   });
 
   return (
     <main className="page" style={{ display: 'grid', gap: 16 }}>
+      <CreateUserForm />
+      <NameImportForm />
+
       <section className="card">
         <div className="section-title">
           <div>
-            <h1>Admin · Student Progress</h1>
+            <h1>Admin · User Management</h1>
             <p className="subtle" style={{ marginTop: 8 }}>
-              Quick view of each student&apos;s practice activity and best-score progress.
+              Manage all user accounts here, including inline editing, password reset, and deletion.
             </p>
           </div>
-          <span className="badge info">Students: {rows.length}</span>
+          <span className="badge info">Users: {rows.length}</span>
         </div>
       </section>
 
@@ -63,30 +74,35 @@ export default async function AdminUsers() {
         <table className="table">
           <thead>
             <tr>
-              <th>User</th>
+              <th>Name</th>
+              <th>Username / E-mail</th>
+              <th>Role</th>
               <th>Total submissions</th>
               <th>Practiced problems</th>
               <th>Solved (&gt;0)</th>
               <th>Total best score</th>
               <th>Must change password</th>
               <th>Latest activity</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {rows.map((row) => (
-              <tr key={row.id}>
-                <td>{row.username}</td>
-                <td>{row.totalSubmissions}</td>
-                <td>{row.practicedProblems}</td>
-                <td>{row.solvedProblems}</td>
-                <td>{row.totalScore}</td>
-                <td>{row.mustChangePass ? 'Yes' : 'No'}</td>
-                <td className="subtle">
-                  {row.latestSubmission
-                    ? `${row.latestSubmission.problem.code} · ${row.latestSubmission.status} · ${row.latestSubmission.score}`
-                    : 'No submissions yet'}
-                </td>
-              </tr>
+              <UserTableRow
+                key={row.id}
+                id={row.id}
+                currentUserId={session.user.id}
+                name={row.name}
+                displayName={row.displayName}
+                username={row.username}
+                role={row.role}
+                mustChangePass={row.mustChangePass}
+                totalSubmissions={row.totalSubmissions}
+                practicedProblems={row.practicedProblems}
+                solvedProblems={row.solvedProblems}
+                totalScore={row.totalScore}
+                latestActivity={row.latestActivity}
+              />
             ))}
           </tbody>
         </table>

@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function LeaderboardPage() {
   const users = await prisma.user.findMany({
@@ -32,9 +33,9 @@ export default async function LeaderboardPage() {
         .map((item) => `${item.problemCode} ${item.score}`)
         .join(', ');
 
-      return { username: user.username, total, solvedProblems, tieBreaker, breakdown };
+      return { id: user.id, displayName: getUserDisplayName(user), total, solvedProblems, tieBreaker, breakdown };
     })
-    .sort((left, right) => right.total - left.total || right.solvedProblems - left.solvedProblems || left.tieBreaker - right.tieBreaker || left.username.localeCompare(right.username));
+    .sort((left, right) => right.total - left.total || right.solvedProblems - left.solvedProblems || left.tieBreaker - right.tieBreaker || left.displayName.localeCompare(right.displayName));
 
   return (
     <main className="page">
@@ -63,9 +64,9 @@ export default async function LeaderboardPage() {
           </thead>
           <tbody>
             {rows.map((row, index) => (
-              <tr key={row.username}>
+              <tr key={row.id}>
                 <td>{index + 1}</td>
-                <td>{row.username}</td>
+                <td>{row.displayName}</td>
                 <td>{row.solvedProblems}</td>
                 <td>{row.total}</td>
                 <td className="subtle">{row.breakdown || 'No positive scores yet · 暫未得分'}</td>

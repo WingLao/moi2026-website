@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import { requireUser } from '@/lib/require-auth';
+import { auth } from '@/lib/auth';
 import { listTeachingTopics } from '@/lib/teaching-content';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function TeachingPage() {
-  const session = await requireUser('/teaching');
+  const session = await auth();
   const topics = listTeachingTopics();
 
   return (
@@ -14,11 +15,11 @@ export default async function TeachingPage() {
             <div className="eyebrow">Teaching Hub · 教學專區</div>
             <h1>演算法教學</h1>
             <p className="subtle" style={{ marginTop: 10 }}>
-              這裡整理登入後可查看的演算法教材，先從動態規劃與 Josephus 開始。適合課堂講解、課後複習，以及比賽前快速回顧重點。
+              這裡整理可公開查看的演算法教材，先從動態規劃與 Josephus 開始。適合課堂講解、課後複習，以及比賽前快速回顧重點。
             </p>
           </div>
           <div className="inline-actions">
-            <span className="badge success">已登入：{session.user.username}</span>
+            {session?.user ? <span className="badge success">已登入：{getUserDisplayName(session.user)}</span> : <span className="badge info">公開內容 · 未登入可瀏覽</span>}
             <span className="badge info">主題數量：{topics.length}</span>
           </div>
         </div>

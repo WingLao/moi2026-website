@@ -82,6 +82,21 @@ Open: <http://localhost:3000>
 - `/admin/submissions`
 - `/admin/users`
 
+## Admin user tools
+Inside `/admin/users`, an authenticated `ADMIN` can:
+- manually create a new user account
+- choose `STUDENT` or `ADMIN`
+- set whether the user must change password on first login
+- upload a `Name.csv` file to map `E-mail` -> `User.name`
+
+Expected CSV headers:
+```csv
+Name,E-mail
+陳大文,student@example.com
+```
+
+If the database connection is healthy, importing names from the page updates existing users immediately.
+
 ## Scripts
 - `npm run prisma:generate`
 - `npm run prisma:migrate`
@@ -90,6 +105,7 @@ Open: <http://localhost:3000>
 - `npm run import:problems`
 - `npm run audit:data`
 - `npm run worker`
+- `npm run sync:user-names -- /absolute/path/to/Name.csv`
 
 ## Scoring rules
 - Every problem is worth 100 points.
@@ -104,7 +120,9 @@ Open: <http://localhost:3000>
 3. Open a problem detail page and submit code.
 4. Check `/submissions/[id]` for status / testcase results.
 5. Check `/leaderboard` after creating student submissions.
-6. Check `/admin/*` pages as admin.
+6. Open `/admin/users` and verify manual user creation works.
+7. Open `/admin/users` and upload `Name.csv` to verify name import.
+8. Check `/admin/*` pages as admin.
 
 ### Tested on this host
 - `npm run lint` ✅
@@ -115,6 +133,7 @@ Open: <http://localhost:3000>
 - submission creation + queue handoff to BullMQ worker ✅
 - worker judging of Python submission ✅ (finished with score 0 / WA)
 - worker handling of C++ compile error ✅
+- admin user-management UI for create/import added ✅
 
 ### Notes from testing
 - The default C++ template on the problem page originally used `#include <bits/stdc++.h>`, which fails with the host compiler toolchain on this Mac; compile-error handling was verified through that path.
@@ -124,7 +143,7 @@ Open: <http://localhost:3000>
 ## Known incomplete items
 - Statement PDF rendering/extraction into HTML is not implemented; pages currently show metadata only.
 - No hardened sandbox/isolation yet; host-run execution is for MVP/local testing only.
-- Admin UI is still lightweight, but student progress overview is available.
+- Admin UI is still lightweight, but student progress overview plus manual user creation / name import are available.
 - No polished contest rules, rate limiting, or production hardening yet.
 
 ## Railway deployment note

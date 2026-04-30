@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { listTeachingTopics } from '@/lib/teaching-content';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function Home() {
   const session = await auth();
@@ -39,11 +40,11 @@ export default async function Home() {
       </section>
 
       <section className="grid-tiles">
-        {[
+          {[
           { label: 'Problems · 題目', value: problemCount, note: 'Imported and listed for contestants 已匯入題目' },
           { label: 'Ready · 可判題', value: judgeableCount, note: 'Problems with complete testcase pairs 測資可正常判題' },
           { label: 'Issues · 資料提醒', value: warningProblemCount, note: 'Problems with PDF or testcase warnings 需要留意的題目' },
-          { label: 'Teaching · 教學', value: teachingCount, note: 'Protected algorithm notes 登入後可查看教材' },
+          { label: 'Teaching · 教學', value: teachingCount, note: 'Public algorithm notes 未登入也可查看教材' },
           { label: 'Students · 學生', value: studentCount, note: 'Seeded training accounts 已建立帳號' },
           { label: 'Submissions · 提交', value: submissionCount, note: 'Queued and judged attempts 已提交與判題' },
         ].map((item) => (
@@ -60,7 +61,7 @@ export default async function Home() {
           <div>
             <h2>Teaching Hub · 教學入口</h2>
             <p className="subtle" style={{ marginTop: 8 }}>
-              新增演算法教學專區，現已收錄動態規劃與 Josephus。未登入時會先導向登入頁，登入後返回教材內容。
+              新增演算法教學專區，現已收錄動態規劃與 Josephus。現在未登入也可直接查看教材內容。
             </p>
           </div>
           <div className="inline-actions">
@@ -106,7 +107,7 @@ export default async function Home() {
               <tbody>
                 {recentSubmissions.map((submission) => (
                   <tr key={submission.id}>
-                    <td>{submission.user.username}</td>
+                    <td>{getUserDisplayName(submission.user)}</td>
                     <td>{submission.problem.title}</td>
                     <td>{submission.status}</td>
                     <td>{submission.score}</td>

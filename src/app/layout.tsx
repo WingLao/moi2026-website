@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import { auth } from '@/lib/auth';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export const metadata: Metadata = {
   title: 'MOI2026 Contest Portal',
@@ -32,7 +33,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
             <div className="site-meta">
               {session?.user ? (
                 <>
-                  <span className="badge info">{session.user.username} · {session.user.role}</span>
+                  <span className="badge info">{getUserDisplayName(session.user)} · {session.user.role}</span>
                   <form action="/api/auth/signout" method="post">
                     <button type="submit" className="secondary">Sign out</button>
                   </form>

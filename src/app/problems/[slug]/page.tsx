@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { getProblemPdfDownloadUrl, getProblemPdfUrl } from '@/lib/pdf';
 import { prisma } from '@/lib/prisma';
+import { getProblemLearningSupport } from '@/lib/problem-learning-support';
 import { readProblemStatementBySlug } from '@/lib/problem-statements';
 import { renderStatementMarkdown } from '@/lib/statement-markdown';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -28,6 +30,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
   const pdfDownloadUrl = getProblemPdfDownloadUrl(problem.pdfFilename);
   const statementMarkdown = readProblemStatementBySlug(problem.slug);
+  const learningSupport = getProblemLearningSupport(problem, statementMarkdown);
   const warningItems = problem.warning?.split('; ').filter(Boolean) ?? [];
   const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
 
@@ -112,6 +115,25 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                 </div>
               ) : null}
             </div>
+
+            {learningSupport ? (
+              <div className="kv-grid" style={{ padding: 24, borderBottom: '1px solid var(--border)' }}>
+                <div className="kv">
+                  <div className="kv-label">簡短中文題目說明</div>
+                  <div className="kv-value" style={{ fontSize: 16, fontWeight: 600 }}>{learningSupport.shortDescriptionZh}</div>
+                  {learningSupport.rawDescription ? (
+                    <div className="small-text" style={{ marginTop: 10 }}>Original: {learningSupport.rawDescription}</div>
+                  ) : null}
+                </div>
+                <div className="kv">
+                  <div className="kv-label">Input 程式提示</div>
+                  <div className="kv-value" style={{ fontSize: 16, fontWeight: 600 }}>{learningSupport.inputHintZh}</div>
+                  {learningSupport.rawInputSpec ? (
+                    <div className="small-text" style={{ marginTop: 10 }}>Original: {learningSupport.rawInputSpec}</div>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
 
             {statementMarkdown ? (
               <article id="statement-body" className="statement-article">
@@ -199,6 +221,11 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                 </tbody>
               </table>
             </div>
+            {learningSupport ? (
+              <div className="small-text" style={{ marginTop: 12 }}>
+                Beginner / GA 提示：先看清楚 Input 需要不要讀資料，再用上方 testcase 檔名對照本地測試。
+              </div>
+            ) : null}
           </section>
 
           <section className="card">
@@ -219,7 +246,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                     {problem.submissions.map((submission) => (
                       <tr key={submission.id}>
                         <td><Link href={`/submissions/${submission.id}`} className="inline-link mono">{submission.id}</Link></td>
-                        <td>{submission.user.username}</td>
+                        <td>{getUserDisplayName(submission.user)}</td>
                         <td>{submission.language}</td>
                         <td>{submission.status}</td>
                         <td>{submission.score}</td>

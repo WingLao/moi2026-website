@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function SubmissionsPage() {
   const session = await auth();
@@ -35,7 +36,7 @@ export default async function SubmissionsPage() {
             {submissions.map((submission) => (
               <tr key={submission.id} style={{ borderTop: '1px solid #e4e9f2' }}>
                 <td style={{ padding: 12 }}>{submission.queuedAt.toLocaleString()}</td>
-                <td style={{ padding: 12 }}>{submission.user.username}</td>
+                <td style={{ padding: 12 }}>{getUserDisplayName(submission.user)}</td>
                 <td style={{ padding: 12 }}>{submission.problem.title}</td>
                 <td style={{ padding: 12 }}>{submission.language}</td>
                 <td style={{ padding: 12 }}>{submission.status}</td>

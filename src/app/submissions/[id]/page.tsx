@@ -1,6 +1,7 @@
 import { notFound, redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getUserDisplayName } from '@/lib/user-display';
 import AutoRefresh from './AutoRefresh';
 
 export default async function SubmissionDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -35,7 +36,7 @@ export default async function SubmissionDetail({ params }: { params: Promise<{ i
       <AutoRefresh active={isPending} />
       <section style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
         <h1 style={{ marginTop: 0 }}>Submission {submission.id}</h1>
-        <p style={{ margin: '8px 0' }}>{submission.user.username} · {submission.problem.title} · {submission.language}</p>
+        <p style={{ margin: '8px 0' }}>{getUserDisplayName(submission.user)} · {submission.problem.title} · {submission.language}</p>
         <p style={{ margin: '8px 0' }}>Status: <strong>{submission.status}</strong> · Score: <strong>{submission.score}</strong></p>
         {isPending ? <p style={{ margin: '8px 0', color: '#2155d6' }}>Judging is still in progress. This page auto-refreshes every 3 seconds.</p> : null}
         <p style={{ margin: '8px 0' }}>Queued: {submission.queuedAt.toLocaleString()}</p>

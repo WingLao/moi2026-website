@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { requireUser } from '@/lib/require-auth';
+import { auth } from '@/lib/auth';
 import { renderStatementMarkdown } from '@/lib/statement-markdown';
 import { getTeachingTopicBySlug, listTeachingTopics, readTeachingTopicMarkdown } from '@/lib/teaching-content';
 
 export default async function TeachingTopicDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  await requireUser(`/teaching/${slug}`);
+  const session = await auth();
 
   const topic = getTeachingTopicBySlug(slug);
   const markdown = readTeachingTopicMarkdown(slug);
@@ -29,7 +29,7 @@ export default async function TeachingTopicDetail({ params }: { params: Promise<
             </p>
           </div>
           <div className="status-stack">
-            <span className="badge success">登入後可觀看</span>
+            {session?.user ? <span className="badge success">已登入可提交與追蹤紀錄</span> : <span className="badge info">公開教材 · 未登入可閱讀</span>}
             <span className="badge info">{topic.subtitle}</span>
           </div>
         </div>

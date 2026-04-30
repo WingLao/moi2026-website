@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { getUserDisplayName } from '@/lib/user-display';
 
 export default async function AdminSubs() {
   const session = await auth();
@@ -21,7 +22,7 @@ export default async function AdminSubs() {
       <ul>
         {submissions.map((submission) => (
           <li key={submission.id}>
-            <Link href={`/submissions/${submission.id}`}>{submission.id}</Link> · {submission.user.username} · {submission.problem.title} · {submission.status} · {submission.score} · cases judged: {submission.results.length}
+            <Link href={`/submissions/${submission.id}`}>{submission.id}</Link> · {getUserDisplayName(submission.user)} · {submission.problem.title} · {submission.status} · {submission.score} · cases judged: {submission.results.length}
           </li>
         ))}
       </ul>
