@@ -60,10 +60,28 @@ const DYNAMIC_PROGRAMMING_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'dp-05-edit-distance', title: '05 · Edit Distance', level: 'DP', dataDirName: 'dp-05-edit-distance', statementFilename: 'dp-05-edit-distance.md' },
 ];
 
+// >>> TRAINING_PROBLEMS（由 build_moi_oj.py 產生，勿手改）
+const TRAINING_PROBLEMS: readonly ProblemCatalogEntry[] = [
+  { slug: 'train-l0-01a-stationery', title: '培訓 L0-01A · 買文具', level: 'P', dataDirName: 'train-l0-01a-stationery', statementFilename: 'train-l0-01a-stationery.md' },
+  { slug: 'train-l0-01b-clock', title: '培訓 L0-01B · 秒數換時間', level: 'P', dataDirName: 'train-l0-01b-clock', statementFilename: 'train-l0-01b-clock.md' },
+  { slug: 'train-l0-02a-distance', title: '培訓 L0-02A · 長跑總距離', level: 'P', dataDirName: 'train-l0-02a-distance', statementFilename: 'train-l0-02a-distance.md' },
+  { slug: 'train-l0-02b-average', title: '培訓 L0-02B · 平均分', level: 'P', dataDirName: 'train-l0-02b-average', statementFilename: 'train-l0-02b-average.md' },
+  { slug: 'train-l0-03a-ticket', title: '培訓 L0-03A · 車票價格', level: 'P', dataDirName: 'train-l0-03a-ticket', statementFilename: 'train-l0-03a-ticket.md' },
+  { slug: 'train-l0-03b-triangle', title: '培訓 L0-03B · 三角形', level: 'P', dataDirName: 'train-l0-03b-triangle', statementFilename: 'train-l0-03b-triangle.md' },
+  { slug: 'train-l0-04a-digits', title: '培訓 L0-04A · 數字和', level: 'P', dataDirName: 'train-l0-04a-digits', statementFilename: 'train-l0-04a-digits.md' },
+  { slug: 'train-l0-04b-collatz', title: '培訓 L0-04B · 冰雹數', level: 'P', dataDirName: 'train-l0-04b-collatz', statementFilename: 'train-l0-04b-collatz.md' },
+  { slug: 'train-l0-07a-positions', title: '培訓 L0-07A · 找出所有位置', level: 'P', dataDirName: 'train-l0-07a-positions', statementFilename: 'train-l0-07a-positions.md' },
+  { slug: 'train-l0-07b-peak', title: '培訓 L0-07B · 山頂', level: 'P', dataDirName: 'train-l0-07b-peak', statementFilename: 'train-l0-07b-peak.md' },
+  { slug: 'train-l0-08a-swaps', title: '培訓 L0-08A · 冒泡交換次數', level: 'P', dataDirName: 'train-l0-08a-swaps', statementFilename: 'train-l0-08a-swaps.md' },
+  { slug: 'train-l0-08b-hindex', title: '培訓 L0-08B · H指數', level: 'P', dataDirName: 'train-l0-08b-hindex', statementFilename: 'train-l0-08b-hindex.md' },
+];
+// <<< TRAINING_PROBLEMS
+
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
   ...F5B_BEGINNER_PROBLEMS,
   ...GREEDY_ALGORITHM_PROBLEMS,
   ...DYNAMIC_PROGRAMMING_PROBLEMS,
+  ...TRAINING_PROBLEMS,
   { slug: 'p-gaps', title: 'gaps', level: 'P', statementFilename: 'p-gaps.md', pdfFilename: 'P-gaps.pdf' },
   { slug: 'p-letters', title: 'letters', level: 'P', statementFilename: 'p-letters.md', pdfFilename: 'P-letters.pdf' },
   { slug: 'p-round', title: 'round', level: 'P', statementFilename: 'p-round.md', pdfFilename: 'P-round.pdf' },
