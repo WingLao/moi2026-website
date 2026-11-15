@@ -33,6 +33,11 @@ def limit(seconds):
     def pre():
         cpu = int(seconds) + 1
         resource.setrlimit(resource.RLIMIT_CPU, (cpu, cpu + 1))
+        try:  # official graders may recurse deeply (like `ulimit -s unlimited` on contest judges)
+            hard = resource.getrlimit(resource.RLIMIT_STACK)[1]
+            resource.setrlimit(resource.RLIMIT_STACK, (hard, hard))
+        except (ValueError, OSError):
+            pass
         os.setsid()
     return pre
 
@@ -108,7 +113,7 @@ def parse_score(out, err, ms):
 
 
 def main():
-    task_dir, source, work = sys.argv[1:4]
+    task_dir, source, work = (os.path.abspath(p) for p in sys.argv[1:4])
     prob = json.load(open(os.path.join(task_dir, 'problem.json')))
     ttype, params, tl = prob['task_type'], prob.get('task_type_params', []), float(prob['time_limit'])
     graders = os.path.join(task_dir, 'graders')

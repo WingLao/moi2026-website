@@ -194,6 +194,7 @@ const CONTEST_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'noip2025-p14637', title: 'NOIP2025 Value of a Tree · 樹的價值', level: 'NOIP', dataDirName: 'noip2025-p14637', statementFilename: 'noip2025-p14637.md', timeLimitMs: 2000, memoryLimitMb: 512 },
   { slug: 'noip2025-p14638', title: 'NOIP2025 Sequence Queries · 序列詢問', level: 'NOIP', dataDirName: 'noip2025-p14638', statementFilename: 'noip2025-p14638.md', timeLimitMs: 3000, memoryLimitMb: 512 },
   { slug: 'noi2024-p10785', title: 'NOI2024 Sets · 集合', level: 'NOI', dataDirName: 'noi2024-p10785', statementFilename: 'noi2024-p10785.md', timeLimitMs: 1000, memoryLimitMb: 512 },
+  { slug: 'noi2024-p10786', title: 'NOI2024 Millionaire · 百萬富翁', level: 'NOI', dataDirName: 'noi2024-p10786', statementFilename: 'noi2024-p10786.md', timeLimitMs: 6000, memoryLimitMb: 512 },
   { slug: 'noi2024-p10787', title: 'NOI2024 Orienting a Tree · 樹的定向', level: 'NOI', dataDirName: 'noi2024-p10787', statementFilename: 'noi2024-p10787.md', timeLimitMs: 6000, memoryLimitMb: 2048 },
   { slug: 'noi2024-p10788', title: 'NOI2024 Fractions · 分數', level: 'NOI', dataDirName: 'noi2024-p10788', statementFilename: 'noi2024-p10788.md', timeLimitMs: 9000, memoryLimitMb: 512 },
   { slug: 'noi2024-p10789', title: 'NOI2024 Mountain Climbing · 登山', level: 'NOI', dataDirName: 'noi2024-p10789', statementFilename: 'noi2024-p10789.md', timeLimitMs: 2000, memoryLimitMb: 2048 },
