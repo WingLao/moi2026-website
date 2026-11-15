@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import { LEVEL_LABELS, SUBMISSION_STATUS_LABELS } from '@/lib/status-labels';
 import { splitTitle } from '@/lib/title';
 
-const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'DP', 'P', 'J', 'S', 'IOI'] as const;
+const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'DP', 'P', 'J', 'S', 'CSPJ', 'CSPS', 'NOIP', 'NOI', 'IOI'] as const;
 
 export default async function ProblemsPage({
   searchParams,

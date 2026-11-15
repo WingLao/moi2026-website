@@ -2,7 +2,7 @@
 ## Description · 題目說明
 
 :::en
-A lemonade stand sells each cup for $5. Customers pay one by one with a $5, $10 or $20 bill. You start with no change. Decide whether every customer can receive the correct change.
+A lemonade stand sells each cup for \$5. Customers pay one by one with a \$5, \$10 or \$20 bill. You start with no change. Decide whether every customer can receive the correct change.
 :::
 
 :::zh
@@ -47,7 +47,7 @@ false
 ## Hints · 提示
 
 :::en
-Count your $5 and $10 bills. For a $20 bill, give $10 + $5 if you can, so you keep more $5 bills for later customers.
+Count your \$5 and \$10 bills. For a \$20 bill, give \$10 + \$5 if you can, so you keep more \$5 bills for later customers.
 :::
 
 :::zh

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import 'katex/dist/katex.min.css';
 import './globals.css';
 import Bi from '@/components/Bi';
 import SignOutButton from '@/components/SignOutButton';

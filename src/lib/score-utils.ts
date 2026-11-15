@@ -1,4 +1,4 @@
-type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'IOI';
+type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'CSPJ' | 'CSPS' | 'NOIP' | 'NOI' | 'IOI';
 
 const LEVEL_MULTIPLIER: Record<ProblemLevel, number> = {
   Beginner: 0.1,
@@ -7,6 +7,10 @@ const LEVEL_MULTIPLIER: Record<ProblemLevel, number> = {
   P: 1,
   J: 2,
   S: 3,
+  CSPJ: 2,
+  CSPS: 3,
+  NOIP: 3,
+  NOI: 4,
   IOI: 4,
 };
 

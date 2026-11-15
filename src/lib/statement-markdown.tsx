@@ -1,11 +1,25 @@
+import katex from 'katex';
 import type { ReactNode } from 'react';
 
-function renderInline(text: string, keyPrefix: string) {
-  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\))/g);
+function renderMath(tex: string, key: string, displayMode = false) {
+  const html = katex.renderToString(tex, { throwOnError: false, displayMode, strict: false });
+  return <span key={key} className={displayMode ? 'math-display' : 'math-inline'} dangerouslySetInnerHTML={{ __html: html }} />;
+}
+
+function renderInline(rawText: string, keyPrefix: string) {
+  // \$ is a literal dollar sign (not maths)
+  const text = rawText.replace(/\\\$/g, '\u0000');
+  const parts = text.split(/(`[^`]+`|\$\$[^$]+\$\$|\$[^$\n]+\$|\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\))/g);
 
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={`${keyPrefix}-${index}`}>{part.slice(1, -1)}</code>;
+    }
+    if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
+      return renderMath(part.slice(2, -2), `${keyPrefix}-${index}`, true);
+    }
+    if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
+      return renderMath(part.slice(1, -1), `${keyPrefix}-${index}`);
     }
     const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
     if (link) {
@@ -20,7 +34,7 @@ function renderInline(text: string, keyPrefix: string) {
       return <strong key={`${keyPrefix}-${index}`}>{part.slice(2, -2)}</strong>;
     }
 
-    return part;
+    return part.replace(/\u0000/g, '$');
   });
 }
 

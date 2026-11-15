@@ -25,5 +25,9 @@ export const LEVEL_LABELS: Record<string, { en: string; zh: string }> = {
   P: { en: 'MOI Group P', zh: 'MOI P 組' },
   J: { en: 'MOI Group J', zh: 'MOI J 組' },
   S: { en: 'MOI Group S', zh: 'MOI S 組' },
+  CSPJ: { en: 'CSP-J', zh: 'CSP-J 入門級' },
+  CSPS: { en: 'CSP-S', zh: 'CSP-S 提高級' },
+  NOIP: { en: 'NOIP', zh: 'NOIP 聯賽' },
+  NOI: { en: 'NOI', zh: 'NOI 全國賽' },
   IOI: { en: 'IOI', zh: 'IOI 國際賽' },
 };

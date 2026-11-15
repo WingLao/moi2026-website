@@ -16,10 +16,10 @@ A bus fare depends on the passenger's **age** and the **boarding time**:
 
 | Age | Normal | Peak hours |
 |---|---|---|
-| 0–5 | $0 | $0 |
-| 6–18 | $4 | $5 |
-| 19–64 | $6 | $8 |
-| 65 or above | $3 | $3 |
+| 0–5 | \$0 | \$0 |
+| 6–18 | \$4 | \$5 |
+| 19–64 | \$6 | \$8 |
+| 65 or above | \$3 | \$3 |
 
 Peak hours are 7, 8, 9 and 17, 18, 19 (h is the hour of boarding). Given a passenger's age and boarding hour, print the fare.
 :::
@@ -72,7 +72,7 @@ One integer: the fare in dollars.
 ## Explanation 1 · 說明 1
 
 :::en
-Age 12, hour 8 (peak hours) → $5.
+Age 12, hour 8 (peak hours) → \$5.
 
 (A diagram is on the unit page of the training website.)
 :::
@@ -98,7 +98,7 @@ Age 12, hour 8 (peak hours) → $5.
 ## Explanation 2 · 說明 2
 
 :::en
-Age 70 ≥ 65 → always $3, whatever the time.
+Age 70 ≥ 65 → always \$3, whatever the time.
 :::
 
 :::zh

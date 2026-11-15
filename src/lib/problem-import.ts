@@ -18,6 +18,8 @@ export async function importProblems(projectRoot?: string) {
       update: {
         title: meta.title,
         level,
+        ...(meta.timeLimitMs ? { timeLimitMs: meta.timeLimitMs } : {}),
+        ...(meta.memoryLimitMb ? { memoryLimitMb: meta.memoryLimitMb } : {}),
         pdfFilename: meta.pdfFilename,
         pdfPath: audit.pdfPath ? toStoredPath(audit.pdfPath, root) : null,
         isJudgeable: true,
@@ -28,6 +30,8 @@ export async function importProblems(projectRoot?: string) {
         slug: meta.slug,
         title: meta.title,
         level,
+        ...(meta.timeLimitMs ? { timeLimitMs: meta.timeLimitMs } : {}),
+        ...(meta.memoryLimitMb ? { memoryLimitMb: meta.memoryLimitMb } : {}),
         pdfFilename: meta.pdfFilename,
         pdfPath: audit.pdfPath ? toStoredPath(audit.pdfPath, root) : null,
       },

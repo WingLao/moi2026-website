@@ -1,0 +1,4 @@
+ALTER TYPE "public"."ProblemLevel" ADD VALUE IF NOT EXISTS 'CSPJ';
+ALTER TYPE "public"."ProblemLevel" ADD VALUE IF NOT EXISTS 'CSPS';
+ALTER TYPE "public"."ProblemLevel" ADD VALUE IF NOT EXISTS 'NOIP';
+ALTER TYPE "public"."ProblemLevel" ADD VALUE IF NOT EXISTS 'NOI';

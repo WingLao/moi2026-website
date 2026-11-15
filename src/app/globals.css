@@ -922,3 +922,9 @@ button:not(.secondary) .bi-zh,
   margin: 10px 0 0;
   padding-left: 18px;
 }
+
+.math-display {
+  display: block;
+  overflow-x: auto;
+  margin: 8px 0;
+}

@@ -20,6 +20,10 @@ enum ProblemLevel {
   J
   S
   IOI
+  CSPJ
+  CSPS
+  NOIP
+  NOI
 }
 
 enum SubmissionStatus {

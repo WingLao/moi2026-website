@@ -24,7 +24,7 @@ export default async function AdminUsers() {
   }).catch(() => []);
 
   const rows = users.map((user) => {
-    const bestByProblem = new Map<string, { score: number; level: 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'IOI' }>();
+    const bestByProblem = new Map<string, { score: number; level: 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'CSPJ' | 'CSPS' | 'NOIP' | 'NOI' | 'IOI' }>();
     for (const submission of user.submissions) {
       const previous = bestByProblem.get(submission.problemId);
       if (!previous || submission.score > previous.score) {
