@@ -83,12 +83,28 @@ async function judgeSubmission(id: string) {
           result.status = 'TLE';
         } else if (run.status !== 0) {
           result.status = 'RE';
-        } else if (normalizeOutput(result.stdout) === normalizeOutput(expected)) {
-          result.status = 'AC';
-          result.score = testCase.score;
-          totalScore += result.score;
         } else {
-          result.status = 'WA';
+          // Problems whose answer is not unique ship a checker.py next to the testcases:
+          // python3 checker.py <input> <expected> <contestant_output>, exit code 0 = accepted.
+          const inputPath = resolveStoredPath(testCase.inputPath);
+          const checkerPath = path.join(path.dirname(inputPath), 'checker.py');
+          let accepted: boolean;
+          if (fs.existsSync(checkerPath)) {
+            const outPath = path.join(workDir, `out-${testCase.index}.txt`);
+            fs.writeFileSync(outPath, result.stdout);
+            const check = spawnSync('python3', [checkerPath, inputPath, resolveStoredPath(testCase.outputPath), outPath], { encoding: 'utf8', timeout: 20000 });
+            accepted = check.status === 0;
+            result.message = (check.stdout || '').trim().slice(0, 200);
+          } else {
+            accepted = normalizeOutput(result.stdout) === normalizeOutput(expected);
+          }
+          if (accepted) {
+            result.status = 'AC';
+            result.score = testCase.score;
+            totalScore += result.score;
+          } else {
+            result.status = 'WA';
+          }
         }
       }
 

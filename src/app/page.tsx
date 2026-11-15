@@ -40,6 +40,7 @@ export default async function Home() {
           ) : (
             <Link href="/login" className="button-link secondary"><Bi en="Log in" zh="登入" /></Link>
           )}
+          <Link href="/quiz" className="button-link secondary"><Bi en="CSP multiple-choice quiz" zh="CSP 選擇題練習" /></Link>
           <Link href="/leaderboard" className="button-link secondary"><Bi en="Leaderboard" zh="排名榜" /></Link>
         </div>
       </section>

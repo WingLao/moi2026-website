@@ -27,6 +27,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
               <nav className="site-nav">
                 <Link href="/problems"><Bi en="Problems" zh="題目" /></Link>
                 <Link href="/submissions"><Bi en="Submissions" zh="提交紀錄" /></Link>
+                <Link href="/quiz"><Bi en="CSP Quiz" zh="選擇題" /></Link>
                 <Link href="/leaderboard"><Bi en="Leaderboard" zh="排名榜" /></Link>
                 <Link href="/teaching"><Bi en="Lessons" zh="演算法教學" /></Link>
                 {isAdmin ? <Link href="/admin"><Bi en="Admin" zh="管理" /></Link> : null}
