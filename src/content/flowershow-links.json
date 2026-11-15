@@ -179,6 +179,13 @@
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-03%E3%83%BB%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"
   }
  ],
+ "beginner-f5b-14-cumulative-sum": [
+  {
+   "en": "Unit L1-03 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-03 加練：前綴和與餘數計數",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8"
+  }
+ ],
  "beginner-f5b-01-number-sequences": [
   {
    "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
@@ -242,6 +249,48 @@
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
   }
  ],
+ "beginner-f5b-07-append-list": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-10-even-above-average": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-12-replace-below-average": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-13-standard-deviation": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-20-inventory-valuation": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-09-filter-transform": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
  "moi-seat": [
   {
    "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
@@ -277,11 +326,25 @@
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
   }
  ],
+ "beginner-f5b-15-normalize-data": [
+  {
+   "en": "Unit L0-07 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-07 加練：for + if 搜尋",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B"
+  }
+ ],
  "beginner-f5b-08-list-statistics": [
   {
    "en": "Unit L0-07 lesson — this is extra practice for it (in Chinese)",
    "zh": "單元 L0-07 加練：for + if 搜尋",
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B"
+  }
+ ],
+ "beginner-f5b-28-selection-sort-median": [
+  {
+   "en": "Unit L0-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-08 加練：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
   }
  ],
  "moi-neighbor": [
@@ -319,6 +382,13 @@
   {
    "en": "Level L0 overview — contest check, needs units L0-08 (in Chinese)",
    "zh": "L0 真題檢驗（需要單元 L0-08）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-16-character-frequency": [
+  {
+   "en": "Unit L0-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-09 加練：字串與字元",
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
   }
  ],
@@ -371,6 +441,13 @@
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
   }
  ],
+ "beginner-f5b-31-matrix-transpose": [
+  {
+   "en": "Unit L0-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-12 加練：二維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
  "beginner-f5b-29-row-sum-champion": [
   {
    "en": "Unit L0-12 lesson — this is extra practice for it (in Chinese)",
@@ -403,6 +480,13 @@
   {
    "en": "Unit L1-02 lesson — this is extra practice for it (in Chinese)",
    "zh": "單元 L1-02 加練：排序與運算量估算",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "beginner-f5b-17-two-sum": [
+  {
+   "en": "Unit L1-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-04 加練：差分與雙指標",
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
   }
  ],
