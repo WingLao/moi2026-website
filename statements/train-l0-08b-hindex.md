@@ -1,59 +1,81 @@
-# 培訓 L0-08B · H指數 (hindex)
+<!-- bilingual -->
+## Note · 注意
 
-> 培訓路線網站的正式練習題（不是 MOI 真題）。圖解和課堂練習在培訓路線網站的單元頁。
+:::en
+A practice problem from the training-path website (not a past MOI problem). Language: Python or C++. Read from standard input (keyboard) and print to standard output (screen).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`hindex`|
-|組別|`P`（培訓 L0-08）|
-|測資目錄|`data/P/train-l0-08b-hindex`|
-|對齊範例|`train-l0-08b-hindex-0.in` / `train-l0-08b-hindex-0.out`|
+:::zh
+培訓路線網站的正式練習題（不是 MOI 真題）。語言：Python 或 C++。從標準輸入（鍵盤）讀入，輸出到標準輸出（螢幕）。
+:::
 
-| 項目 | 內容 |
-|---|---|
-| 題目名稱 | H指數 |
-| 英文名稱 / 目錄 | `hindex` |
-| 語言 | Python 或 C++ |
-| 原始碼檔名 | `hindex.py` 或 `hindex.cpp` |
-| 輸入 | 標準輸入（鍵盤） |
-| 輸出 | 標準輸出（螢幕） |
-| 題目類型 | 傳統型 |
+## Description · 題目說明
 
-## 題目說明
+:::en
+A student has written n articles; article i has been cited cᵢ times.
 
+The **H-index** is the largest h such that there are h articles each cited **at least h times**. Print the H-index.
+:::
+
+:::zh
 一位同學寫了 n 篇文章，第 i 篇被引用了 cᵢ 次。
 
 **H 指數**是最大的 h：可以找到 h 篇文章，每篇都被引用**最少 h 次**。請輸出 H 指數。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
+:::en
+| Line | Content |
+|---|---|
+| 1 | the integer n |
+| 2 | n integers c₁ … cₙ |
+:::
+
+:::zh
 | 行 | 內容 |
 |---|---|
 | 第 1 行 | 整數 n |
 | 第 2 行 | n 個整數 c₁ … cₙ |
+:::
 
-## 輸出格式
+## Output · 輸出格式
 
+:::en
+One integer: the H-index.
+:::
+
+:::zh
 一個整數：H 指數。
+:::
 
-## 樣例 1
-
-輸入：
+## Sample Input 1 · 範例輸入 1
 
 ```text
 5
 3 0 6 1 5
 ```
 
-輸出：
+## Sample Output 1 · 範例輸出 1
 
 ```text
 3
 ```
 
+## Explanation 1 · 說明 1
 
-**樣例 1 解釋**
+:::en
+Sort from large to small, then check each article:
 
+| Article (after sorting) | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| Citations | 6 | 5 | 3 | 1 | 0 |
+| Citations ≥ article number? | ✓ | ✓ | ✓ | ✗ | ✗ |
+
+The last ✓ is at article 3, so the H-index is 3.
+:::
+
+:::zh
 先由大到小排好，再逐篇檢查：
 
 | 第幾篇（排好後） | 1 | 2 | 3 | 4 | 5 |
@@ -62,42 +84,48 @@
 | 次數 ≥ 第幾篇？ | ✓ | ✓ | ✓ | ✗ | ✗ |
 
 最後一個 ✓ 在第 3 篇，所以 H 指數 = 3。
+:::
 
-## 樣例 2
-
-輸入：
+## Sample Input 2 · 範例輸入 2
 
 ```text
 3
 1 3 1
 ```
 
-輸出：
+## Sample Output 2 · 範例輸出 2
 
 ```text
 1
 ```
 
+## Explanation 2 · 說明 2
 
-**樣例 2 解釋**
+:::en
+After sorting: 3, 1, 1. Article 1: 3 ≥ 1 ✓; article 2: 1 ≥ 2 ✗. The H-index is 1.
+:::
 
+:::zh
 排好後是 3、1、1：第 1 篇 3 ≥ 1 ✓；第 2 篇 1 ≥ 2 ✗。H 指數 = 1。
+:::
 
-## 數據範圍
+## Subtasks · 數據範圍
 
-| 測試點 | n |
+| Tests 測試點 | n |
 |---|---|
 | 1–3 | 1 ≤ n ≤ 10 |
 | 4–10 | 1 ≤ n ≤ 1000 |
 
+All tests: 0 ≤ cᵢ ≤ 1000.
+
 全部測試點：0 ≤ cᵢ ≤ 1000。
 
-## 提交前檢查
+## Before You Submit · 提交前檢查
 
-| 檢查 | Python | C++ |
+| Check 檢查 | Python | C++ |
 |---|---|---|
-| 兩個樣例都通過 | ☐ | ☐ |
-| 最大數據會不會超時？（看數據範圍） | ☐ | ☐ |
-| 答案會不會超過 int？ | 不用擔心 | ☐ 用 `long long` |
-| 讀入寫法 | `input().split()` | `cin >>` |
-| 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |
+| Both samples pass 兩個樣例都通過 | ☐ | ☐ |
+| Fast enough for the largest data? 最大數據會不會超時？ | ☐ | ☐ |
+| Can the answer exceed int? 答案會不會超過 int？ | No need to worry 不用擔心 | ☐ use `long long` 用 `long long` |
+| How to read input 讀入寫法 | `input().split()` | `cin >>` |
+| Removed debug output (e.g. "Please enter") 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |

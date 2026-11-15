@@ -1,34 +1,41 @@
-# 08 · List Statistics with NumPy
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-08-list-statistics` 測資。
+:::en
+Read 5 integers and print the maximum, the minimum and the average.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-08-list-statistics`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-08-list-statistics`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-08-list-statistics-0.in` / `f5b-08-list-statistics-0.out`|
+:::zh
+讀入 5 個整數，輸出最大值、最小值和平均值。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input 5 integers and display the maximum, minimum, and average.
+:::en
+One line with 5 integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行，5 個整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Three lines: `Max:` value, `Min:` value, `Average:` value with 2 decimal places.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+三行：`Max:` 最大值、`Min:` 最小值、`Average:` 平均值（保留 2 位小數）。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 10 20 30 40 50
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Max: 50
@@ -36,11 +43,24 @@ Min: 10
 Average: 30.00
 ```
 
-## 提示
+## Hints · 提示
 
-- Format the average to 2 decimal places.
+:::en
+- Format the average to 2 decimal places, e.g. `f"{avg:.2f}"`.
+:::
 
-## 限制
+:::zh
+- 平均值保留 2 位小數，例如 `f"{avg:.2f}"`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

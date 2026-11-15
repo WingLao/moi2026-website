@@ -1,45 +1,65 @@
-# 24 · Match Players with Equipment
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-24-match-equipment` 測資。
+:::en
+Each player needs equipment whose strength is at least the player's requirement. Each piece of equipment can be used by only one player. Print the maximum number of players who can get equipment.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-24-match-equipment`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-24-match-equipment`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-24-match-equipment-0.in` / `f5b-24-match-equipment-0.out`|
+:::zh
+每位球員需要強度不低於他要求的器材，每件器材只可以給一位球員。輸出最多有多少位球員能配到器材。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input player requirements and equipment strengths. Print the maximum number of matched players.
+:::en
+Line 1: the players' requirements. Line 2: the equipment strengths. Numbers are separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+第 1 行：各球員的要求。第 2 行：各器材的強度。數字以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One integer: the maximum number of matched players.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一個整數：最多能配對的球員數。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 1 2
 2 3 4
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2
 ```
 
-## 提示
+## Hints · 提示
 
-- Sort both lists and use two pointers. Each equipment item can be used once.
+:::en
+- Sort both lists and use two pointers.
+:::
 
-## 限制
+:::zh
+- 把兩個列表排序，再用雙指針。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

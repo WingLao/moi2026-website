@@ -1,48 +1,69 @@
-# 04 · Task Scheduler
+<!-- bilingual -->
+## Description · 題目說明
 
-> Greedy Algorithm 練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/GA/ga-04-task-scheduler` 測資。
+:::en
+A CPU must finish a list of tasks. Each task is an uppercase letter (its type). Two tasks of the same type must be at least `cooldown` time units apart. Each task takes 1 time unit and the CPU may stay idle. Find the shortest total time.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`ga-04-task-scheduler`|
-|組別|`GA`|
-|難度|`Medium`|
-|測資目錄|`data/GA/ga-04-task-scheduler`|
-|來源|`LeetCode 621, rewritten as a contest-style problem`|
-|對齊範例|`ga-04-task-scheduler-0.in` / `ga-04-task-scheduler-0.out`|
+:::zh
+CPU 要完成一連串任務，每個任務用一個大寫字母表示類型。相同類型的兩個任務之間最少要相隔 `cooldown` 個時間單位。每個任務需時 1 個單位，CPU 可以閒置。求完成所有任務的最短總時間。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-A CPU must finish a sequence of tasks. Each task has an uppercase letter type. The same task type must be separated by at least `cooldown` time units. The CPU may be idle. Find the shortest total time.
+:::en
+- Line 1: two integers `n` and `cooldown`.
+- Line 2: a string of length `n` made of `A`–`Z`; each character is one task.
+:::
 
-## 輸入格式
+:::zh
+- 第 1 行：兩個整數 `n` 和 `cooldown`。
+- 第 2 行：長度為 `n`、由 `A`–`Z` 組成的字串，每個字元是一個任務。
+:::
 
-- The first line contains two integers `n` and `cooldown`.
-- The second line contains a string of length `n` using uppercase letters `A` to `Z`. Each character is one task.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Print the minimum total time.
+:::
 
-- Print the minimum total time needed to complete all tasks.
+:::zh
+輸出最短總時間。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 6 2
 AAABBB
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 8
 ```
 
-## 貪婪提示
+## Hints · 提示
 
-Let `max_freq` be the largest task frequency and `max_count` be the number of task types with that frequency. A lower bound is `(max_freq - 1) * (cooldown + 1) + max_count`; the answer is the maximum of this value and `n`.
+:::en
+Let `max_freq` be the highest task count and `max_count` the number of task types with that count. The answer is the larger of `(max_freq - 1) * (cooldown + 1) + max_count` and `n`.
+:::
 
-## 限制
+:::zh
+設 `max_freq` 是出現最多的次數，`max_count` 是有這個次數的任務類型數目。答案是 `(max_freq - 1) * (cooldown + 1) + max_count` 和 `n` 之中較大的一個。
+:::
 
-- 1 <= n <= 100000
-- 0 <= cooldown <= 100000
+## Constraints · 限制
+
+:::en
+- 1 ≤ n ≤ 100000
+- 0 ≤ cooldown ≤ 100000
 - Tasks are uppercase English letters.
+:::
+
+:::zh
+- 1 ≤ n ≤ 100000
+- 0 ≤ cooldown ≤ 100000
+- 任務是大寫英文字母。
+:::

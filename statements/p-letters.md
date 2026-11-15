@@ -1,41 +1,49 @@
-# 填字遊戲 (letters)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+You are given a string of lowercase letters and underscores `_`. An underscore is never the first or last character, and no two underscores are next to each other.
 
-| 項目 | 內容 |
-|---|---|
-|任務名稱|`letters`|
-|組別|`P`|
-|時限|0.5 秒|
-|測試數據數目|10|
-|記憶限制|256M|
-|測資目錄|`data/P/letters`|
-|原始 PDF|`P-letters.pdf`|
-|對齊範例|`letters-0.in` / `letters-0.out`|
+Replace every underscore with a lowercase letter that lies **between** its left and right neighbours in alphabetical order (equal is allowed). For example, in `"f_h"` (or `"h_f"`) the underscore can be `f`, `g` or `h`.
 
-## 題目說明
+Print every possible way to fill in the string.
+:::
 
-給定一個只含有小階英文字母及下劃線的字串。字串內含有若干個下劃線字符，這些下劃線並不會出現在最前或最後一個位置，亦不會出現在連續的位置上。
+:::zh
+給定一個只含小寫英文字母和底線 `_` 的字串。底線不會出現在第一個或最後一個位置，也不會連續出現。
 
-現在我們要把所有的下劃線位置都換上小階字母，條件是這些填上的字母其字母順序必須在其左右兩個字母順序之間（可以相同於）。例如字串 `"f_h"`（或 `"h_f"`），可以填在下劃線上的字母包括 `"f"`, `"g"` 及 `"h"`。
+把每個底線換成一個小寫字母，條件是這個字母的字母順序必須在它左右兩個字母**之間**（可以相同）。例如 `"f_h"`（或 `"h_f"`）中，底線可以填 `f`、`g` 或 `h`。
 
-我們想找出所有滿足上面要求的字母填寫方法。
+請找出所有符合要求的填法。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
-輸入只有一行，其上有一個合符上述說明的字串。
+:::en
+One line with such a string.
+:::
 
-## 輸出格式
+:::zh
+只有一行，一個符合上述說明的字串。
+:::
 
-輸出有若干行，每行上都有一個字串，每行上的字串長度都和輸入的字串長度相同。輸出字串的順序必須為字典字串順序由小至大逐一輸出。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One filled string per line, each the same length as the input. Print them in dictionary order, from smallest to largest.
+:::
+
+:::zh
+每行輸出一個填好的字串，長度與輸入相同。按字典序由小到大輸出。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 a_d_c
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 aadcc
@@ -48,11 +56,20 @@ addcc
 adddc
 ```
 
-## 特別條件
+## Special Cases · 特殊條件
 
-- 有最少 1 個數據的字串內只有 1 個 `'_'`
-- 有最少 1 個數據的字串內只有 2 個 `'_'`
-- 有最少 1 個數據的字串內只有 3 個 `'_'`
-- 所有數據的字串總長度都少於 80
-- 所有數據所含有的 `'_'` 字符都少於或等於 10
-- 每個測試數據輸出的總字串數目都少於 150,000
+:::en
+- At least one test has exactly 1 `_`, one has exactly 2, and one has exactly 3.
+- Every string is shorter than 80 characters.
+- Every string has at most 10 `_`.
+- Each test prints fewer than 150,000 strings.
+- Time limit: 0.5 s.
+:::
+
+:::zh
+- 最少有 1 個數據只有 1 個 `_`，最少 1 個只有 2 個，最少 1 個只有 3 個。
+- 所有字串長度都少於 80。
+- 所有字串的 `_` 都少於或等於 10 個。
+- 每個測試數據輸出的字串總數少於 150,000。
+- 時限：0.5 秒。
+:::

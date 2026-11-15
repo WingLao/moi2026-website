@@ -1,92 +1,109 @@
-# 培訓 L0-02A · 長跑總距離 (distance)
+<!-- bilingual -->
+## Note · 注意
 
-> 培訓路線網站的正式練習題（不是 MOI 真題）。圖解和課堂練習在培訓路線網站的單元頁。
+:::en
+A practice problem from the training-path website (not a past MOI problem). Language: Python or C++. Read from standard input (keyboard) and print to standard output (screen).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`distance`|
-|組別|`P`（培訓 L0-02）|
-|測資目錄|`data/P/train-l0-02a-distance`|
-|對齊範例|`train-l0-02a-distance-0.in` / `train-l0-02a-distance-0.out`|
+:::zh
+培訓路線網站的正式練習題（不是 MOI 真題）。語言：Python 或 C++。從標準輸入（鍵盤）讀入，輸出到標準輸出（螢幕）。
+:::
 
-| 項目 | 內容 |
-|---|---|
-| 題目名稱 | 長跑總距離 |
-| 英文名稱 / 目錄 | `distance` |
-| 語言 | Python 或 C++ |
-| 原始碼檔名 | `distance.py` 或 `distance.cpp` |
-| 輸入 | 標準輸入（鍵盤） |
-| 輸出 | 標準輸出（螢幕） |
-| 題目類型 | 傳統型 |
+## Description · 題目說明
 
-## 題目說明
+:::en
+n students run in a long-distance race at sports day. Each runs k laps, and each lap is L metres. How many metres do they run altogether?
+:::
 
-運動會有 n 名同學參加長跑。每人跑 k 圈，每圈 L 米。
+:::zh
+運動會有 n 名同學參加長跑。每人跑 k 圈，每圈 L 米。所有同學一共跑了多少米？
+:::
 
-所有同學一共跑了多少米？
+## Input · 輸入格式
 
-## 輸入格式
+:::en
+One line with three integers n, k, L.
+:::
 
+:::zh
 一行三個整數 n, k, L。
+:::
 
-## 輸出格式
+## Output · 輸出格式
 
+:::en
+One integer: the total distance in metres.
+:::
+
+:::zh
 一個整數：總距離（米）。
+:::
 
-## 樣例 1
-
-輸入：
+## Sample Input 1 · 範例輸入 1
 
 ```text
 30 4 400
 ```
 
-輸出：
+## Sample Output 1 · 範例輸出 1
 
 ```text
 48000
 ```
 
+## Explanation 1 · 說明 1
 
-**樣例 1 解釋**
+:::en
+30 × 4 × 400 = 48000.
+:::
 
+:::zh
 30 × 4 × 400 = 48000。
+:::
 
-## 樣例 2
-
-輸入：
+## Sample Input 2 · 範例輸入 2
 
 ```text
 1000000 1000000 1000000
 ```
 
-輸出：
+## Sample Output 2 · 範例輸出 2
 
 ```text
 1000000000000000000
 ```
 
+## Explanation 2 · 說明 2
 
-**樣例 2 解釋**
+:::en
+The answer is 10¹⁸, far larger than the limit of `int` (about 2.1 × 10⁹).
 
+(A diagram is on the unit page of the training website.)
+:::
+
+:::zh
 答案是 10¹⁸，比 `int` 的上限（約 2.1 × 10⁹）大得多。
 
-（圖解見培訓路線網站的單元頁）
-## 數據範圍
+（圖解見培訓路線網站的單元頁。）
+:::
 
-| 測試點 | n, k, L | 答案最大約 |
+## Subtasks · 數據範圍
+
+| Tests 測試點 | n, k, L | Largest answer 答案最大約 |
 |---|---|---|
 | 1–4 | ≤ 1000 | 10⁹ |
 | 5–10 | ≤ 10⁶ | 10¹⁸ |
 
+All tests: n, k, L ≥ 1.
+
 全部測試點：n, k, L ≥ 1。
 
-## 提交前檢查
+## Before You Submit · 提交前檢查
 
-| 檢查 | Python | C++ |
+| Check 檢查 | Python | C++ |
 |---|---|---|
-| 兩個樣例都通過 | ☐ | ☐ |
-| 最大數據會不會超時？（看數據範圍） | ☐ | ☐ |
-| 答案會不會超過 int？ | 不用擔心 | ☐ 用 `long long` |
-| 讀入寫法 | `input().split()` | `cin >>` |
-| 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |
+| Both samples pass 兩個樣例都通過 | ☐ | ☐ |
+| Fast enough for the largest data? 最大數據會不會超時？ | ☐ | ☐ |
+| Can the answer exceed int? 答案會不會超過 int？ | No need to worry 不用擔心 | ☐ use `long long` 用 `long long` |
+| How to read input 讀入寫法 | `input().split()` | `cin >>` |
+| Removed debug output (e.g. "Please enter") 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |

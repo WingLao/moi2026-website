@@ -1,126 +1,110 @@
 import Link from 'next/link';
+import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { listTeachingTopics } from '@/lib/teaching-content';
+import { SUBMISSION_STATUS_LABELS } from '@/lib/status-labels';
+import { splitTitle } from '@/lib/title';
 import { getUserDisplayName } from '@/lib/user-display';
+
+const STEPS = [
+  { en: 'Open a problem and read it — every problem is in English and Chinese.', zh: '打開一題題目閱讀——每一題都有英文和中文。' },
+  { en: 'Use the 📝 whiteboard to trace the sample by hand. Your notes are saved for next time.', zh: '用 📝 白板動手跑一次範例，筆記會保存，下次可以再看。' },
+  { en: 'Write your program in C++ or Python and submit it. The system judges it straight away.', zh: '用 C++ 或 Python 寫程式並提交，系統會立即判題。' },
+  { en: 'Check your result, fix your code and try again. Your best score counts.', zh: '查看結果，修正程式再試。以最高分計算。' },
+];
 
 export default async function Home() {
   const session = await auth();
-  const teachingCount = listTeachingTopics().length;
-  const [problemCount, judgeableCount, warningProblemCount, submissionCount, studentCount, recentSubmissions] = await Promise.all([
-    prisma.problem.count().catch(() => 0),
-    prisma.problem.count({ where: { isJudgeable: true } }).catch(() => 0),
-    prisma.problem.count({ where: { warning: { not: null } } }).catch(() => 0),
-    prisma.submission.count().catch(() => 0),
-    prisma.user.count({ where: { role: 'STUDENT' } }).catch(() => 0),
-    prisma.submission.findMany({
-      take: 5,
-      orderBy: { queuedAt: 'desc' },
-      include: { problem: true, user: true },
-    }).catch(() => []),
-  ]);
+  const isAdmin = session?.user?.role === 'ADMIN';
+  const [problemCount, warningProblemCount, submissionCount, studentCount, recentSubmissions] = isAdmin
+    ? await Promise.all([
+        prisma.problem.count().catch(() => 0),
+        prisma.problem.count({ where: { OR: [{ warning: { not: null } }, { isJudgeable: false }] } }).catch(() => 0),
+        prisma.submission.count().catch(() => 0),
+        prisma.user.count({ where: { role: 'STUDENT' } }).catch(() => 0),
+        prisma.submission.findMany({ take: 8, orderBy: { queuedAt: 'desc' }, include: { problem: true, user: true } }).catch(() => []),
+      ])
+    : [0, 0, 0, 0, []];
 
   return (
     <main className="page">
       <section className="card hero">
-        <div className="section-title">
-          <div>
-            <h1>MOI2026 Contest Portal</h1>
-            <p className="subtle" style={{ marginTop: 10 }}>
-              Local training and judging portal for P / J / S groups. Students can browse problems, submit code, and track results. 管理員可查看學生、提交與題目和資料健康狀態。
-            </p>
-          </div>
-          <div className="inline-actions">
-            <Link href="/problems" className="button-link">Browse Problems · 瀏覽題目</Link>
-            <Link href="/leaderboard" className="button-link secondary">Leaderboard · 排名</Link>
-            <Link href="/teaching" className="button-link secondary">演算法教學</Link>
-            {session?.user ? <Link href="/submissions" className="button-link secondary">My Submissions · 我的提交</Link> : <Link href="/login" className="button-link secondary">Login · 登入</Link>}
-          </div>
-        </div>
-      </section>
-
-      <section className="grid-tiles">
-          {[
-          { label: 'Problems · 題目', value: problemCount, note: 'Imported and listed for contestants 已匯入題目' },
-          { label: 'Ready · 可判題', value: judgeableCount, note: 'Problems with complete testcase pairs 測資可正常判題' },
-          { label: 'Issues · 資料提醒', value: warningProblemCount, note: 'Problems with PDF or testcase warnings 需要留意的題目' },
-          { label: 'Teaching · 教學', value: teachingCount, note: 'Public algorithm notes 未登入也可查看教材' },
-          { label: 'Students · 學生', value: studentCount, note: 'Seeded training accounts 已建立帳號' },
-          { label: 'Submissions · 提交', value: submissionCount, note: 'Queued and judged attempts 已提交與判題' },
-        ].map((item) => (
-          <div key={item.label} className="card compact">
-            <div className="subtle">{item.label}</div>
-            <div className="tile-number">{item.value}</div>
-            <div className="subtle">{item.note}</div>
-          </div>
-        ))}
-      </section>
-
-      <section className="card">
-        <div className="section-title">
-          <div>
-            <h2>Teaching Hub · 教學入口</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>
-              新增演算法教學專區，現已收錄動態規劃與 Josephus。現在未登入也可直接查看教材內容。
-            </p>
-          </div>
-          <div className="inline-actions">
-            <Link href="/teaching" className="button-link">前往演算法教學</Link>
-          </div>
+        <h1><Bi block en="Programming Practice" zh="程式練習平台" /></h1>
+        <p className="subtle" style={{ marginTop: 10 }}>
+          <Bi block en="Practice problems for the CDSJ5 programming class and the Macao Olympiad in Informatics (MOI)." zh="聖若瑟教區中學第五校程式語言班及澳門資訊學奧林匹克（MOI）練習題。" />
+        </p>
+        <div className="inline-actions" style={{ marginTop: 16 }}>
+          <Link href="/problems" className="button-link"><Bi en="Start practising" zh="開始練習" /></Link>
+          {session?.user ? (
+            <Link href="/submissions" className="button-link secondary"><Bi en="My submissions" zh="我的提交" /></Link>
+          ) : (
+            <Link href="/login" className="button-link secondary"><Bi en="Log in" zh="登入" /></Link>
+          )}
+          <Link href="/leaderboard" className="button-link secondary"><Bi en="Leaderboard" zh="排名榜" /></Link>
         </div>
       </section>
 
       <section className="card">
-        <div className="section-title">
-          <div>
-            <h2>Quick Reminders · 重要提示</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>Current platform behavior and operator-facing caveats. 以下是目前平台重點。</p>
-          </div>
-        </div>
-        <ul className="list" style={{ marginTop: 14 }}>
-          <li>Problem statements now use Markdown as the primary website source, with testcase-aligned examples generated from `data/*/*-0.in` and `data/*/*-0.out`. 題面顯示以 Markdown 為主。</li>
-          <li>Judging currently runs on the host via the worker queue, so this is suitable for local rehearsal, not hardened production isolation. 目前較適合教學 / 測試用途。</li>
-          <li>Students only see their own submissions. Admins can inspect all users, problems, and judged runs. 學生只會看到自己的提交。</li>
-          <li>Imported problems now keep data warnings even when still judgeable, so duplicate testcase copies and missing PDFs are easier to spot. 有資料警告時會直接在頁面顯示。</li>
-        </ul>
+        <h2 style={{ marginTop: 0 }}><Bi en="How it works" zh="使用方法" /></h2>
+        <ol className="steps">
+          {STEPS.map((step) => (
+            <li key={step.en}><Bi block en={step.en} zh={step.zh} /></li>
+          ))}
+        </ol>
       </section>
 
-      <section className="card">
-        <div className="section-title">
-          <div>
-            <h2>Recent Activity · 最近活動</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>Useful for quick smoke-checks after startup. 可快速檢查系統是否正常。</p>
-          </div>
-        </div>
-        {recentSubmissions.length ? (
-          <div className="table-wrap" style={{ marginTop: 14 }}>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>User</th>
-                  <th>Problem</th>
-                  <th>Status</th>
-                  <th>Score</th>
-                  <th>Queued</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentSubmissions.map((submission) => (
-                  <tr key={submission.id}>
-                    <td>{getUserDisplayName(submission.user)}</td>
-                    <td>{submission.problem.title}</td>
-                    <td>{submission.status}</td>
-                    <td>{submission.score}</td>
-                    <td>{submission.queuedAt.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div className="empty" style={{ marginTop: 14 }}>No submissions yet. Create one from any problem page to verify the queue + worker path. 目前尚未有提交紀錄。</div>
-        )}
-      </section>
+      {isAdmin ? (
+        <>
+          <section className="grid-tiles">
+            {[
+              { label: 'Problems · 題目', value: problemCount },
+              { label: 'Data warnings · 資料提醒', value: warningProblemCount },
+              { label: 'Students · 學生', value: studentCount },
+              { label: 'Submissions · 提交', value: submissionCount },
+            ].map((item) => (
+              <div key={item.label} className="card compact">
+                <div className="subtle">{item.label}</div>
+                <div className="tile-number">{item.value}</div>
+              </div>
+            ))}
+          </section>
+
+          <section className="card admin-only">
+            <h2 style={{ marginTop: 0 }}>Recent activity · 最近活動（teacher only · 老師專用）</h2>
+            {recentSubmissions.length ? (
+              <div className="table-wrap" style={{ marginTop: 14 }}>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Student · 學生</th>
+                      <th>Problem · 題目</th>
+                      <th>Result · 結果</th>
+                      <th>Score · 分數</th>
+                      <th>Time · 時間</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {recentSubmissions.map((submission) => {
+                      const status = SUBMISSION_STATUS_LABELS[submission.status];
+                      return (
+                        <tr key={submission.id}>
+                          <td>{getUserDisplayName(submission.user)}</td>
+                          <td>{splitTitle(submission.problem.title).en}</td>
+                          <td>{status ? `${status.en} · ${status.zh}` : submission.status}</td>
+                          <td>{submission.score}</td>
+                          <td>{submission.queuedAt.toLocaleString('zh-Hant')}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="empty" style={{ marginTop: 14 }}>No submissions yet · 尚未有提交</div>
+            )}
+          </section>
+        </>
+      ) : null}
     </main>
   );
 }

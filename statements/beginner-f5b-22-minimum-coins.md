@@ -1,45 +1,65 @@
-# 22 · Minimum Coins
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-22-minimum-coins` 測資。
+:::en
+Read the coin values and an amount. Use a greedy algorithm to print the minimum number of coins needed.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-22-minimum-coins`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-22-minimum-coins`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-22-minimum-coins-0.in` / `f5b-22-minimum-coins-0.out`|
+:::zh
+讀入各種硬幣的面值和一個金額，用貪心方法輸出最少需要多少枚硬幣。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input coin denominations and an amount. Use a greedy algorithm to print the minimum number of coins.
+:::en
+Line 1: the coin values, separated by spaces. Line 2: the amount.
+:::
 
-## 輸入格式
+:::zh
+第 1 行：硬幣面值，以空格分隔。第 2 行：金額。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One integer: the number of coins.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一個整數：硬幣數量。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 1 5 10 25
 63
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 6
 ```
 
-## 提示
+## Hints · 提示
 
-- Sort denominations from largest to smallest, then use as many as possible.
+:::en
+- Sort the coin values from largest to smallest, then use as many of each as possible.
+:::
 
-## 限制
+:::zh
+- 把面值由大到小排序，每種面值盡量多用。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
 import { listTeachingTopics } from '@/lib/teaching-content';
 import { getUserDisplayName } from '@/lib/user-display';
@@ -12,8 +13,11 @@ export default async function TeachingPage() {
       <section className="card hero">
         <div className="section-title">
           <div>
-            <div className="eyebrow">Teaching Hub · 教學專區</div>
-            <h1>演算法教學</h1>
+            <div className="eyebrow">Lessons · 教學專區</div>
+            <h1><Bi block en="Algorithm Lessons" zh="演算法教學" /></h1>
+            <p className="notice warning" style={{ marginTop: 10 }}>
+              <Bi block en="These lessons are in Chinese only for now. English versions will be added later." zh="教材暫時只有中文版，英文版稍後補上。" />
+            </p>
             <p className="subtle" style={{ marginTop: 10 }}>
               這裡整理可公開查看的演算法教材，先從動態規劃與 Josephus 開始。適合課堂講解、課後複習，以及比賽前快速回顧重點。
             </p>

@@ -1,34 +1,41 @@
-# 11 · Count Above and Below Average
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-11-count-average` 測資。
+:::en
+Read some integers. Print the average, how many numbers are greater than the average, and how many are not greater than the average.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-11-count-average`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-11-count-average`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-11-count-average-0.in` / `f5b-11-count-average-0.out`|
+:::zh
+讀入一些整數。輸出平均值、大於平均值的個數，以及不大於平均值的個數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input integers. Print the average, the count greater than the average, and the count not greater than the average.
+:::en
+One line of integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Three lines: the average (2 decimal places), the count greater than the average, the count not greater than the average.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+三行：平均值（2 位小數）、大於平均值的個數、不大於平均值的個數。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 1 2 3 4 5 9 100 10
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 16.75
@@ -36,11 +43,24 @@ Print exactly the required result for the given task.
 7
 ```
 
-## 提示
+## Hints · 提示
 
-- Numbers equal to the average should be counted in the not-greater group.
+:::en
+- A number equal to the average belongs to the "not greater" group.
+:::
 
-## 限制
+:::zh
+- 等於平均值的數，算入「不大於」那一組。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

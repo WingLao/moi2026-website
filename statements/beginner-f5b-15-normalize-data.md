@@ -1,44 +1,64 @@
-# 15 · Normalize Data
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-15-normalize-data` 測資。
+:::en
+Read some integers. Normalize each number with `(x - min) / (max - min)`, round it to 2 decimal places, and print the list.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-15-normalize-data`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-15-normalize-data`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-15-normalize-data-0.in` / `f5b-15-normalize-data-0.out`|
+:::zh
+讀入一些整數。用 `(x - min) / (max - min)` 把每個數標準化，四捨五入到 2 位小數，然後輸出列表。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input integers. Normalize each number using `(x - min) / (max - min)`, round to 2 decimal places, and print the list.
+:::en
+One line of integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: the list of normalized values in Python format (e.g. `0.0`, `0.25`).
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：Python 格式的標準化數值列表（例如 `0.0`、`0.25`）。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 10 20 30 40 50
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 [0.0, 0.25, 0.5, 0.75, 1.0]
 ```
 
-## 提示
+## Hints · 提示
 
-- Compute the minimum and maximum once before the loop.
+:::en
+- Compute the minimum and maximum once, before the loop.
+:::
 
-## 限制
+:::zh
+- 在迴圈之前先算好最小值和最大值。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

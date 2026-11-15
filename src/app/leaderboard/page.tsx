@@ -1,3 +1,4 @@
+import Bi from '@/components/Bi';
 import { prisma } from '@/lib/prisma';
 import { formatWeightedScore, getLevelMultiplier, getWeightedScore } from '@/lib/score-utils';
 import { getUserDisplayName } from '@/lib/user-display';
@@ -45,27 +46,26 @@ export default async function LeaderboardPage() {
 
   return (
     <main className="page">
-      <section className="card">
-        <div className="section-title">
-          <div>
-            <h1>Leaderboard · 排名榜</h1>
-            <p className="subtle" style={{ marginTop: 8 }}>
-              Best score per problem counts. Weighted by level: Beginner x0.1, GA x0.5, DP x1, P x1, J x2, S x3. Ties prefer the user who reached the counted score earlier.
-            </p>
-          </div>
-          <span className="badge info">Students ranked 排名人數: {rows.length}</span>
-        </div>
+      <section className="card hero">
+        <h1><Bi block en="Leaderboard" zh="排名榜" /></h1>
+        <p className="subtle" style={{ marginTop: 10 }}>
+          <Bi
+            block
+            en="Your best score on each problem counts, multiplied by the level weight: Beginner ×0.1, Greedy ×0.5, DP ×1, P ×1, J ×2, S ×3. If two totals are equal, whoever reached it first ranks higher."
+            zh="每題取你的最高分，再乘以程度權重：入門 ×0.1、貪心 ×0.5、動態規劃 ×1、P 組 ×1、J 組 ×2、S 組 ×3。總分相同時，先達到該分數的排前。"
+          />
+        </p>
       </section>
 
       <div className="table-wrap">
         <table className="table">
           <thead>
             <tr>
-              <th>Rank · 名次</th>
-              <th>User · 用戶</th>
-              <th>Solved (&gt;0) · 已得分題數</th>
-              <th>Total · 總分</th>
-              <th>Best-score breakdown · 最佳分明細</th>
+              <th><Bi en="Rank" zh="名次" /></th>
+              <th><Bi en="Student" zh="學生" /></th>
+              <th><Bi en="Problems scored" zh="已得分題數" /></th>
+              <th><Bi en="Total" zh="總分" /></th>
+              <th><Bi en="Breakdown" zh="分數明細" /></th>
             </tr>
           </thead>
           <tbody>
@@ -75,7 +75,7 @@ export default async function LeaderboardPage() {
                 <td>{row.displayName}</td>
                 <td>{row.solvedProblems}</td>
                 <td>{formatWeightedScore(row.total)}</td>
-                <td className="subtle">{row.breakdown || 'No positive scores yet · 暫未得分'}</td>
+                <td className="subtle">{row.breakdown || <Bi en="No score yet" zh="暫未得分" />}</td>
               </tr>
             ))}
           </tbody>

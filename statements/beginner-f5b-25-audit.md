@@ -1,45 +1,65 @@
-# 25 · Audit
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-25-audit` 測資。
+:::en
+Read two lists. Count how many values appear in both lists. Repeated values count separately (for example, if 3 appears twice in both lists it counts as 2).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-25-audit`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-25-audit`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-25-audit-0.in` / `f5b-25-audit-0.out`|
+:::zh
+讀入兩個列表，數一數有多少個數同時出現在兩個列表中。重複的數要分開計算（例如 3 在兩個列表都出現兩次，就算 2 個）。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input two lists. Sort both, then use two pointers to count how many values appear in both lists. Count duplicates separately.
+:::en
+Line 1: the first list. Line 2: the second list. Numbers are separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+第 1 行：第一個列表。第 2 行：第二個列表。數字以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One integer: the number of common values.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一個整數：共同數值的個數。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 2 3 3 5 1 2 3 4 5 8 9
 3 0 7 4 5 6 3
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 4
 ```
 
-## 提示
+## Hints · 提示
 
-- Move both pointers when a match is found.
+:::en
+- Sort both lists and use two pointers. When the values match, move both pointers.
+:::
 
-## 限制
+:::zh
+- 把兩個列表排序，用雙指針；數值相同時兩個指針都向前移。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

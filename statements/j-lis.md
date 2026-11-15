@@ -1,42 +1,57 @@
-# 最長遞增子序列 (lis)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+Given a sequence of N integers, find the length of its longest strictly increasing subsequence (LIS). A subsequence need not be contiguous, but it keeps the original order and each element is strictly smaller than the next.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`lis`|
-|組別|`J`|
-|測資目錄|`data/J/lis`|
-|原始 PDF|`J-lis.pdf`|
-|對齊範例|`lis-0.in` / `lis-0.out`|
+:::zh
+給定長度為 N 的整數序列，求它的最長嚴格遞增子序列（LIS）的長度。子序列不需要連續，但必須保持原有次序，而且每一項嚴格小於下一項。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-給定一個長度為 N 的整數序列，求其最長嚴格遞增子序列（LIS）的長度。子序列不需要連續，但必
-須保持原有順序且每項嚴格小於下一項。
+:::en
+Line 1: a positive integer N (1 ≤ N ≤ 1000).
 
-## 輸入格式
+Line 2: N integers, each with absolute value at most 10^9, separated by spaces.
+:::
 
-第一行包含一個正整數 N（1 ≤ N ≤ 1000）。
-第二行包含 N 個整數，每個整數的絕對值不超過 10^9，以空格分隔。
+:::zh
+第 1 行：一個正整數 N（1 ≤ N ≤ 1000）。
 
-## 輸出格式
+第 2 行：N 個整數，絕對值都不超過 10^9，以空格分隔。
+:::
 
-一行，輸出最長嚴格遞增子序列的長度。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One line: the length of the LIS.
+:::
+
+:::zh
+一行：最長嚴格遞增子序列的長度。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 8
 10 9 2 5 3 7 101 18
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 4
 ```
 
-## 說明
+## Explanation · 說明
 
-最長遞增子序列為 [2, 3, 7, 101]，長度為 4。
+:::en
+One longest increasing subsequence is [2, 3, 7, 101], length 4.
+:::
+
+:::zh
+其中一個最長遞增子序列是 [2, 3, 7, 101]，長度為 4。
+:::

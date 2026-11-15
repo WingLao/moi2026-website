@@ -1,47 +1,67 @@
-# 01 · Lemonade Change
+<!-- bilingual -->
+## Description · 題目說明
 
-> Greedy Algorithm 練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/GA/ga-01-lemonade-change` 測資。
+:::en
+A lemonade stand sells each cup for $5. Customers pay one by one with a $5, $10 or $20 bill. You start with no change. Decide whether every customer can receive the correct change.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`ga-01-lemonade-change`|
-|組別|`GA`|
-|難度|`Easy`|
-|測資目錄|`data/GA/ga-01-lemonade-change`|
-|來源|`LeetCode 860, rewritten as a contest-style problem`|
-|對齊範例|`ga-01-lemonade-change-0.in` / `ga-01-lemonade-change-0.out`|
+:::zh
+檸檬水攤每杯賣 5 元。顧客按次序付款，每人付一張 5 元、10 元或 20 元紙幣。你一開始沒有任何零錢。請判斷能否給每位顧客找回正確的零錢。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-A lemonade stand sells each cup for 5 dollars. Customers pay in order using 5, 10, or 20 dollar bills. You start with no change. Decide whether every customer can receive the correct change.
+:::en
+- Line 1: an integer `n`.
+- Line 2: `n` integers, each `5`, `10` or `20`: the bills paid, in order.
+:::
 
-## 輸入格式
+:::zh
+- 第 1 行：一個整數 `n`。
+- 第 2 行：`n` 個整數，每個是 `5`、`10` 或 `20`，依次表示顧客付的紙幣。
+:::
 
-- The first line contains an integer `n`.
-- The second line contains `n` integers, each equal to `5`, `10`, or `20`, representing the bills paid in order.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Print `true` if every customer can get correct change; otherwise print `false`.
+:::
 
-- Print `true` if all customers can be served with correct change; otherwise print `false`.
+:::zh
+如果每位顧客都能找到正確零錢，輸出 `true`；否則輸出 `false`。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 5
 5 5 10 10 20
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 false
 ```
 
-## 貪婪提示
+## Hints · 提示
 
-Keep counts of 5-dollar and 10-dollar bills. For a 20-dollar bill, prefer giving 10+5 as change, preserving more 5-dollar bills for future customers.
+:::en
+Count your $5 and $10 bills. For a $20 bill, give $10 + $5 if you can, so you keep more $5 bills for later customers.
+:::
 
-## 限制
+:::zh
+記住手上有幾張 5 元和 10 元。收到 20 元時，能找「10 + 5」就優先這樣找，以保留更多 5 元給後面的顧客。
+:::
 
-- 1 <= n <= 100000
-- Each bill is 5, 10, or 20.
+## Constraints · 限制
+
+:::en
+- 1 ≤ n ≤ 100000
+- Each bill is 5, 10 or 20.
+:::
+
+:::zh
+- 1 ≤ n ≤ 100000
+- 每張紙幣是 5、10 或 20。
+:::

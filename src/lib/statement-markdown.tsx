@@ -1,11 +1,14 @@
 import type { ReactNode } from 'react';
 
 function renderInline(text: string, keyPrefix: string) {
-  const parts = text.split(/(`[^`]+`)/g);
+  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g);
 
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={`${keyPrefix}-${index}`}>{part.slice(1, -1)}</code>;
+    }
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+      return <strong key={`${keyPrefix}-${index}`}>{part.slice(2, -2)}</strong>;
     }
 
     return part;
@@ -32,8 +35,28 @@ export function renderStatementMarkdown(markdown: string): ReactNode[] {
   for (let index = 0; index < lines.length;) {
     const line = lines[index].trim();
 
-    if (!line) {
+    if (!line || (line.startsWith('<!--') && line.endsWith('-->'))) {
       index += 1;
+      continue;
+    }
+
+    // Bilingual blocks:  :::en ... :::  and  :::zh ... :::
+    const langMatch = line.match(/^:::(en|zh)$/);
+    if (langMatch) {
+      const lang = langMatch[1];
+      const innerLines: string[] = [];
+      index += 1;
+      while (index < lines.length && lines[index].trim() !== ':::') {
+        innerLines.push(lines[index]);
+        index += 1;
+      }
+      index += 1;
+      nodes.push(
+        <div key={`lang-${nodes.length}`} className={`lang-block lang-${lang}`} lang={lang === 'en' ? 'en' : 'zh-Hant'}>
+          <span className="lang-tag" aria-hidden="true">{lang === 'en' ? 'EN' : '中'}</span>
+          <div className="lang-body">{renderStatementMarkdown(innerLines.join('\n'))}</div>
+        </div>,
+      );
       continue;
     }
 
@@ -173,6 +196,7 @@ export function renderStatementMarkdown(markdown: string): ReactNode[] {
         candidate.startsWith('|') ||
         candidate.startsWith('- ') ||
         candidate.startsWith('> ') ||
+        candidate.startsWith(':::') ||
         candidate === '<hr>' ||
         /^---+$/.test(candidate) ||
         /^(#{1,3})\s+/.test(candidate)

@@ -1,22 +1,28 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
 import { getProblemPdfDownloadUrl, getProblemPdfUrl } from '@/lib/pdf';
+import { getProblemCatalogEntryBySlug, getProblemDataDirName } from '@/lib/problem-catalog';
 import { prisma } from '@/lib/prisma';
-import { getProblemLearningSupport } from '@/lib/problem-learning-support';
 import { readProblemStatementBySlug } from '@/lib/problem-statements';
 import { renderStatementMarkdown } from '@/lib/statement-markdown';
+import { LEVEL_LABELS, SUBMISSION_STATUS_LABELS } from '@/lib/status-labels';
+import { splitTitle } from '@/lib/title';
 import { getUserDisplayName } from '@/lib/user-display';
 import WhiteboardPanel from './WhiteboardPanel';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const session = await auth();
+  const isAdmin = session?.user?.role === 'ADMIN';
   const problem = await prisma.problem.findUnique({
     where: { slug },
     include: {
       testCases: { orderBy: { index: 'asc' } },
       submissions: {
+        // Students (and visitors) only see their own submissions; admins see everyone's.
+        where: isAdmin ? undefined : { userId: session?.user?.id ?? '' },
         orderBy: { queuedAt: 'desc' },
         include: { user: true },
         take: 10,
@@ -28,145 +34,67 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
     return notFound();
   }
 
+  const title = splitTitle(problem.title);
+  const level = LEVEL_LABELS[problem.level] ?? { en: problem.level, zh: problem.level };
   const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
   const pdfDownloadUrl = getProblemPdfDownloadUrl(problem.pdfFilename);
   const statementMarkdown = readProblemStatementBySlug(problem.slug);
-  const learningSupport = getProblemLearningSupport(problem, statementMarkdown);
   const warningItems = problem.warning?.split('; ').filter(Boolean) ?? [];
   const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
+  const submissions = problem.submissions;
+  const catalog = getProblemCatalogEntryBySlug(problem.slug);
 
   return (
     <main className="page">
       <section className="card hero">
-        <div className="section-title">
-          <div>
-            <h1>{problem.title}</h1>
-            <p className="subtle" style={{ marginTop: 8 }}>
-              {String(problem.level) === 'Beginner' ? `Level ${problem.level}` : <><span className="mono">{problem.code}</span> · Level {problem.level}</>}
-            </p>
-          </div>
-          <div className="status-stack">
-            {problem.isJudgeable ? <span className="badge success">Judge ready · 可判題</span> : <span className="badge danger">Judge blocked · 需修正</span>}
-            {warningItems.length ? <span className="badge warning">Warnings · {warningItems.length}</span> : <span className="badge info">Data clean · 正常</span>}
-          </div>
+        <div className="eyebrow">
+          <Bi en={level.en} zh={level.zh} /> <span className="mono" style={{ marginLeft: 8 }}>{problem.code}</span>
         </div>
-
-        <div className="kv-grid" style={{ marginTop: 18 }}>
-          <div className="kv">
-            <div className="kv-label">Time limit</div>
-            <div className="kv-value">{problem.timeLimitMs} ms</div>
-          </div>
-          <div className="kv">
-            <div className="kv-label">Memory limit</div>
-            <div className="kv-value">{problem.memoryLimitMb} MB</div>
-          </div>
-          <div className="kv">
-            <div className="kv-label">Testcases</div>
-            <div className="kv-value">{validCases} / {problem.testCases.length}</div>
-          </div>
-          <div className="kv">
-            <div className="kv-label">Statement format</div>
-            <div className="kv-value" style={{ fontSize: 16 }}>{statementMarkdown ? 'Markdown first' : 'Missing statement'}</div>
-          </div>
+        <h1 className="problem-heading">
+          <span lang="en">{title.en}</span>
+          {title.zh ? <span lang="zh-Hant" className="bi-zh">{title.zh}</span> : null}
+        </h1>
+        <div className="inline-actions" style={{ marginTop: 14 }}>
+          <span className="badge info"><Bi en="Time limit" zh="時限" />&nbsp;{problem.timeLimitMs} ms</span>
+          <span className="badge info"><Bi en="Memory" zh="記憶體" />&nbsp;{problem.memoryLimitMb} MB</span>
+          {pdfUrl ? (
+            <a href={pdfUrl} target="_blank" rel="noreferrer" className="badge info">
+              <Bi en="Original PDF (Chinese)" zh="原題 PDF（中文）" />
+            </a>
+          ) : null}
         </div>
-
-        {statementMarkdown ? (
-          <div className="action-links" style={{ marginTop: 18 }}>
-            <span className="badge info">Markdown statement · 題面主來源</span>
-            {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer">Original PDF</a> : null}
-            {pdfDownloadUrl ? <a href={pdfDownloadUrl}>Download PDF · 下載 PDF</a> : null}
-          </div>
-        ) : (
-          <div className="notice warning" style={{ marginTop: 18 }}>
-            Statement Markdown is missing. 題目 Markdown 題面尚未就緒。
-          </div>
-        )}
-
-        {warningItems.length ? (
-          <div className="notice warning" style={{ marginTop: 18 }}>
-            <div style={{ fontWeight: 700 }}>Data warnings · 資料提醒</div>
-            <ul className="list" style={{ marginTop: 10 }}>
-              {warningItems.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <div className="notice success" style={{ marginTop: 18 }}>
-            Statement and testcase structure look clean. 題面與測資結構目前正常。
-          </div>
-        )}
       </section>
 
       <section className="problem-layout">
         <div className="problem-main">
           <section className="card statement-card">
-            <div className="statement-toolbar">
-              <div>
-                <h2 style={{ margin: 0 }}>Statement · 題目說明</h2>
-                <p className="subtle" style={{ marginTop: 8 }}>
-                  This page now uses Markdown as the primary source, and the sample is aligned to `data/*/*-0`.
-                </p>
-              </div>
-              {statementMarkdown ? (
-                <div className="action-links">
-                  <a href="#statement-body">Jump to statement</a>
-                  {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer">Open PDF archive</a> : null}
-                  {pdfDownloadUrl ? <a href={pdfDownloadUrl}>Download PDF</a> : null}
-                </div>
-              ) : null}
-            </div>
-
-            {learningSupport ? (
-              <div className="kv-grid" style={{ padding: 24, borderBottom: '1px solid var(--border)' }}>
-                <div className="kv">
-                  <div className="kv-label">簡短中文題目說明</div>
-                  <div className="kv-value" style={{ fontSize: 16, fontWeight: 600 }}>{learningSupport.shortDescriptionZh}</div>
-                  {learningSupport.rawDescription ? (
-                    <div className="small-text" style={{ marginTop: 10 }}>Original: {learningSupport.rawDescription}</div>
-                  ) : null}
-                </div>
-                <div className="kv">
-                  <div className="kv-label">Input 程式提示</div>
-                  <div className="kv-value" style={{ fontSize: 16, fontWeight: 600 }}>{learningSupport.inputHintZh}</div>
-                  {learningSupport.rawInputSpec ? (
-                    <div className="small-text" style={{ marginTop: 10 }}>Original: {learningSupport.rawInputSpec}</div>
-                  ) : null}
-                </div>
-              </div>
-            ) : null}
-
             {statementMarkdown ? (
               <article id="statement-body" className="statement-article">
                 {renderStatementMarkdown(statementMarkdown)}
               </article>
             ) : (
               <div className="empty">
-                Statement preview is unavailable because the Markdown file is missing. 目前無法預覽 Markdown 題面。
+                <Bi block en="The problem statement is not available yet." zh="題目內容暫時未有。" />
               </div>
             )}
-
-            <div className="small-text" style={{ marginTop: 12 }}>
-              The example input / output in this page is generated from `data/*/*-0.in` and `data/*/*-0.out`, so it stays aligned with the actual testcase set.
-            </div>
           </section>
         </div>
 
         <div className="problem-side">
           <section className="card">
-            <h2 style={{ marginTop: 0 }}>Submit solution</h2>
+            <h2 style={{ marginTop: 0 }}><Bi en="Submit" zh="提交" /></h2>
             {session?.user ? (
               <form action="/api/submissions" method="post" className="page" style={{ gap: 12 }}>
                 <input type="hidden" name="problemId" value={problem.id} />
                 <label className="dense-list">
-                  <span>Language</span>
+                  <Bi en="Language" zh="語言" />
                   <select name="language" defaultValue="cpp">
                     <option value="cpp">C++17</option>
                     <option value="python">Python 3</option>
                   </select>
                 </label>
                 <label className="dense-list">
-                  <span>Source code</span>
+                  <Bi en="Source code" zh="程式碼" />
                   <textarea
                     name="sourceCode"
                     required
@@ -176,94 +104,114 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                     className="mono"
                   />
                 </label>
-                <p className="subtle">
-                  After you submit, the system should create a submission record immediately and then judge it in the queue.
+                <p className="subtle" style={{ margin: 0 }}>
+                  <Bi block en="Your code is judged right after you submit. The result appears on the next page." zh="提交後系統會立即判題，結果會在下一頁顯示。" />
                 </p>
-                <button type="submit" disabled={!problem.isJudgeable}>{problem.isJudgeable ? 'Queue submission' : 'Judging unavailable'}</button>
+                <button type="submit" disabled={!problem.isJudgeable}>
+                  {problem.isJudgeable ? <Bi en="Submit" zh="提交" /> : <Bi en="Judging unavailable" zh="暫時不能判題" />}
+                </button>
               </form>
             ) : (
               <p>
-                <Link href={`/login?callbackUrl=/problems/${problem.slug}`} className="inline-link">Log in</Link> to submit.
+                <Link href={`/login?callbackUrl=/problems/${problem.slug}`} className="inline-link">
+                  <Bi en="Log in to submit" zh="登入後才可提交" />
+                </Link>
               </p>
             )}
           </section>
 
-          <section className="card">
-            <div className="section-title">
-              <div>
-                <h2>Testcases</h2>
-                <p className="subtle" style={{ marginTop: 8 }}>Canonical testcase pairs only. 系統只會匯入正式測資，不會把重複複製檔算進去。</p>
-              </div>
-              <span className={validCases === problem.testCases.length ? 'badge success' : 'badge warning'}>
-                {validCases} / {problem.testCases.length} valid
-              </span>
-            </div>
-            <div className="table-wrap" style={{ marginTop: 14 }}>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Input</th>
-                    <th>Output</th>
-                    <th>Score</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {problem.testCases.map((testCase) => (
-                    <tr key={testCase.id}>
-                      <td>{testCase.index}</td>
-                      <td className="mono">{testCase.inputPath.split('/').at(-1)}</td>
-                      <td className="mono">{testCase.outputPath?.split('/').at(-1) ?? '—'}</td>
-                      <td>{testCase.score}</td>
-                      <td>{testCase.warning ?? (testCase.isValid ? 'valid' : 'invalid')}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            {learningSupport ? (
-              <div className="small-text" style={{ marginTop: 12 }}>
-                Beginner / GA 提示：先看清楚 Input 需要不要讀資料，再用上方 testcase 檔名對照本地測試。
-              </div>
-            ) : null}
-          </section>
+          {session?.user ? (
+            <section className="card">
+              <h2 style={{ marginTop: 0 }}>
+                {isAdmin ? <Bi en="Recent submissions" zh="最近提交" /> : <Bi en="My submissions" zh="我的提交" />}
+              </h2>
+              {submissions.length ? (
+                <div className="table-wrap" style={{ marginTop: 14 }}>
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th><Bi en="Time" zh="時間" /></th>
+                        {isAdmin ? <th><Bi en="Student" zh="學生" /></th> : null}
+                        <th><Bi en="Result" zh="結果" /></th>
+                        <th><Bi en="Score" zh="分數" /></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {submissions.map((submission) => {
+                        const status = SUBMISSION_STATUS_LABELS[submission.status];
+                        return (
+                          <tr key={submission.id}>
+                            <td>
+                              <Link href={`/submissions/${submission.id}`} className="inline-link">
+                                {submission.queuedAt.toLocaleString('zh-Hant')}
+                              </Link>
+                            </td>
+                            {isAdmin ? <td>{getUserDisplayName(submission.user)}</td> : null}
+                            <td>{status ? <Bi en={status.en} zh={status.zh} /> : submission.status}</td>
+                            <td>{submission.score}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="empty" style={{ marginTop: 14 }}>
+                  <Bi block en="No submissions yet." zh="還沒有提交。" />
+                </div>
+              )}
+            </section>
+          ) : null}
 
-          <section className="card">
-            <h2 style={{ marginTop: 0 }}>Recent submissions</h2>
-            {problem.submissions.length ? (
+          {isAdmin ? (
+            <section className="card admin-only">
+              <h2 style={{ marginTop: 0 }}>Teacher view · 老師專用</h2>
+              <div className="status-stack" style={{ marginTop: 8 }}>
+                {problem.isJudgeable ? <span className="badge success">Judge ready · 可判題</span> : <span className="badge danger">Judge blocked · 需修正</span>}
+                {warningItems.length ? <span className="badge warning">Warnings · {warningItems.length}</span> : <span className="badge info">Data clean · 正常</span>}
+              </div>
+              {warningItems.length ? (
+                <ul className="list" style={{ marginTop: 10 }}>
+                  {warningItems.map((item) => <li key={item}>{item}</li>)}
+                </ul>
+              ) : null}
+              <ul className="list small-text" style={{ marginTop: 10 }}>
+                <li>Slug: <span className="mono">{problem.slug}</span></li>
+                {catalog ? <li>Data: <span className="mono">data/{catalog.level}/{getProblemDataDirName(catalog)}</span></li> : null}
+                {catalog ? <li>Statement: <span className="mono">statements/{catalog.statementFilename}</span></li> : null}
+                {pdfDownloadUrl ? <li><a href={pdfDownloadUrl} className="inline-link">Download PDF · 下載 PDF</a></li> : null}
+              </ul>
               <div className="table-wrap" style={{ marginTop: 14 }}>
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Language</th>
-                      <th>Status</th>
+                      <th>#</th>
+                      <th>Input</th>
+                      <th>Output</th>
                       <th>Score</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {problem.submissions.map((submission) => (
-                      <tr key={submission.id}>
-                        <td><Link href={`/submissions/${submission.id}`} className="inline-link mono">{submission.id}</Link></td>
-                        <td>{getUserDisplayName(submission.user)}</td>
-                        <td>{submission.language}</td>
-                        <td>{submission.status}</td>
-                        <td>{submission.score}</td>
+                    {problem.testCases.map((testCase) => (
+                      <tr key={testCase.id}>
+                        <td>{testCase.index}</td>
+                        <td className="mono">{testCase.inputPath.split('/').at(-1)}</td>
+                        <td className="mono">{testCase.outputPath?.split('/').at(-1) ?? '—'}</td>
+                        <td>{testCase.score}</td>
+                        <td>{testCase.warning ?? (testCase.isValid ? 'valid' : 'invalid')}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            ) : (
-              <div className="empty" style={{ marginTop: 14 }}>No submissions yet for this problem. 這題目前還沒有提交。</div>
-            )}
-          </section>
+              <div className="small-text" style={{ marginTop: 8 }}>{validCases} / {problem.testCases.length} valid</div>
+            </section>
+          ) : null}
         </div>
       </section>
 
-      {session?.user ? <WhiteboardPanel problemId={problem.id} isAdmin={session.user.role === 'ADMIN'} /> : null}
+      {session?.user ? <WhiteboardPanel problemId={problem.id} isAdmin={isAdmin} /> : null}
     </main>
   );
 }

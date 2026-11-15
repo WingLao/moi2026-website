@@ -1,44 +1,64 @@
-# 02 · Square of Even Numbers
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-02-even-squares` 測資。
-
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-02-even-squares`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-02-even-squares`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-02-even-squares-0.in` / `f5b-02-even-squares-0.out`|
-
-## 題目說明
-
+:::en
 Use the fixed list `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`. Print the square of each even number.
+:::
 
-## 輸入格式
+:::zh
+使用固定的列表 `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]`，輸出其中每個偶數的平方。
+:::
 
-This problem does not require standard input.
+## Input · 輸入格式
 
-## 輸出格式
+:::en
+This problem has no input.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+本題沒有輸入。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+One line: `Even squares:` followed by the squares, separated by spaces.
+:::
+
+:::zh
+一行：先輸出 `Even squares:`，再輸出各個平方數，以空格分隔。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
-(no standard input)
+(no input · 沒有輸入)
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Even squares: 4 16 36 64 100
 ```
 
-## 提示
+## Hints · 提示
 
+:::en
 - Check `i % 2 == 0`, then compute `i * i`.
+:::
 
-## 限制
+:::zh
+- 用 `i % 2 == 0` 判斷偶數，再計算 `i * i`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

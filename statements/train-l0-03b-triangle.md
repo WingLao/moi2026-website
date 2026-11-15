@@ -1,26 +1,31 @@
-# 培訓 L0-03B · 三角形 (triangle)
+<!-- bilingual -->
+## Note · 注意
 
-> 培訓路線網站的正式練習題（不是 MOI 真題）。圖解和課堂練習在培訓路線網站的單元頁。
+:::en
+A practice problem from the training-path website (not a past MOI problem). Language: Python or C++. Read from standard input (keyboard) and print to standard output (screen).
+:::
 
-|項目|內容|
+:::zh
+培訓路線網站的正式練習題（不是 MOI 真題）。語言：Python 或 C++。從標準輸入（鍵盤）讀入，輸出到標準輸出（螢幕）。
+:::
+
+## Description · 題目說明
+
+:::en
+You are given the lengths a, b, c of three line segments. Decide what kind of triangle they form and print its code:
+
+| Code | Case |
 |---|---|
-|任務名稱|`triangle`|
-|組別|`P`（培訓 L0-03）|
-|測資目錄|`data/P/train-l0-03b-triangle`|
-|對齊範例|`train-l0-03b-triangle-0.in` / `train-l0-03b-triangle-0.out`|
+| 0 | Not a triangle (two sides add up to ≤ the third) |
+| 1 | Equilateral |
+| 2 | Isosceles (exactly two sides equal) |
+| 3 | Right-angled |
+| 4 | Any other triangle |
 
-| 項目 | 內容 |
-|---|---|
-| 題目名稱 | 三角形 |
-| 英文名稱 / 目錄 | `triangle` |
-| 語言 | Python 或 C++ |
-| 原始碼檔名 | `triangle.py` 或 `triangle.cpp` |
-| 輸入 | 標準輸入（鍵盤） |
-| 輸出 | 標準輸出（螢幕） |
-| 題目類型 | 傳統型 |
+The three sides are not necessarily in increasing order.
+:::
 
-## 題目說明
-
+:::zh
 給出三條線段的長度 a, b, c。判斷它們能組成哪一種三角形，按下表輸出代號：
 
 | 代號 | 情況 |
@@ -32,69 +37,89 @@
 | 4 | 其他三角形 |
 
 三條邊的次序不一定由小到大。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
+:::en
+One line with three integers a, b, c.
+:::
+
+:::zh
 一行三個整數 a, b, c。
+:::
 
-## 輸出格式
+## Output · 輸出格式
 
+:::en
+One integer: the code.
+:::
+
+:::zh
 一個整數：代號。
+:::
 
-## 樣例 1
-
-輸入：
+## Sample Input 1 · 範例輸入 1
 
 ```text
 3 4 5
 ```
 
-輸出：
+## Sample Output 1 · 範例輸出 1
 
 ```text
 3
 ```
 
+## Explanation 1 · 說明 1
 
-**樣例 1 解釋**
+:::en
+3 + 4 > 5, so it is a triangle; all sides are different; 3² + 4² = 9 + 16 = 25 = 5², so it is right-angled.
 
-（圖解見培訓路線網站的單元頁）
+(A diagram is on the unit page of the training website.)
+:::
+
+:::zh
 3 + 4 > 5，可以組成三角形；三邊都不相等；3² + 4² = 9 + 16 = 25 = 5²，是直角三角形。
 
-## 樣例 2
+（圖解見培訓路線網站的單元頁。）
+:::
 
-輸入：
+## Sample Input 2 · 範例輸入 2
 
 ```text
 2 2 5
 ```
 
-輸出：
+## Sample Output 2 · 範例輸出 2
 
 ```text
 0
 ```
 
+## Explanation 2 · 說明 2
 
-**樣例 2 解釋**
+:::en
+2 + 2 = 4 ≤ 5, so it is not a triangle. Check "is it a triangle?" first, then the type.
+:::
 
+:::zh
 2 + 2 = 4 ≤ 5，不能組成三角形。先判斷「能不能組成」，才判斷種類。
+:::
 
-> 注意：邊長可達 2 × 10⁹，超過 `int`；兩邊之和、邊長的平方更大。
+## Subtasks · 數據範圍
 
-## 數據範圍
-
-| 測試點 | a, b, c |
+| Tests 測試點 | a, b, c |
 |---|---|
 | 1–4 | 1 ≤ a, b, c ≤ 1000 |
 | 5–10 | 1 ≤ a, b, c ≤ 2 × 10⁹ |
 
-## 提交前檢查
+## Before You Submit · 提交前檢查
 
-| 檢查 | Python | C++ |
+| Check 檢查 | Python | C++ |
 |---|---|---|
-| 兩個樣例都通過 | ☐ | ☐ |
-| 最大數據會不會超時？（看數據範圍） | ☐ | ☐ |
-| 答案會不會超過 int？ | 不用擔心 | ☐ 用 `long long` |
-| 讀入寫法 | `input().split()` | `cin >>` |
-| 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |
+| Both samples pass 兩個樣例都通過 | ☐ | ☐ |
+| Fast enough for the largest data? 最大數據會不會超時？ | ☐ | ☐ |
+| Can the answer exceed int? 答案會不會超過 int？ | No need to worry 不用擔心 | ☐ use `long long` 用 `long long` |
+| How to read input 讀入寫法 | `input().split()` | `cin >>` |
+| Removed debug output (e.g. "Please enter") 刪除了除錯輸出（例如「請輸入」） | ☐ | ☐ |

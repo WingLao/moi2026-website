@@ -1,28 +1,35 @@
-# 31 · Matrix Transpose
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-31-matrix-transpose` 測資。
+:::en
+Read a matrix. Print the original matrix, then its transpose (rows become columns).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-31-matrix-transpose`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-31-matrix-transpose`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-31-matrix-transpose-0.in` / `f5b-31-matrix-transpose-0.out`|
+:::zh
+讀入一個矩陣，先輸出原本的矩陣，再輸出它的轉置矩陣（行變成列）。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input a matrix. Print the original matrix, then print its transpose.
+:::en
+Line 1: the number of rows and columns. Then one line per row, numbers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+第 1 行：行數和列數。接着每行輸入矩陣的一行，數字以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+`Original:` followed by each row as a Python list, then `Transpose:` followed by each row of the transpose.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+`Original:` 之後每行輸出一行（Python 列表格式），然後 `Transpose:` 之後輸出轉置矩陣的每一行。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 2 3
@@ -30,7 +37,7 @@ Print exactly the required result for the given task.
 4 5 6
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Original:
@@ -42,11 +49,24 @@ Transpose:
 [3, 6]
 ```
 
-## 提示
+## Hints · 提示
 
-- The first input line contains row count and column count.
+:::en
+- The first input line gives the row count and the column count.
+:::
 
-## 限制
+:::zh
+- 第一行輸入是行數和列數。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

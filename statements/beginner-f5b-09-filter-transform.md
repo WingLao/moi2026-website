@@ -1,34 +1,41 @@
-# 09 · Filter and Transform with NumPy
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-09-filter-transform` 測資。
+:::en
+Read 8 integers. Compute the average. Square every number that is greater than the average and store the squares in a new list.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-09-filter-transform`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-09-filter-transform`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-09-filter-transform-0.in` / `f5b-09-filter-transform-0.out`|
+:::zh
+讀入 8 個整數並計算平均值。把每個大於平均值的數取平方，存入一個新列表。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input 8 integers. Compute the average, square every number greater than the average, and store those squares in a new list.
+:::en
+One line with 8 integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行，8 個整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Three lines: `Original:` and the original list, `Average:` with 2 decimal places, `New list:` and the new list.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+三行：`Original:` 和原本的列表、`Average:` 和平均值（2 位小數）、`New list:` 和新列表。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 2 4 6 8 10 12 14 16
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Original: [2, 4, 6, 8, 10, 12, 14, 16]
@@ -36,11 +43,24 @@ Average: 9.00
 New list: [100, 144, 196, 256]
 ```
 
-## 提示
+## Hints · 提示
 
+:::en
 - Create the new list before the loop. Append `i ** 2`, not `i`.
+:::
 
-## 限制
+:::zh
+- 在迴圈之前建立新列表。加入的是 `i ** 2`，不是 `i`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

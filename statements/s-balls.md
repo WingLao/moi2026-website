@@ -1,40 +1,51 @@
-# 收拾球子 (balls)
+<!-- bilingual -->
+## Note · 注意
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+The test data for this problem may contain errors from the transfer; it will be checked again later.
+:::
 
-| 項目 | 內容 |
-|---|---|
-|任務名稱|`balls`|
-|組別|`S`|
-|時限|0.5 秒|
-|測試數據數目|10（但暫時系統內只有 4 個）|
-|記憶限制|256M|
-|測資目錄|`data/S/balls`|
-|原始 PDF|`S-balls.pdf`|
-|對齊範例|`balls-0.in` / `balls-0.out`|
+:::zh
+本題的數據在搬運過程中可能有誤，稍後會再測試一次。
+:::
 
-## 題目前置說明
+## Description · 題目說明
 
-數據在搬運期中可能有誤！稍後會再測試一次！
+:::en
+Siu Ming has N identical balls and K boxes of different capacities, numbered 1 to K. The total capacity of the boxes is at least N. In how many ways can he put all N balls into the boxes (no box may hold more than its capacity)?
+:::
 
-## 題目說明
+:::zh
+小明要收拾 N 個完全相同的球子，另外有 K 個容量不同的盒子，編號 1 至 K。已知盒子的總容量大於或等於球的數目。請問把這 N 個球子放進盒子（每個盒子不可超過容量）共有多少種方法？
+:::
 
-小明在收拾一些球子，他共有 $N$ 個完全相同的球子，另外他有 $K$ 個容量不同且排列在一櫃子內的盒子。這些盒子分別以 1 至 $K$ 加以編號。已知盒子的總容量是大於等於球的數目。小明想知道總共有多少種方法，可以把這 $N$ 個球子分配放到不同的盒子裡去。
+## Input · 輸入格式
 
-## 輸入格式
+:::en
+Line 1: an integer T (1 ≤ T ≤ 20), the number of test groups. Each group has two lines:
 
-輸入的第一行有一個整數 $T$（$1 \le T \le 20$），代表輸入資料含有多少組測試數據。
+- First line: two positive integers N and K (N ≤ 200).
+- Second line: K positive integers, the capacity of each box in order (1 ≤ K ≤ 10).
+:::
 
-每一組測試數據的格式如下:
+:::zh
+第 1 行：一個整數 T（1 ≤ T ≤ 20），表示數據組數。每組數據有兩行：
 
-- 第一行有兩個正整數 $N$ 及 $K$（$N \le 200$）
-- 第二行上有 $K$ 個正整數，這些正整數順序表示每一個盒的容量。（$1 \le K \le 10$）
+- 第一行：兩個正整數 N 和 K（N ≤ 200）。
+- 第二行：K 個正整數，依次表示每個盒子的容量（1 ≤ K ≤ 10）。
+:::
 
-## 輸出格式
+## Output · 輸出格式
 
-對應於每一組輸入資料，輸出一個正整數，代表你找到的可能放置方法數目。因為這個數字會很大，所以只需輸出數目 MOD 100,000,007 即可。
+:::en
+For each group, one integer: the number of ways, modulo 100,000,007.
+:::
 
-## 範例輸入
+:::zh
+每組數據輸出一個整數：方法數目除以 100,000,007 的餘數。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 1
@@ -42,12 +53,20 @@
 2 1 5
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 5
 ```
 
-## 特殊條件
+## Special Cases · 特殊條件
 
-- 最少有一個測試數據內的所有盒子容量是全部相同的。
+:::en
+- In at least one test, all boxes have the same capacity.
+- Time limit: 0.5 s.
+:::
+
+:::zh
+- 最少有一個測試數據內所有盒子的容量都相同。
+- 時限：0.5 秒。
+:::

@@ -1,53 +1,81 @@
-# 05 · Edit Distance
+<!-- bilingual -->
+## Description · 題目說明
 
-> 動態規劃（DP）練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/DP/dp-05-edit-distance` 測資。
+:::en
+Given two strings `word1` and `word2` of lowercase letters, print the minimum number of operations needed to turn `word1` into `word2`. Allowed operations:
 
-|項目|內容|
-|---|---|
-|任務名稱|`dp-05-edit-distance`|
-|組別|`DP`|
-|難度|`Hard`|
-|測資目錄|`data/DP/dp-05-edit-distance`|
-|來源|`LeetCode 72, rewritten as a contest-style problem`|
-|對齊範例|`dp-05-edit-distance-0.in` / `dp-05-edit-distance-0.out`|
+- insert a character
+- delete a character
+- replace a character
+:::
 
-## 題目說明
-
-給定兩個只包含小寫英文字母的字串 `word1` 與 `word2`，請輸出把 `word1` 轉換成 `word2` 所需的最少操作次數。允許操作如下：
+:::zh
+給定兩個只含小寫英文字母的字串 `word1` 和 `word2`，輸出把 `word1` 變成 `word2` 所需的最少操作次數。可以使用的操作：
 
 - 插入一個字元
 - 刪除一個字元
 - 替換一個字元
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
-第一行包含字串 `word1`。
-第二行包含字串 `word2`。
+:::en
+Line 1: `word1`.
 
-## 輸出格式
+Line 2: `word2`.
+:::
 
-輸出一行，包含最少操作次數。
+:::zh
+第 1 行：`word1`。
 
-## 範例輸入
+第 2 行：`word2`。
+:::
+
+## Output · 輸出格式
+
+:::en
+Print the minimum number of operations.
+:::
+
+:::zh
+輸出最少操作次數。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 horse
 ros
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 3
 ```
 
-## 提示
+## Hints · 提示
 
-- 可設 `dp[i][j]` 表示 `word1` 前 `i` 個字元轉成 `word2` 前 `j` 個字元的最少操作次數。
-- 如果目前字元相同，就可直接繼承 `dp[i-1][j-1]`。
-- 否則從插入、刪除、替換三種操作中取最小值再加一。
+:::en
+- Let `dp[i][j]` be the answer for the first `i` characters of `word1` and the first `j` characters of `word2`.
+- If the current characters are equal, take `dp[i-1][j-1]`.
+- Otherwise take the minimum of insert, delete and replace, plus one.
+:::
 
-## 限制
+:::zh
+- 設 `dp[i][j]` 表示 `word1` 前 `i` 個字元變成 `word2` 前 `j` 個字元的最少操作次數。
+- 如果目前兩個字元相同，直接取 `dp[i-1][j-1]`。
+- 否則取插入、刪除、替換三者的最小值再加一。
+:::
 
+## Constraints · 限制
+
+:::en
 - `0 <= len(word1), len(word2) <= 200`
-- `word1` 與 `word2` 只包含小寫英文字母。
+- Both strings contain only lowercase English letters.
+:::
+
+:::zh
+- `0 <= len(word1), len(word2) <= 200`
+- 兩個字串只包含小寫英文字母。
+:::

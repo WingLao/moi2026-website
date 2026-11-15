@@ -1,30 +1,39 @@
-# 02 · Herb Picking
+<!-- bilingual -->
+## Description · 題目說明
 
-> 動態規劃（DP）練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/DP/dp-02-herb-picking` 測資。
+:::en
+You have `T` minutes to pick herbs and `M` kinds of herbs to choose from. Each herb takes some time to pick and has a value, and each herb can be picked at most once. Find the maximum total value you can get within `T` minutes.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`dp-02-herb-picking`|
-|組別|`DP`|
-|難度|`Easy`|
-|測資目錄|`data/DP/dp-02-herb-picking`|
-|來源|`Luogu P1048, rewritten as a contest-style problem`|
-|對齊範例|`dp-02-herb-picking-0.in` / `dp-02-herb-picking-0.out`|
+:::zh
+你有 `T` 分鐘採藥，共有 `M` 種草藥可選。每種草藥有採摘所需時間和價值，而且每種最多只能採一次。求在總時間不超過 `T` 的情況下，可以得到的最大總價值。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-你有總共 `T` 分鐘可以採藥，並且有 `M` 種草藥可供選擇。每種草藥都有採摘所需時間與價值，而且每種草藥最多只能採一次。請求出在總時間不超過 `T` 的情況下，可以得到的最大總價值。
+:::en
+Line 1: two integers `T` and `M`.
 
-## 輸入格式
+Next `M` lines: two integers `time` and `value` for one herb.
+:::
 
-第一行包含兩個整數 `T` 和 `M`。
-接下來 `M` 行，每行包含兩個整數 `time` 和 `value`，分別表示採摘所需時間與草藥價值。
+:::zh
+第 1 行：兩個整數 `T` 和 `M`。
 
-## 輸出格式
+接下來 `M` 行：每行兩個整數 `time` 和 `value`，表示一種草藥的採摘時間和價值。
+:::
 
-輸出一行，包含可取得的最大總價值。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+Print the maximum total value.
+:::
+
+:::zh
+輸出最大總價值。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 10 4
@@ -34,20 +43,36 @@
 2 3
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 17
 ```
 
-## 提示
+## Hints · 提示
 
-- 這是一題標準 0/1 背包。
-- 使用 `dp[j]` 表示總時間不超過 `j` 時的最大總價值。
-- 更新時要從大到小枚舉時間，避免同一種草藥被重複使用。
+:::en
+- This is the classic 0/1 knapsack problem.
+- Let `dp[j]` be the best value using at most `j` minutes.
+- Loop `j` from large to small so that each herb is used only once.
+:::
 
-## 限制
+:::zh
+- 這是標準的 0/1 背包。
+- 設 `dp[j]` 表示總時間不超過 `j` 時的最大價值。
+- 更新時 `j` 要由大到小，避免同一種草藥被重複使用。
+:::
 
+## Constraints · 限制
+
+:::en
 - `1 <= T <= 1000`
 - `1 <= M <= 200`
 - `1 <= time, value <= 1000`
+:::
+
+:::zh
+- `1 <= T <= 1000`
+- `1 <= M <= 200`
+- `1 <= time, value <= 1000`
+:::

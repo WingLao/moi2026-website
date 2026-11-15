@@ -1,30 +1,37 @@
-# 02 · Maximum Units on a Truck
+<!-- bilingual -->
+## Description · 題目說明
 
-> Greedy Algorithm 練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/GA/ga-02-maximum-units-truck` 測資。
+:::en
+A truck can carry at most `k` boxes. There are several types of boxes; for each type you know how many boxes there are and how many units each box holds. Find the maximum total number of units the truck can carry.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`ga-02-maximum-units-truck`|
-|組別|`GA`|
-|難度|`Easy`|
-|測資目錄|`data/GA/ga-02-maximum-units-truck`|
-|來源|`LeetCode 1710, rewritten as a contest-style problem`|
-|對齊範例|`ga-02-maximum-units-truck-0.in` / `ga-02-maximum-units-truck-0.out`|
+:::zh
+一輛貨車最多可載 `k` 個箱子。箱子有好幾種，每種你都知道有多少個，以及每個箱子裝了多少件貨物。求貨車最多能載多少件貨物。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-A truck can carry at most `k` boxes. There are several box types. For each type, you know how many boxes exist and how many units each box contains. Maximize the total units loaded onto the truck.
+:::en
+- Line 1: two integers `m` (number of box types) and `k`.
+- Next `m` lines: two integers `count` and `units` for one box type.
+:::
 
-## 輸入格式
+:::zh
+- 第 1 行：兩個整數 `m`（箱子種類數）和 `k`。
+- 接下來 `m` 行：每行兩個整數 `count` 和 `units`，描述一種箱子。
+:::
 
-- The first line contains two integers `m` and `k`.
-- The next `m` lines each contain two integers `count` and `units`, describing one box type.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Print the maximum total number of units.
+:::
 
-- Print the maximum total number of units that can be loaded.
+:::zh
+輸出最多能載的貨物總件數。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 3 4
@@ -33,18 +40,32 @@ A truck can carry at most `k` boxes. There are several box types. For each type,
 3 1
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 8
 ```
 
-## 貪婪提示
+## Hints · 提示
 
-Sort box types by `units` descending. Load the highest-value boxes first until the truck is full.
+:::en
+Sort the box types by `units` from high to low and load the best boxes first until the truck is full.
+:::
 
-## 限制
+:::zh
+按 `units` 由大到小排序，先裝最值錢的箱子，直到貨車載滿。
+:::
 
-- 1 <= m <= 100000
-- 1 <= k <= 1000000000
-- 1 <= count, units <= 100000
+## Constraints · 限制
+
+:::en
+- 1 ≤ m ≤ 100000
+- 1 ≤ k ≤ 1000000000
+- 1 ≤ count, units ≤ 100000
+:::
+
+:::zh
+- 1 ≤ m ≤ 100000
+- 1 ≤ k ≤ 1000000000
+- 1 ≤ count, units ≤ 100000
+:::

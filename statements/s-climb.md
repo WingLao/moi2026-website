@@ -1,38 +1,49 @@
-# 爬上爬落 (climb)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+You are given a polynomial of degree n (2 ≤ n ≤ 8):
 
-| 項目 | 內容 |
-|---|---|
-|任務名稱|`climb`|
-|組別|`S`|
-|時限|0.5 秒|
-|測試數據數目|10|
-|記憶限制|128M|
-|測資目錄|`data/S/climb`|
-|原始 PDF|`S-climb.pdf`|
-|對齊範例|`climb-0.in` / `climb-0.out`|
+`f(x) = a_n x^n + a_(n-1) x^(n-1) + ... + a_1 x + a_0`
 
-## 題目說明
+It has n − 1 turning points (think of them as hilltops and valley bottoms on the curve). You are also given x1 and x2; between them, f(x) has exactly one turning point. Find the x-position x0 of that turning point.
+:::
 
-給定一個 $n$ 次函數 $f(x) = a_n x^n + a_{n-1} x^{n-1} + a_{n-2} x^{n-2} + \dots + a_1 x + a_0$，其中 $2 \le n \le 8$。且這個函數共有 $n-1$ 個極值（這些極值可以想像為在函數曲線內出現的一個個山峰頂或山谷底）。
+:::zh
+給定一個 n 次函數（2 ≤ n ≤ 8）：
 
-給定 $x_1$ 及 $x_2$，且在這個區間內，$f(x)$ 只有一個極值（山峰頂或山谷底）。我們需要找出在這區間內的極值點 $x_0$（即山峰頂或山谷底所在的 $x$ 位置）。
+`f(x) = a_n x^n + a_(n-1) x^(n-1) + ... + a_1 x + a_0`
 
-## 輸入格式
+它共有 n − 1 個極值（可以想像成曲線上的山峰頂或山谷底）。另外給定 x1 和 x2，在這個區間內 f(x) 只有一個極值。請找出這個極值所在的 x 位置 x0。
+:::
 
-輸入數據的第一行上有一個正整數 $T$，代表共有多少組測試數據。
+## Input · 輸入格式
 
-隨後的 $T$ 組數據，每組的格式如下:（$1 \le T \le 10$）
+:::en
+Line 1: a positive integer T (1 ≤ T ≤ 10), the number of test groups. Each group has two lines:
 
-- 第一行上有三個數 $N$、$X1$、及 $X2$，其中 $X1 < X2$
-- 第二行上有 $N+1$ 個實數，每個實數小數點後最多有 4 個位。這 $N+1$ 個實數順次分別代表着 $N$ 次函數的系數 $a_N, a_{N-1}, a_{N-2}, \dots, a_1, a_0$
+- First line: N, X1 and X2, with X1 < X2.
+- Second line: N + 1 real numbers (at most 4 decimal places): the coefficients a_N, a_(N-1), …, a_1, a_0.
+:::
 
-## 輸出格式
+:::zh
+第 1 行：一個正整數 T（1 ≤ T ≤ 10），表示數據組數。每組數據有兩行：
 
-輸出一個實數代表你所找到的極值所在的 $x$（即 $f(x)$ 是在 $X1$ 及 $X2$ 區間內的極值）。輸出的實數要求小數點後必須顯示正好 5 個位。
+- 第一行：N、X1 和 X2，其中 X1 < X2。
+- 第二行：N + 1 個實數（小數點後最多 4 位），依次是係數 a_N、a_(N-1)、……、a_1、a_0。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+For each group, the x of the turning point between X1 and X2, with exactly 5 decimal places.
+:::
+
+:::zh
+每組數據輸出一個實數：X1 與 X2 之間極值所在的 x，小數點後必須正好 5 位。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 1
@@ -40,13 +51,20 @@
 1.0 1.0 -6.0
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 -0.50000
 ```
 
-## 特殊條件
+## Special Cases · 特殊條件
 
-- 有一個測試數據 $N = 2$
-- 有一個測試數據 $N = 3$
+:::en
+- One test has N = 2 and one test has N = 3.
+- Time limit: 0.5 s; memory limit: 128 MB.
+:::
+
+:::zh
+- 有一個測試數據 N = 2，有一個 N = 3。
+- 時限：0.5 秒；記憶體限制：128 MB。
+:::

@@ -1,44 +1,64 @@
-# 07 · Create a List with append()
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-07-append-list` 測資。
+:::en
+Go through the numbers from 1 to 20. Append only the numbers divisible by 3 to a list, then print the list.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-07-append-list`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-07-append-list`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-07-append-list-0.in` / `f5b-07-append-list-0.out`|
+:::zh
+逐一檢查 1 至 20，只把能被 3 整除的數用 append() 加入列表，最後輸出列表。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Generate numbers from 1 to 20, append only numbers divisible by 3 into a list, then print the list.
+:::en
+This problem has no input.
+:::
 
-## 輸入格式
+:::zh
+本題沒有輸入。
+:::
 
-This problem does not require standard input.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: the list in Python format, e.g. `[3, 6, 9]`.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：Python 格式的列表，例如 `[3, 6, 9]`。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
-(no standard input)
+(no input · 沒有輸入)
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 [3, 6, 9, 12, 15, 18]
 ```
 
-## 提示
+## Hints · 提示
 
-- Create `l = []`, then call `l.append(i)` inside the condition.
+:::en
+- Create `l = []`, then call `l.append(i)` inside the `if`.
+:::
 
-## 限制
+:::zh
+- 先建立 `l = []`，在 `if` 裡面呼叫 `l.append(i)`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

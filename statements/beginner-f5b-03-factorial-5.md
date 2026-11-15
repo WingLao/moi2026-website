@@ -1,44 +1,64 @@
-# 03 · Factorial of 5
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-03-factorial-5` 測資。
+:::en
+Use a for loop to compute the factorial of 5 (5! = 1 × 2 × 3 × 4 × 5).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-03-factorial-5`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-03-factorial-5`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-03-factorial-5-0.in` / `f5b-03-factorial-5-0.out`|
+:::zh
+用 for 迴圈計算 5 的階乘（5! = 1 × 2 × 3 × 4 × 5）。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Use a for loop to compute the factorial of 5.
+:::en
+This problem has no input.
+:::
 
-## 輸入格式
+:::zh
+本題沒有輸入。
+:::
 
-This problem does not require standard input.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: `Factorial of 5:` followed by the answer.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：`Factorial of 5:`，後面接答案。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
-(no standard input)
+(no input · 沒有輸入)
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Factorial of 5: 120
 ```
 
-## 提示
+## Hints · 提示
 
+:::en
 - Start with `ans = 1`, then multiply by every `i` from 1 to 5.
+:::
 
-## 限制
+:::zh
+- 先設 `ans = 1`，再把 1 至 5 的每個 `i` 乘進去。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

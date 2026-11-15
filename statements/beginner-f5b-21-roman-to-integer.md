@@ -1,44 +1,64 @@
-# 21 · Roman to Integer
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-21-roman-to-integer` 測資。
+:::en
+Read a Roman numeral and print its value. In this beginner version you only need to add up the symbols (no subtraction rule such as IV).
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-21-roman-to-integer`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-21-roman-to-integer`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-21-roman-to-integer-0.in` / `f5b-21-roman-to-integer-0.out`|
+:::zh
+讀入一個羅馬數字，輸出它的數值。這個入門版本只需要把各符號的值加起來（不需處理 IV 這類減法規則）。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input a Roman numeral string and print its integer value. This beginner version only needs additive Roman numerals.
+:::en
+One line with a Roman numeral.
+:::
 
-## 輸入格式
+:::zh
+一行，一個羅馬數字。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One integer: its value.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一個整數：它的數值。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 XVI
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 16
 ```
 
-## 提示
+## Hints · 提示
 
-- Use a mapping such as `I: 1`, `V: 5`, `X: 10`, `L: 50`, `C: 100`, `D: 500`, `M: 1000`.
+:::en
+- Use a mapping: `I: 1`, `V: 5`, `X: 10`, `L: 50`, `C: 100`, `D: 500`, `M: 1000`.
+:::
 
-## 限制
+:::zh
+- 使用對照表：`I: 1`、`V: 5`、`X: 10`、`L: 50`、`C: 100`、`D: 500`、`M: 1000`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

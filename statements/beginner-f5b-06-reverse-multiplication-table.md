@@ -1,34 +1,41 @@
-# 06 · Multiplication Table in Reverse Order
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-06-reverse-multiplication-table` 測資。
+:::en
+Print the multiplication table from 10 down to 1. Row `i` shows the products `i*1` up to `i*i`.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-06-reverse-multiplication-table`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-06-reverse-multiplication-table`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-06-reverse-multiplication-table-0.in` / `f5b-06-reverse-multiplication-table-0.out`|
+:::zh
+由 10 倒數到 1 輸出乘數表。第 `i` 行輸出 `i*1` 至 `i*i` 的乘積。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Display the multiplication table from 10 down to 1. Row `i` should show products from `i*1` to `i*i`.
+:::en
+This problem has no input.
+:::
 
-## 輸入格式
+:::zh
+本題沒有輸入。
+:::
 
-This problem does not require standard input.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+10 lines. Each item has the form `i*j=product`, separated by spaces (see the sample).
+:::
 
-Print exactly the required result for the given task.
+:::zh
+共 10 行。每一項的格式是 `i*j=乘積`，以空格分隔（見範例）。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
-(no standard input)
+(no input · 沒有輸入)
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 10*1=10 10*2=20 10*3=30 10*4=40 10*5=50 10*6=60 10*7=70 10*8=80 10*9=90 10*10=100
@@ -43,11 +50,24 @@ Print exactly the required result for the given task.
 1*1=1
 ```
 
-## 提示
+## Hints · 提示
 
-- Use a nested loop: outer loop from 10 down to 1, inner loop from 1 to `i`.
+:::en
+- Use a nested loop: the outer loop goes from 10 down to 1, the inner loop from 1 to `i`.
+:::
 
-## 限制
+:::zh
+- 使用巢狀迴圈：外層由 10 倒數到 1，內層由 1 數到 `i`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

@@ -1,34 +1,45 @@
-# 兼職 (parttime)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+Siu Ming is planning his part-time jobs. He can do at most K jobs at the same time. There are N job offers, and he knows the start time and end time of each one. What is the maximum number of jobs he can take?
+:::
 
-| 項目 | 內容 |
-|---|---|
-|任務名稱|`parttime`|
-|組別|`J`|
-|時限|0.5 秒|
-|測試數據數目|10|
-|記憶限制|256M|
-|測資目錄|`data/J/parttime`|
-|原始 PDF|`J-parttime.pdf`|
-|對齊範例|`parttime-0.in` / `parttime-0.out`|
+:::zh
+小明正在計劃他的兼職，他在同一時間內最多可以做 K 份兼職。一共有 N 份兼職機會，他知道每份兼職的開始時間和結束時間。請問他最多可以做多少份兼職？
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-小明正在計劃他的兼職，他有能力在同一時間內做最多 $K$ 份兼職。小明已知在某一段時間內總共會有 $N$ 份兼職機會，他知道每份兼職的開始時間及所需要時間長度。小明想知道在這情況下他最多可以做多少份兼職。
+:::en
+Line 1: a positive integer T, the number of test groups. Each group:
 
-## 輸入格式
+- First line: two positive integers N (number of offers) and K (max jobs at the same time).
+- Next N lines: two positive integers S (start time) and E (end time).
 
-輸入的第一行上有一個正整數 $T$，代表測試數據的數目。隨後有 $T$ 組數據，每組數據的格式如下:
+Limits: 2 ≤ N ≤ 300, 0 < S ≤ 1,000, 1 ≤ K ≤ 10.
+:::
 
-- 數據的第一行有兩個正整數 $N$ 和 $K$，$N$ 是兼職機會的數目，$K$ 是小明在同一時間內可以做的兼職的最大數目
-- 隨後有 $N$ 行，每行上有兩個正整數 $S$ 和 $E$，$S$ 是兼職的開始時間，$E$ 則是兼職的結束時間。$2 \le N \le 300$ 及 $0 < S \le 1{,}000$ 且 $1 \le K \le 10$
+:::zh
+第 1 行：一個正整數 T，表示數據組數。每組數據：
 
-## 輸出格式
+- 第一行：兩個正整數 N（兼職機會數目）和 K（同一時間最多可做的兼職數）。
+- 接下來 N 行：每行兩個正整數 S（開始時間）和 E（結束時間）。
 
-於每一組輸入數據輸出一個正整數，代表小明在該組數據描述的情況下，可以做到的兼職的最大數目。
+範圍：2 ≤ N ≤ 300，0 < S ≤ 1,000，1 ≤ K ≤ 10。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+For each group, one positive integer: the maximum number of jobs.
+:::
+
+:::zh
+每組數據輸出一個正整數：最多可以做的兼職數目。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 2
@@ -42,13 +53,29 @@
 2 7
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2
 3
 ```
 
-## 說明
+## Explanation · 說明
 
-注：對於第一組數據而言，第一件兼職在時間 5 結束，而第二件兼職在時間 5 開始，這兩件兼職不算有重疊。
+:::en
+In the first group, the first job ends at time 5 and the second starts at time 5. These two jobs do **not** overlap.
+:::
+
+:::zh
+第一組數據中，第一份兼職在時間 5 結束，第二份在時間 5 開始，這兩份兼職**不算**重疊。
+:::
+
+## Constraints · 限制
+
+:::en
+- Time limit: 0.5 s
+:::
+
+:::zh
+- 時限：0.5 秒
+:::

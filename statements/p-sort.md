@@ -1,40 +1,59 @@
-# SORT (sort)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+Read N integers and print them in ascending order.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`sort`|
-|組別|`P`|
-|測資目錄|`data/P/sort`|
-|原始 PDF|`P-sort.pdf`|
-|對齊範例|`sort-0.in` / `sort-0.out`|
+:::zh
+讀入 N 個整數，由小到大輸出。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
-The first line contains an integer N.
+:::en
+Line 1: an integer N.
 
-The second line contains N integers.
+Line 2: N integers.
+:::
 
-## 輸出格式
+:::zh
+第 1 行：一個整數 N。
 
-Print the integers in ascending order on one line, separated by spaces.
+第 2 行：N 個整數。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+One line: the integers in ascending order, separated by spaces.
+:::
+
+:::zh
+一行：由小到大排好的整數，以空格分隔。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 5
 5 1 4 2 3
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 1 2 3 4 5
 ```
 
-## 限制
+## Constraints · 限制
 
-1 <= N <= 1000
+:::en
+- 1 ≤ N ≤ 1000
+- -10^9 ≤ Ai ≤ 10^9
+:::
 
--10^9 <= Ai <= 10^9
+:::zh
+- 1 ≤ N ≤ 1000
+- -10^9 ≤ Ai ≤ 10^9
+:::

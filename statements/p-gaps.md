@@ -1,38 +1,39 @@
-# 差別 (gaps)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+You are given a list of positive integers. Among all pairs of **different** values, find the smallest difference and the largest difference.
+:::
 
-| | |
-|----|---|
-|任務名稱|gaps|
-|組別|P|
-|時限| 0.8 秒|
-|測試數據數目|10|
-|記憶限制| 256M |
-|測資目錄|`data/P/gaps`|
-|原始 PDF|`P-gaps.pdf`|
-|對齊範例|`gaps-0.in` / `gaps-0.out`|
+:::zh
+給定一列正整數。在所有**不相同**的數之間，找出它們的最小差和最大差。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-給定一輸入數列, 數列內含有一些非負整數。我們想找出在所有非相同的整數中，它們之間的
-最少及最大差是多少。
+:::en
+Several lines, one integer per line. The last line is `0`, which only marks the end of the input and is not part of the data.
 
-## 輸入格式
+All integers are in the range [1, 1000000]. Each test has at most 10,000 integers (not counting the final 0).
+:::
 
-輸入資料含有若干行，每行上有一個非負整數。最後一行上有一個 $0$，它代表輸入數據的完
-結。
-要注意的是最後的那個 $0$ 並不參與任務中的計劃，它的作用只是標示輸入的完結。
+:::zh
+輸入有若干行，每行一個整數。最後一行是 `0`，它只表示輸入結束，不屬於數據。
 
-所有輸入整數都在 $[1,1000000]$ 範圍內，每個測試數據最多有 $10,000$ 個整數 (不包括最後
-的那個 0 )。
+所有整數都在 [1, 1000000] 範圍內，每個測試數據最多有 10,000 個整數（不包括最後的 0）。
+:::
 
-## 輸出格式
+## Output · 輸出格式
 
-輸出只有一行，其上有兩個正整數，它們分別代表你所找到的最少及最大差。這兩個數以一
-個空格分開。這兩個差值均為正數。
+:::en
+One line with two positive integers: the smallest difference and the largest difference, separated by one space.
+:::
 
-## 範例輸入
+:::zh
+一行，兩個正整數：最小差和最大差，以一個空格分隔。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 31
@@ -49,8 +50,20 @@
 0
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2 46
 ```
+
+## Constraints · 限制
+
+:::en
+- Time limit: 0.8 s
+- 10 tests
+:::
+
+:::zh
+- 時限：0.8 秒
+- 共 10 個測試數據
+:::

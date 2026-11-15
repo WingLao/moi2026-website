@@ -1,44 +1,60 @@
-# 最少硬幣 (coin)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+There are unlimited coins worth 1, 5, 10, 50 and 100. Given an amount V, find the minimum number of coins whose total is exactly V.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`coin`|
-|組別|`P`|
-|測資目錄|`data/P/coin`|
-|原始 PDF|`P-coin.pdf`|
-|對齊範例|`coin-0.in` / `coin-0.out`|
+:::zh
+有面值 1、5、10、50、100 的硬幣，每種數量無限。給定金額 V，求最少需要幾枚硬幣才能剛好湊成 V。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-假設有面值為 1、5、10、50、100 的硬幣，數量無限。給定金額
-V，請計算最少需要幾枚硬幣能湊成這個金額。
+:::en
+One line with a positive integer V (1 ≤ V ≤ 10000).
+:::
 
-## 輸入格式
+:::zh
+一行，一個正整數 V（1 ≤ V ≤ 10000）。
+:::
 
-一行，包含一個正整數 V（1 ≤ V ≤ 10000）。
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: the minimum number of coins.
+:::
 
-一行，輸出最少需要的硬幣數量。
+:::zh
+一行：最少需要的硬幣數量。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 1
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 1
 ```
 
-## 說明
+## Explanation · 說明
 
-使用貪心策略，每次盡量選面值最大的硬幣。
+:::en
+Greedy works here: always take the largest coin that still fits.
 
-- 範例：V = 1，只需 1 枚面值 1 的硬幣，答案為 **1**。
-- 範例：V = 126 = 100 + 10 + 10 + 5 + 1，共 **5** 枚。
-- 範例：V = 55 = 50 + 5，共 **2** 枚。
+- V = 1: one 1-coin, answer **1**.
+- V = 126 = 100 + 10 + 10 + 5 + 1: **5** coins.
+- V = 55 = 50 + 5: **2** coins.
+:::
+
+:::zh
+這題可以用貪心：每次都取能放進去的最大面值。
+
+- V = 1：一枚 1 元，答案是 **1**。
+- V = 126 = 100 + 10 + 10 + 5 + 1：共 **5** 枚。
+- V = 55 = 50 + 5：共 **2** 枚。
+:::

@@ -1,44 +1,64 @@
-# 19 · Most Frequent Word
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-19-most-frequent-word` 測資。
+:::en
+Read a sentence and print the word that appears most often.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-19-most-frequent-word`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-19-most-frequent-word`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-19-most-frequent-word-0.in` / `f5b-19-most-frequent-word-0.out`|
+:::zh
+讀入一句句子，輸出出現次數最多的單字。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input a sentence and print the word that appears most frequently.
+:::en
+One line: words separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行：以空格分隔的單字。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: the most frequent word.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：出現最多的單字。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 apple banana apple cherry apple banana
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 apple
 ```
 
-## 提示
+## Hints · 提示
 
-- Split the sentence by spaces and count words with a dictionary.
+:::en
+- Split the sentence by spaces and count the words with a dictionary.
+:::
 
-## 限制
+:::zh
+- 用空格把句子分開，再用字典數每個單字。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

@@ -1,30 +1,39 @@
-# 島嶼計數 (islands)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+You are given an N×M grid. Each cell is `1` (land) or `0` (sea). An island is a group of land cells connected horizontally or vertically. Count the islands.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`islands`|
-|組別|`P`|
-|測資目錄|`data/P/islands`|
-|原始 PDF|`P-islands.pdf`|
-|對齊範例|`islands-0.in` / `islands-0.out`|
+:::zh
+給定一個 N×M 的網格，每格是 `1`（陸地）或 `0`（海洋）。島嶼由上下左右相連的陸地格子組成。請計算島嶼的數量。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-給定一個 N×M 的網格，每個格子為 "1"（陸地）或 "0"（海洋）。島嶼由水平或垂直方向相連的陸地
-格子組成，四周被海洋包圍。請計算圖中島嶼的數量。
+:::en
+Line 1: two positive integers N and M (1 ≤ N, M ≤ 10): rows and columns.
 
-## 輸入格式
+Next N lines: M characters each, `0` or `1`, with no spaces.
+:::
 
-第一行包含兩個正整數 N、M（1 ≤ N, M ≤ 10），分別表示行數和列數。
-接下來 N 行，每行 M 個字元，為 "0" 或 "1"，字元之間無空格。
+:::zh
+第 1 行：兩個正整數 N、M（1 ≤ N, M ≤ 10），表示行數和列數。
 
-## 輸出格式
+接下來 N 行：每行 M 個字元（`0` 或 `1`），字元之間沒有空格。
+:::
 
-一行，輸出島嶼的數量。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One line: the number of islands.
+:::
+
+:::zh
+一行：島嶼的數量。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 4 5
@@ -34,12 +43,18 @@
 00011
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 3
 ```
 
-## 說明
+## Explanation · 說明
 
-三個島嶼分別在左上角、中間一個1、右下角兩個相連的1。
+:::en
+The three islands are: the top-left block, the single `1` in the middle, and the two connected `1`s at the bottom right.
+:::
+
+:::zh
+三個島嶼分別是：左上角的一塊、中間的一個 `1`、右下角兩個相連的 `1`。
+:::

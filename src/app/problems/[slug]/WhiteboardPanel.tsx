@@ -45,7 +45,7 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
     if (userId) query.set('userId', userId);
     const res = await fetch(`/api/whiteboards?${query}`);
     const json = await res.json();
-    if (!json.ok) throw new Error(json.error || '讀取失敗');
+    if (!json.ok) throw new Error(json.error || 'Could not load · 讀取失敗');
     setVersions(json.versions);
     return json.versions as Version[];
   }, [problemId]);
@@ -59,12 +59,12 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
       } else {
         const res = await fetch(`/api/whiteboards/${id}`);
         const json = await res.json();
-        if (!json.ok) throw new Error(json.error || '讀取失敗');
+        if (!json.ok) throw new Error(json.error || 'Could not load · 讀取失敗');
         loadBoard(json.version.data);
       }
       setVersionId(id);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : '讀取失敗');
+      setMessage(error instanceof Error ? error.message : 'Could not load · 讀取失敗');
     } finally {
       setBusy(false);
     }
@@ -76,7 +76,7 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
       const list = await fetchVersions(userId);
       await openVersion(list[0]?.id ?? '');
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : '讀取失敗');
+      setMessage(error instanceof Error ? error.message : 'Could not load · 讀取失敗');
     }
   }, [fetchVersions, openVersion]);
 
@@ -135,7 +135,7 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
   }
 
   function confirmDiscard() {
-    return readOnly || !dirty || window.confirm('白板有未存檔的修改，確定要放棄？');
+    return readOnly || !dirty || window.confirm('The whiteboard has unsaved changes. Discard them?\n白板有未存檔的修改，確定要放棄？');
   }
 
   async function save() {
@@ -146,7 +146,7 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
       const board = await new Promise<BoardData>((resolve, reject) => {
         pending.current.set(reqId, resolve);
         post({ type: 'oj:get', reqId });
-        setTimeout(() => reject(new Error('白板沒有回應，請再試一次')), 5000);
+        setTimeout(() => reject(new Error('The whiteboard did not respond. Please try again. 白板沒有回應，請再試一次')), 5000);
       });
       const res = await fetch('/api/whiteboards', {
         method: 'POST',
@@ -154,14 +154,14 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
         body: JSON.stringify({ problemId, data: board }),
       });
       const json = await res.json();
-      if (!json.ok) throw new Error(json.error || '存檔失敗');
+      if (!json.ok) throw new Error(json.error || 'Could not save · 存檔失敗');
       currentBoard.current = board;
       post({ type: 'oj:saved' });
       await fetchVersions(SELF);
       setVersionId(json.version.id);
-      setMessage(`已存檔 ${formatTime(json.version.createdAt)}`);
+      setMessage(`Saved 已存檔 ${formatTime(json.version.createdAt)}`);
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : '存檔失敗');
+      setMessage(error instanceof Error ? error.message : 'Could not save · 存檔失敗');
     } finally {
       setBusy(false);
     }
@@ -186,25 +186,25 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
   return (
     <>
       <button type="button" className="wb-toggle" onClick={toggle} aria-expanded={open}>
-        {open ? '收起白板' : '📝 白板筆記'}
+        {open ? 'Hide whiteboard · 收起白板' : '📝 Whiteboard · 白板筆記'}
       </button>
 
       {mounted ? (
         <aside
           className={`wb-panel${full ? ' wb-full' : ''}`}
           style={{ width: full ? undefined : width, display: open ? 'flex' : 'none' }}
-          aria-label="白板筆記"
+          aria-label="Whiteboard · 白板筆記"
         >
           {!full ? <div className="wb-resize" onPointerDown={startResize} title="拖曳調整寬度" /> : null}
           <div className="wb-bar">
-            <strong>白板筆記</strong>
+            <strong>Whiteboard · 白板筆記</strong>
             {isAdmin ? (
               <select
                 value={viewUser}
                 onChange={(e) => { if (confirmDiscard()) void showUser(e.target.value); }}
-                aria-label="查看邊位學生"
+                aria-label="Student · 學生"
               >
-                <option value={SELF}>我自己</option>
+                <option value={SELF}>Me · 我自己</option>
                 {owners.map((owner) => (
                   <option key={owner.userId} value={owner.userId}>{owner.name}（{owner.count}）</option>
                 ))}
@@ -214,36 +214,36 @@ export default function WhiteboardPanel({ problemId, isAdmin }: { problemId: str
               value={versionId}
               onChange={(e) => { if (confirmDiscard()) void openVersion(e.target.value); }}
               disabled={!ready || busy}
-              aria-label="版本"
+              aria-label="Version · 版本"
             >
-              {!readOnly ? <option value="">新白板（未存檔）</option> : null}
-              {readOnly && !versions.length ? <option value="">（未有白板）</option> : null}
+              {!readOnly ? <option value="">New board (not saved) · 新白板（未存檔）</option> : null}
+              {readOnly && !versions.length ? <option value="">(no boards) · （未有白板）</option> : null}
               {versions.map((version, index) => (
                 <option key={version.id} value={version.id}>
-                  {index === 0 ? '最新 · ' : ''}{formatTime(version.createdAt)}
+                  {index === 0 ? 'Latest 最新 · ' : ''}{formatTime(version.createdAt)}
                 </option>
               ))}
             </select>
             {!readOnly ? (
               <>
                 <button type="button" className="secondary" disabled={!ready || busy} onClick={() => { if (confirmDiscard()) void openVersion(''); }}>
-                  新白板
+                  New · 新白板
                 </button>
                 <button type="button" disabled={!ready || busy || !dirty} onClick={save}>
-                  {busy ? '處理中…' : '存檔'}
+                  {busy ? 'Working… 處理中' : 'Save · 存檔'}
                 </button>
               </>
             ) : null}
             <span className="wb-spacer" />
-            <button type="button" className="secondary" onClick={() => setFull((v) => !v)}>{full ? '並排' : '全螢幕'}</button>
-            <button type="button" className="secondary" onClick={() => setOpen(false)} aria-label="收起白板">✕</button>
+            <button type="button" className="secondary" onClick={() => setFull((v) => !v)}>{full ? 'Side by side · 並排' : 'Full screen · 全螢幕'}</button>
+            <button type="button" className="secondary" onClick={() => setOpen(false)} aria-label="Hide whiteboard · 收起白板">✕</button>
           </div>
           <div className="wb-status">
             {readOnly
-              ? '唯讀檢視：這是學生的白板，你的修改不會儲存。'
-              : message || (dirty ? '有未存檔的修改' : '每次存檔都會保留一個新版本，可在上方選回舊版本。')}
+              ? 'Read-only: this is a student\'s whiteboard; your changes are not saved. 唯讀檢視：這是學生的白板，你的修改不會儲存。'
+              : message || (dirty ? 'Unsaved changes · 有未存檔的修改' : 'Each save keeps a new version; pick an older one above. 每次存檔都會保留一個新版本，可在上方選回舊版本。')}
           </div>
-          <iframe ref={frameRef} src="/whiteboard/index.html?lang=zh-TW" title="白板" className="wb-frame" />
+          <iframe ref={frameRef} src="/whiteboard/index.html" title="白板" className="wb-frame" />
         </aside>
       ) : null}
     </>

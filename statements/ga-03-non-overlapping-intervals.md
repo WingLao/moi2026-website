@@ -1,30 +1,37 @@
-# 03 · Non-overlapping Intervals
+<!-- bilingual -->
+## Description · 題目說明
 
-> Greedy Algorithm 練習題。此題已整理成 Problems 比賽題格式，可直接修改本 Markdown 題面和 `data/GA/ga-03-non-overlapping-intervals` 測資。
-
-|項目|內容|
-|---|---|
-|任務名稱|`ga-03-non-overlapping-intervals`|
-|組別|`GA`|
-|難度|`Medium`|
-|測資目錄|`data/GA/ga-03-non-overlapping-intervals`|
-|來源|`LeetCode 435, rewritten as a contest-style problem`|
-|對齊範例|`ga-03-non-overlapping-intervals-0.in` / `ga-03-non-overlapping-intervals-0.out`|
-
-## 題目說明
-
+:::en
 You are given `n` half-open intervals `[l, r)`. Remove as few intervals as possible so that the remaining intervals do not overlap.
+:::
 
-## 輸入格式
+:::zh
+給你 `n` 個半開區間 `[l, r)`。請刪除最少數量的區間，使剩下的區間互不重疊。
+:::
 
-- The first line contains an integer `n`.
-- The next `n` lines each contain two integers `l` and `r`.
+## Input · 輸入格式
 
-## 輸出格式
+:::en
+- Line 1: an integer `n`.
+- Next `n` lines: two integers `l` and `r`.
+:::
 
-- Print the minimum number of intervals that must be removed.
+:::zh
+- 第 1 行：一個整數 `n`。
+- 接下來 `n` 行：每行兩個整數 `l` 和 `r`。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+Print the minimum number of intervals to remove.
+:::
+
+:::zh
+輸出最少要刪除的區間數。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 4
@@ -34,17 +41,30 @@ You are given `n` half-open intervals `[l, r)`. Remove as few intervals as possi
 1 3
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 1
 ```
 
-## 貪婪提示
+## Hints · 提示
 
-Sort by ending time ascending. Always keep the interval that ends earliest, because it leaves the most room for future intervals.
+:::en
+Sort by end point. Always keep the interval that ends earliest, because it leaves the most room for the rest.
+:::
 
-## 限制
+:::zh
+按結束點排序。每次都保留最早結束的區間，因為它給後面的區間留下最多空間。
+:::
 
-- 1 <= n <= 100000
-- -1000000000 <= l < r <= 1000000000
+## Constraints · 限制
+
+:::en
+- 1 ≤ n ≤ 100000
+- -1000000000 ≤ l < r ≤ 1000000000
+:::
+
+:::zh
+- 1 ≤ n ≤ 100000
+- -1000000000 ≤ l < r ≤ 1000000000
+:::

@@ -1,44 +1,64 @@
-# 16 · Character Frequency
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-16-character-frequency` 測資。
+:::en
+Read a string and print a dictionary that counts how many times each character appears.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-16-character-frequency`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-16-character-frequency`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-16-character-frequency-0.in` / `f5b-16-character-frequency-0.out`|
+:::zh
+讀入一個字串，輸出一個字典，記錄每個字元出現的次數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input a string and print a dictionary that counts the frequency of each character.
+:::en
+One line with a string.
+:::
 
-## 輸入格式
+:::zh
+一行，一個字串。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: the dictionary in Python format, with characters in the order they first appear.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：Python 格式的字典，字元按第一次出現的次序排列。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 google
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 {'g': 2, 'o': 2, 'l': 1, 'e': 1}
 ```
 
-## 提示
+## Hints · 提示
 
-- Build the dictionary by incrementing the count for each character.
+:::en
+- For each character, add 1 to its count in the dictionary.
+:::
 
-## 限制
+:::zh
+- 每讀到一個字元，就把字典中它的次數加 1。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

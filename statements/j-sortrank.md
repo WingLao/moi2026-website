@@ -1,28 +1,39 @@
-# SORTRANK (sortrank)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+Given N students' names and scores, print the ranking list: higher scores first; students with the same score are sorted by name in alphabetical order.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`sortrank`|
-|組別|`J`|
-|測資目錄|`data/J/sortrank`|
-|原始 PDF|`J-sortrank.pdf`|
-|對齊範例|`sortrank-0.in` / `sortrank-0.out`|
+:::zh
+給定 N 個學生的姓名和分數，輸出排名榜：分數高的排前面；分數相同時，按姓名的字母順序排列。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
-The first line contains an integer N.
+:::en
+Line 1: an integer N.
 
-Each of the next N lines contains a name and a score.
+Next N lines: a name and a score.
+:::
 
-## 輸出格式
+:::zh
+第 1 行：一個整數 N。
 
-Print the ranking list sorted by score descending.
+接下來 N 行：每行一個姓名和一個分數。
+:::
 
-If two students have the same score, sort them by name in ascending alphabetical order.
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+N lines, `name score`, sorted by score (descending), then by name (ascending).
+:::
+
+:::zh
+N 行，每行「姓名 分數」，先按分數由高到低，再按姓名由小到大排序。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 4
@@ -32,7 +43,7 @@ Cody 88
 Dora 60
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Ben 88
@@ -41,10 +52,16 @@ Amy 75
 Dora 60
 ```
 
-## 限制
+## Constraints · 限制
 
-1 <= N <= 1000
+:::en
+- 1 ≤ N ≤ 1000
+- Names contain only English letters, with no spaces.
+- 0 ≤ score ≤ 100
+:::
 
-Names contain only English letters and no spaces.
-
-0 <= score <= 100
+:::zh
+- 1 ≤ N ≤ 1000
+- 姓名只含英文字母，沒有空格。
+- 0 ≤ score ≤ 100
+:::

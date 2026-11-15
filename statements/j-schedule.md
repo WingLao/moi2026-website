@@ -1,30 +1,39 @@
-# 區間調度 (schedule)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+There are N tasks. Each has a start time s and an end time e (s < e). Only one task can run at a time, so the chosen tasks must not overlap (one may start exactly when another ends). What is the maximum number of tasks you can choose?
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`schedule`|
-|組別|`J`|
-|測資目錄|`data/J/schedule`|
-|原始 PDF|`J-schedule.pdf`|
-|對齊範例|`schedule-0.in` / `schedule-0.out`|
+:::zh
+有 N 個任務，每個任務有開始時間 s 和結束時間 e（s < e）。同一時間只能執行一個任務，所以選擇的任務時間不能重疊（允許首尾相接）。最多可以選擇幾個任務？
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-有 N 個任務，每個任務有開始時間 s 和結束時間 e（s < e）。同一時間只能執行一個任務，且選擇的
-任務時間不能重疊（允許首尾相接）。請問最多可以選擇幾個任務？
+:::en
+Line 1: a positive integer N (1 ≤ N ≤ 10^5).
 
-## 輸入格式
+Next N lines: two integers s and e (0 ≤ s < e ≤ 10^9).
+:::
 
-第一行包含一個正整數 N（1 ≤ N ≤ 10^5）。
-接下來 N 行，每行包含兩個整數 s、e（0 ≤ s < e ≤ 10^9），以空格分隔。
+:::zh
+第 1 行：一個正整數 N（1 ≤ N ≤ 10^5）。
 
-## 輸出格式
+接下來 N 行：每行兩個整數 s、e（0 ≤ s < e ≤ 10^9）。
+:::
 
-一行，輸出最多可以選擇的任務數量。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One line: the maximum number of tasks.
+:::
+
+:::zh
+一行：最多可以選擇的任務數量。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 4
@@ -34,12 +43,18 @@
 5 7
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2
 ```
 
-## 說明
+## Explanation · 說明
 
-選擇任務 [1,3] 和 [3,6] 或 [1,3] 和 [5,7]，最多選 2 個。
+:::en
+Choose [1,3] and [3,6], or [1,3] and [5,7]. At most 2 tasks.
+:::
+
+:::zh
+可選 [1,3] 和 [3,6]，或 [1,3] 和 [5,7]，最多 2 個。
+:::

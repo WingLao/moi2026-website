@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { getProblemPdfUrl } from '@/lib/pdf';
-import { resolveProblemStatementBySlug } from '@/lib/problem-statements';
+import { LEVEL_LABELS, SUBMISSION_STATUS_LABELS } from '@/lib/status-labels';
+import { splitTitle } from '@/lib/title';
 
 const LEVEL_OPTIONS = ['ALL', 'Beginner', 'GA', 'DP', 'P', 'J', 'S'] as const;
 
@@ -12,6 +13,7 @@ export default async function ProblemsPage({
   searchParams?: Promise<{ level?: string }>;
 }) {
   const session = await auth();
+  const isAdmin = session?.user?.role === 'ADMIN';
   const params = searchParams ? await searchParams : undefined;
   const requestedLevel = params?.level;
   const activeLevel = LEVEL_OPTIONS.includes((requestedLevel ?? 'ALL') as (typeof LEVEL_OPTIONS)[number])
@@ -20,10 +22,9 @@ export default async function ProblemsPage({
   const problems = await prisma.problem.findMany({
     orderBy: [{ level: 'asc' }, { code: 'asc' }],
     include: {
-      testCases: true,
       submissions: session?.user
         ? {
-            where: session.user.role === 'ADMIN' ? undefined : { userId: session.user.id },
+            where: isAdmin ? undefined : { userId: session.user.id },
             orderBy: { queuedAt: 'desc' },
           }
         : false,
@@ -32,43 +33,20 @@ export default async function ProblemsPage({
   const filteredProblems = activeLevel === 'ALL'
     ? problems
     : problems.filter((problem) => problem.level === activeLevel);
-
-  const judgeableCount = filteredProblems.filter((problem) => problem.isJudgeable).length;
-  const blockedCount = filteredProblems.length - judgeableCount;
-  const warningCount = filteredProblems.filter((problem) => Boolean(problem.warning)).length;
+  const warningCount = filteredProblems.filter((problem) => Boolean(problem.warning) || !problem.isJudgeable).length;
 
   return (
     <main className="page">
       <section className="card hero">
-        <div className="section-title">
-          <div>
-            <h1>Problems · 題目</h1>
-            <p className="subtle" style={{ marginTop: 8 }}>
-              Imported from local MOI2026 statements and testcase folders. Open a problem to submit code, inspect recent runs, and verify data health. 可打開題目後提交程式，也能直接檢查資料是否完整。
-            </p>
-          </div>
-          <div className="inline-actions">
-            <span className="badge success">Judgeable 可判題: {judgeableCount}</span>
-            {blockedCount ? <span className="badge danger">Blocked 需修正: {blockedCount}</span> : null}
-            {warningCount ? <span className="badge warning">Warnings 警告: {warningCount}</span> : null}
-          </div>
-        </div>
-      </section>
-
-      <section className="card">
-        <div className="section-title">
-          <div>
-            <h2 style={{ margin: 0 }}>Level Filter · 程度篩選</h2>
-            <p className="subtle" style={{ marginTop: 8 }}>
-              Filter the problem list by level. 目前顯示：{activeLevel === 'ALL' ? '全部題目' : activeLevel}
-            </p>
-          </div>
-          <span className="badge info">Visible problems 顯示題數: {filteredProblems.length}</span>
-        </div>
-        <div className="inline-actions" style={{ marginTop: 14 }}>
+        <h1><Bi block en="Problems" zh="題目" /></h1>
+        <p className="subtle" style={{ marginTop: 10 }}>
+          <Bi block en="Every problem is written in English and Chinese. Open one to read it, take notes on the whiteboard and submit your code." zh="每一題都有英文和中文。打開題目即可閱讀、在白板做筆記和提交程式。" />
+        </p>
+        <div className="level-filter" style={{ marginTop: 16 }}>
           {LEVEL_OPTIONS.map((level) => {
             const href = level === 'ALL' ? '/problems' : `/problems?level=${encodeURIComponent(level)}`;
             const active = level === activeLevel;
+            const label = level === 'ALL' ? { en: 'All', zh: '全部' } : LEVEL_LABELS[level];
             return (
               <Link
                 key={level}
@@ -76,23 +54,24 @@ export default async function ProblemsPage({
                 className={`button-link${active ? '' : ' secondary'}`}
                 aria-current={active ? 'page' : undefined}
               >
-                {level}
+                <Bi en={label.en} zh={label.zh} />
               </Link>
             );
           })}
         </div>
+        {isAdmin && warningCount ? (
+          <p className="small-text" style={{ marginTop: 12 }}>Teacher: {warningCount} problem(s) here have data warnings · 老師：此處有 {warningCount} 題有資料提醒</p>
+        ) : null}
       </section>
 
       <div className="table-wrap">
-        <table className="table">
+        <table className="table problem-table">
           <thead>
             <tr>
-              <th>Level</th>
-              <th>Problem</th>
-              <th>Statement</th>
-              <th>Cases</th>
-              <th>Your best · 最佳分數</th>
-              <th>Status · 狀態</th>
+              <th><Bi en="Problem" zh="題目" /></th>
+              <th><Bi en="Level" zh="程度" /></th>
+              <th>{isAdmin ? <Bi en="Best (all students)" zh="最高分（全部學生）" /> : <Bi en="My best" zh="我的最高分" />}</th>
+              <th><Bi en="Latest result" zh="最近結果" /></th>
             </tr>
           </thead>
           <tbody>
@@ -100,50 +79,39 @@ export default async function ProblemsPage({
               const submissions = Array.isArray(problem.submissions) ? problem.submissions : [];
               const best = submissions.reduce((max, submission) => Math.max(max, submission.score), 0);
               const latest = submissions[0];
-              const pdfUrl = getProblemPdfUrl(problem.pdfFilename);
-              const statement = resolveProblemStatementBySlug(problem.slug);
-              const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
-              const warningItems = problem.warning?.split('; ').filter(Boolean) ?? [];
+              const latestStatus = latest ? SUBMISSION_STATUS_LABELS[latest.status] : null;
+              const title = splitTitle(problem.title);
+              const level = LEVEL_LABELS[problem.level] ?? { en: problem.level, zh: problem.level };
 
               return (
                 <tr key={problem.id}>
-                  <td>{problem.level}</td>
                   <td>
-                    <div className="dense-list">
-                      <Link href={`/problems/${problem.slug}`} className="problem-title">
-                        {problem.title}
-                      </Link>
-                      {String(problem.level) !== 'Beginner' ? <div className="problem-subtitle mono">{problem.code}</div> : null}
-                    </div>
+                    <Link href={`/problems/${problem.slug}`} className="problem-title">
+                      <span className="bi bi-block">
+                        <span lang="en">{title.en}</span>
+                        {title.zh ? <span lang="zh-Hant" className="bi-zh">{title.zh}</span> : null}
+                      </span>
+                    </Link>
+                    {isAdmin && (problem.warning || !problem.isJudgeable) ? (
+                      <div className="small-text" style={{ color: 'var(--warning)' }}>{problem.isJudgeable ? '' : 'Judge blocked · '}{problem.warning}</div>
+                    ) : null}
                   </td>
+                  <td><Bi block en={level.en} zh={level.zh} /></td>
                   <td>
-                    {statement?.exists ? (
-                      <div className="dense-list">
-                        <Link href={`/problems/${problem.slug}`} className="inline-link">Read Markdown</Link>
-                        {pdfUrl ? <a href={pdfUrl} target="_blank" rel="noreferrer" className="inline-link">PDF archive</a> : null}
-                      </div>
+                    {session?.user ? (
+                      <span className={best === problem.maxScore ? 'badge success' : best > 0 ? 'badge warning' : 'subtle'}>
+                        {best} / {problem.maxScore}
+                      </span>
                     ) : (
-                      <span className="badge warning">Missing statement</span>
+                      <span className="subtle"><Bi en="Log in" zh="請登入" /></span>
                     )}
                   </td>
                   <td>
-                    <div className="dense-list">
-                      <div>{validCases} / {problem.testCases.length} valid</div>
-                      <div className="small-text">Max score: {problem.maxScore}</div>
-                    </div>
-                  </td>
-                  <td>{session?.user ? `${best} / ${problem.maxScore}` : 'Login to view · 登入後查看'}</td>
-                  <td>
-                    <div className="status-stack">
-                      {problem.isJudgeable ? (
-                        <span className="badge success">Judge ready · 可用</span>
-                      ) : (
-                        <span className="badge danger">Judge blocked · 需修正</span>
-                      )}
-                      {warningItems.length ? <span className="badge warning">Data warnings · {warningItems.length}</span> : <span className="badge info">Data clean · 正常</span>}
-                      <div className="small-text">{latest ? `${latest.status} · ${latest.score}` : 'No submissions yet · 尚未提交'}</div>
-                      {warningItems.length ? <div className="small-text">{warningItems.join(' / ')}</div> : null}
-                    </div>
+                    {latest && latestStatus ? (
+                      <Bi block en={`${latestStatus.en} · ${latest.score}`} zh={latestStatus.zh} />
+                    ) : (
+                      <span className="subtle"><Bi en="Not tried" zh="未提交" /></span>
+                    )}
                   </td>
                 </tr>
               );

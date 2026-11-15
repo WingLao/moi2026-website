@@ -1,6 +1,10 @@
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
+import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { SUBMISSION_STATUS_LABELS, TESTCASE_STATUS_LABELS } from '@/lib/status-labels';
+import { splitTitle } from '@/lib/title';
 import { getUserDisplayName } from '@/lib/user-display';
 import AutoRefresh from './AutoRefresh';
 
@@ -30,38 +34,91 @@ export default async function SubmissionDetail({ params }: { params: Promise<{ i
   }
 
   const isPending = submission.status === 'PENDING' || submission.status === 'JUDGING';
+  const status = SUBMISSION_STATUS_LABELS[submission.status];
+  const title = splitTitle(submission.problem.title);
 
   return (
-    <main style={{ display: 'grid', gap: 16 }}>
+    <main className="page">
       <AutoRefresh active={isPending} />
-      <section style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
-        <h1 style={{ marginTop: 0 }}>Submission {submission.id}</h1>
-        <p style={{ margin: '8px 0' }}>{getUserDisplayName(submission.user)} · {submission.problem.title} · {submission.language}</p>
-        <p style={{ margin: '8px 0' }}>Status: <strong>{submission.status}</strong> · Score: <strong>{submission.score}</strong></p>
-        {isPending ? <p style={{ margin: '8px 0', color: '#2155d6' }}>Judging is still in progress. This page auto-refreshes every 3 seconds.</p> : null}
-        <p style={{ margin: '8px 0' }}>Queued: {submission.queuedAt.toLocaleString()}</p>
-        {submission.judgedAt ? <p style={{ margin: '8px 0' }}>Judged: {submission.judgedAt.toLocaleString()}</p> : null}
+      <section className="card hero">
+        <div className="eyebrow"><Bi en="Submission" zh="提交" /></div>
+        <h1 className="problem-heading">
+          <Link href={`/problems/${submission.problem.slug}`}>
+            <span lang="en">{title.en}</span>
+            {title.zh ? <span lang="zh-Hant" className="bi-zh"> {title.zh}</span> : null}
+          </Link>
+        </h1>
+        <div className="kv-grid" style={{ marginTop: 16 }}>
+          <div className="kv">
+            <div className="kv-label"><Bi en="Result" zh="結果" /></div>
+            <div className="kv-value">{status ? <Bi block en={status.en} zh={status.zh} /> : submission.status}</div>
+          </div>
+          <div className="kv">
+            <div className="kv-label"><Bi en="Score" zh="分數" /></div>
+            <div className="kv-value">{submission.score} / {submission.problem.maxScore}</div>
+          </div>
+          <div className="kv">
+            <div className="kv-label"><Bi en="Language" zh="語言" /></div>
+            <div className="kv-value">{submission.language === 'python' ? 'Python 3' : 'C++17'}</div>
+          </div>
+          <div className="kv">
+            <div className="kv-label"><Bi en="Submitted" zh="提交時間" /></div>
+            <div className="kv-value" style={{ fontSize: 16 }}>{submission.queuedAt.toLocaleString('zh-Hant')}</div>
+          </div>
+        </div>
+        {isAdmin ? <p className="small-text" style={{ marginTop: 10 }}>Student · 學生：{getUserDisplayName(submission.user)}</p> : null}
+        {isPending ? (
+          <p style={{ marginTop: 12, color: 'var(--primary)' }}>
+            <Bi block en="Still judging… this page refreshes every 3 seconds." zh="判題中……本頁每 3 秒自動更新。" />
+          </p>
+        ) : null}
         {submission.compileOutput ? (
-          <details>
-            <summary>Compile output</summary>
+          <details style={{ marginTop: 12 }}>
+            <summary><Bi en="Compiler messages" zh="編譯訊息" /></summary>
             <pre style={{ whiteSpace: 'pre-wrap' }}>{submission.compileOutput}</pre>
           </details>
         ) : null}
       </section>
-      <section style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
-        <h2 style={{ marginTop: 0 }}>Per testcase results</h2>
-        <ul>
-          {submission.results.map((result) => (
-            <li key={result.id}>
-              #{result.testCase.index} · {result.status} · {result.score} pts
-              {result.message ? ` · ${result.message}` : ''}
-            </li>
-          ))}
-        </ul>
+
+      <section className="card">
+        <h2 style={{ marginTop: 0 }}><Bi en="Test results" zh="各測試結果" /></h2>
+        {submission.results.length ? (
+          <div className="table-wrap" style={{ marginTop: 14 }}>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th><Bi en="Test" zh="測試" /></th>
+                  <th><Bi en="Result" zh="結果" /></th>
+                  <th><Bi en="Score" zh="分數" /></th>
+                  <th><Bi en="Time" zh="用時" /></th>
+                </tr>
+              </thead>
+              <tbody>
+                {submission.results.map((result) => {
+                  const label = TESTCASE_STATUS_LABELS[result.status];
+                  return (
+                    <tr key={result.id}>
+                      <td>#{result.testCase.index}</td>
+                      <td>
+                        {label ? <span className={`badge ${label.tone}`}><Bi en={label.en} zh={label.zh} /></span> : result.status}
+                        {result.message ? <div className="small-text">{result.message}</div> : null}
+                      </td>
+                      <td>{result.score}</td>
+                      <td>{result.timeMs != null ? `${result.timeMs} ms` : '—'}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="empty" style={{ marginTop: 14 }}><Bi block en="No results yet." zh="暫時未有結果。" /></div>
+        )}
       </section>
-      <section style={{ background: '#fff', border: '1px solid #d9e0ee', borderRadius: 16, padding: 24 }}>
-        <h2 style={{ marginTop: 0 }}>Source code</h2>
-        <pre style={{ whiteSpace: 'pre-wrap', overflowX: 'auto' }}>{submission.sourceCode}</pre>
+
+      <section className="card">
+        <h2 style={{ marginTop: 0 }}><Bi en="Your code" zh="你的程式碼" /></h2>
+        <pre className="statement-code" style={{ whiteSpace: 'pre-wrap', overflowX: 'auto' }}>{submission.sourceCode}</pre>
       </section>
     </main>
   );

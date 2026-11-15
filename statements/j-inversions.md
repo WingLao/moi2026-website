@@ -1,42 +1,57 @@
-# 逆序對數 (inversions)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+Given a sequence A of N integers, a pair (i, j) is an inversion if i < j and A[i] > A[j]. Count the inversions.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`inversions`|
-|組別|`J`|
-|測資目錄|`data/J/inversions`|
-|原始 PDF|`J-inversions.pdf`|
-|對齊範例|`inversions-0.in` / `inversions-0.out`|
+:::zh
+給定長度為 N 的整數序列 A。若 i < j 且 A[i] > A[j]，則 (i, j) 稱為一個逆序對。請計算逆序對的總數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-給定一個長度為 N 的整數序列 A，若 i < j 且 A[i] > A[j]，則稱 (i, j)
-為一個逆序對。請計算序列中逆序對的總數量。
+:::en
+Line 1: a positive integer N (1 ≤ N ≤ 10^5).
 
-## 輸入格式
+Line 2: N integers (1 ≤ A[i] ≤ 10^9), separated by spaces.
+:::
 
-第一行包含一個正整數 N（1 ≤ N ≤ 10^5）。
-第二行包含 N 個整數（1 ≤ A[i] ≤ 10^9），以空格分隔。
+:::zh
+第 1 行：一個正整數 N（1 ≤ N ≤ 10^5）。
 
-## 輸出格式
+第 2 行：N 個整數（1 ≤ A[i] ≤ 10^9），以空格分隔。
+:::
 
-一行，輸出逆序對的數量。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One line: the number of inversions.
+:::
+
+:::zh
+一行：逆序對的數量。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 5
 3 1 2 5 4
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 3
 ```
 
-## 說明
+## Explanation · 說明
 
-逆序對為 (3,1), (3,2), (5,4)，共 3 對。
+:::en
+The inversions are (3,1), (3,2) and (5,4): 3 pairs.
+:::
+
+:::zh
+逆序對為 (3,1)、(3,2)、(5,4)，共 3 對。
+:::

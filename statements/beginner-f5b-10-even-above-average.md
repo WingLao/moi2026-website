@@ -1,45 +1,65 @@
-# 10 · Filter Even Numbers Above Average
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-10-even-above-average` 測資。
+:::en
+Read some integers. Print the average to 2 decimal places, then print the numbers that are both even and greater than the average.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-10-even-above-average`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-10-even-above-average`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-10-even-above-average-0.in` / `f5b-10-even-above-average-0.out`|
+:::zh
+讀入一些整數。先輸出平均值（2 位小數），再輸出既是偶數、又大於平均值的數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input integers, print the average to 2 decimal places, then print numbers that are both even and greater than the average.
+:::en
+One line of integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Line 1: the average (2 decimal places). Line 2: the matching numbers as a Python list, in their original order.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+第 1 行：平均值（2 位小數）。第 2 行：符合條件的數，以 Python 列表輸出，保持原來次序。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 5 8 12 15 20 7 18 9 14 6
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 11.40
 [12, 20, 18, 14]
 ```
 
-## 提示
+## Hints · 提示
 
-- Both conditions must be true: even and greater than average.
+:::en
+- Both conditions must be true: even **and** greater than the average.
+:::
 
-## 限制
+:::zh
+- 兩個條件都要成立：是偶數，**而且**大於平均值。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

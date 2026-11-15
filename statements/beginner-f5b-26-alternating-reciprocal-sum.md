@@ -1,44 +1,64 @@
-# 26 · Alternating Reciprocal Sum
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-26-alternating-reciprocal-sum` 測資。
+:::en
+Read `n`. Compute `1/1^2 - 2/2^2 + 3/3^2 - 4/4^2 + ... ± n/n^2` and print the answer to 2 decimal places.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-26-alternating-reciprocal-sum`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-26-alternating-reciprocal-sum`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-26-alternating-reciprocal-sum-0.in` / `f5b-26-alternating-reciprocal-sum-0.out`|
+:::zh
+讀入 `n`，計算 `1/1^2 - 2/2^2 + 3/3^2 - 4/4^2 + ... ± n/n^2`，答案保留 2 位小數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input `n`. Compute `1/1^2 - 2/2^2 + 3/3^2 - 4/4^2 + ... ± n/n^2` and print the answer to 2 decimal places.
+:::en
+One integer `n`.
+:::
 
-## 輸入格式
+:::zh
+一個整數 `n`。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One line: `Answer:` followed by the value with 2 decimal places.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一行：`Answer:`，後面接答案（2 位小數）。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 8
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Answer: 0.63
 ```
 
-## 提示
+## Hints · 提示
 
-- Each term simplifies to `1/i`. Positive when `i` is odd and negative when `i` is even.
+:::en
+- Each term simplifies to `1/i`. It is positive when `i` is odd and negative when `i` is even.
+:::
 
-## 限制
+:::zh
+- 每一項可化簡成 `1/i`。`i` 是奇數時為正，偶數時為負。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

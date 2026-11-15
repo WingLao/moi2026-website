@@ -1,44 +1,64 @@
-# 18 · First Unique Character
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-18-first-unique-character` 測資。
+:::en
+Read a string and print the index of the first character that appears only once.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-18-first-unique-character`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-18-first-unique-character`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-18-first-unique-character-0.in` / `f5b-18-first-unique-character-0.out`|
+:::zh
+讀入一個字串，輸出第一個只出現一次的字元的位置（索引）。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input a string and print the index of the first non-repeating character.
+:::en
+One line with a string.
+:::
 
-## 輸入格式
+:::zh
+一行，一個字串。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+One integer: the index (starting from 0).
+:::
 
-Print exactly the required result for the given task.
+:::zh
+一個整數：索引（由 0 開始）。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 leetcode
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 0
 ```
 
-## 提示
+## Hints · 提示
 
-- First count characters, then scan the string by index.
+:::en
+- First count every character, then scan the string from left to right.
+:::
 
-## 限制
+:::zh
+- 先數好每個字元出現的次數，再由左至右掃描字串。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

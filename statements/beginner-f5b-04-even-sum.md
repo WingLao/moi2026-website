@@ -1,45 +1,65 @@
-# 04 · Sum of Even Numbers (1-10)
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-04-even-sum` 測資。
-
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-04-even-sum`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-04-even-sum`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-04-even-sum-0.in` / `f5b-04-even-sum-0.out`|
-
-## 題目說明
-
+:::en
 Print the even numbers from 1 to 10, then print their sum.
+:::
 
-## 輸入格式
+:::zh
+輸出 1 至 10 之間的偶數，再輸出它們的總和。
+:::
 
-This problem does not require standard input.
+## Input · 輸入格式
 
-## 輸出格式
+:::en
+This problem has no input.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+本題沒有輸入。
+:::
 
-## 範例輸入
+## Output · 輸出格式
+
+:::en
+Line 1: the even numbers, separated by spaces. Line 2: `Sum:` followed by the sum.
+:::
+
+:::zh
+第 1 行：各個偶數，以空格分隔。第 2 行：`Sum:`，後面接總和。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
-(no standard input)
+(no input · 沒有輸入)
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2 4 6 8 10
 Sum: 30
 ```
 
-## 提示
+## Hints · 提示
 
+:::en
 - Loop from 1 to 10 and use `i % 2 == 0`.
+:::
 
-## 限制
+:::zh
+- 由 1 數到 10，用 `i % 2 == 0` 判斷偶數。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

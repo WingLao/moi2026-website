@@ -84,17 +84,9 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     warnings.push(`Missing statement: ${entry.statementFilename}`);
   } else {
     const statement = fs.readFileSync(statementPath, 'utf8');
-    const expectedDataDir = `data/${entry.level}/${dataDirName}`;
 
-    if (!statement.includes(expectedDataDir)) {
-      warnings.push(`Statement data dir mismatch: expected ${expectedDataDir}`);
-    }
-
-    if (entry.pdfFilename && !statement.includes(entry.pdfFilename)) {
-      warnings.push(`Statement source mismatch: expected ${entry.pdfFilename}`);
-    }
-
-    if (!statement.includes('## 輸入格式') || !statement.includes('## 輸出格式')) {
+    // Headings may be bilingual, e.g. "## Input · 輸入格式".
+    if (!/^## .*輸入格式/m.test(statement) || !/^## .*輸出格式/m.test(statement)) {
       warnings.push(`Statement structure incomplete: ${entry.statementFilename}`);
     }
   }

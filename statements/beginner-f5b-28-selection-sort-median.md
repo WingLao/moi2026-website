@@ -1,45 +1,65 @@
-# 28 · Selection Sort + Median
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-28-selection-sort-median` 測資。
+:::en
+Read some integers. Sort them with selection sort, then print the sorted list and the median.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-28-selection-sort-median`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-28-selection-sort-median`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-28-selection-sort-median-0.in` / `f5b-28-selection-sort-median-0.out`|
+:::zh
+讀入一些整數，用選擇排序把它們排好，然後輸出排序後的列表和中位數。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input integers. Sort them using selection sort, then print the sorted list and median.
+:::en
+One line of integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Two lines: `Sorted:` and the sorted list; `Median:` and the median.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+兩行：`Sorted:` 和排好的列表；`Median:` 和中位數。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 8 3 5 1 9
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 Sorted: [1, 3, 5, 8, 9]
 Median: 5
 ```
 
-## 提示
+## Hints · 提示
 
-- Do not use `.sort()` for the sorting step.
+:::en
+- Do not use `.sort()` or `sorted()` for the sorting step.
+:::
 
-## 限制
+:::zh
+- 排序那一步不可以使用 `.sort()` 或 `sorted()`。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::

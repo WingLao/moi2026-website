@@ -1,53 +1,53 @@
-# 轉轉轉 (round)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+N children numbered 1 to N stand in a circle. They play a version of the "Josephus" game.
 
-| 項目 | 內容 |
-|---|---|
-|任務名稱|`round`|
-|組別|`P`|
-|時限|0.5 秒|
-|測試數據數目|10|
-|記憶限制|256M|
-|測資目錄|`data/P/round`|
-|原始 PDF|`P-round.pdf`|
-|對齊範例|`round-0.in` / `round-0.out`|
+Child 1 starts with the ball (this counts as child 1 receiving it for the first time). Whoever holds the ball passes it to the `k`-th child on their right (counting in the passing direction). When a child receives the ball for the `T`-th time, they pass it on as usual and then **immediately leave** the circle; they never take part again.
 
-## 題目說明
+The game continues until only one child remains. Print that child's number.
+:::
 
-有 $N$ 個小朋友，他們分別以 $1$ 至 $N$ 為他們的編號，並且以反時針方向圍成一個圈，即每位小朋友左邊的那位的編號都比自己大，除了編號為 $N$ 的小朋友，他的右邊小朋友的編號為 $1$。他們正在玩着一個複雜版的猴子選大王遊戲。
+:::zh
+N 個小朋友編號 1 至 N，圍成一個圈，玩一個複雜版的「猴子選大王」遊戲。
 
-遊戲方法是這樣的，首先編號 1 的小朋友拿著一個球，他會把球傳到他右手邊的第 $k$ 位（反時鐘方向數的第 $k$ 位）小朋友，取到球的小朋友又把球傳給他右手邊的第 $k$ 個小朋友，如此類推。當一個小朋友第 $T$ 次收到球時，他就會把球轉到他右手方向第 $k$ 個小朋友，同時，他自己會離開這個圈子。如此下去，一直至到整個圈子只剩下一位小朋友，他就是這輪遊戲的大王。我們想知道，最後剩下的小朋友他的編號是多少。
+編號 1 的小朋友一開始拿着球（算作他第一次收到球）。拿着球的小朋友把球傳給右手邊第 `k` 位小朋友（按傳球方向數）。當一位小朋友第 `T` 次收到球時，他照樣把球傳出去，然後**立即離開**圈子，不再參與傳球。
 
-要注意的是每次離場的那位小朋友在他把球交出時，他自己會馬上離開，並且不再參與任何傳球的過程。這裡，編號為 1 的小朋友在開始時算是第一次收到球。
+一直進行到圈子只剩下一位小朋友。請輸出他的編號。
+:::
 
-## 輸入格式
+## Input · 輸入格式
 
-輸入資料只有一行，其上有三個正整數 $N$、$k$ 及 $T$，並以一個空格分開。（$k < N \le 12{,}000$, $1 \le k \le 20$, $1 \le T \le 5$）
+:::en
+One line with three positive integers N, k and T separated by spaces (k < N ≤ 12,000, 1 ≤ k ≤ 20, 1 ≤ T ≤ 5).
+:::
 
-## 輸出格式
+:::zh
+只有一行，三個正整數 N、k 和 T，以空格分隔（k < N ≤ 12,000，1 ≤ k ≤ 20，1 ≤ T ≤ 5）。
+:::
 
-輸出應只有一個正整數，它代表最後留下的那位小朋友編號。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One positive integer: the number of the last child.
+:::
 
-```text
-3 2 2
-```
+:::zh
+一個正整數：最後留下的小朋友的編號。
+:::
 
-## 範例輸出
+## Explanation · 說明
 
-```text
-2
-```
+:::en
+Sample 1: 3 children, the ball goes to the 2nd child on the right, and a child leaves on receiving the ball for the 2nd time. Brackets mark who holds the ball:
+:::
 
-## 說明
+:::zh
+樣例 1：共 3 位小朋友，每次傳給右邊第 2 位，第 2 次收到球的小朋友要離開。括號表示拿着球的小朋友：
+:::
 
-### 樣例 1
-
-共有 3 位小朋友參加，每次傳給右邊第 2 位小朋友，第 2 次收到球的小朋友就要離開。
-
-這場遊戲的過程如下，括號代表收到球的一位小朋友：
+## Trace 1 · 過程 1
 
 ```text
 (1) 2 3
@@ -59,13 +59,17 @@
 2
 ```
 
-### 樣例 2
+## Note · 注意
 
-輸入 `6 3 1`，輸出 `5`。
+:::en
+Sample 2: input `6 3 1`, output `5`. 6 children, the ball goes to the 3rd child on the right, and a child leaves on receiving the ball for the 1st time:
+:::
 
-共有 6 位小朋友參加，每次傳給右邊第 3 位小朋友，第 1 次收到球的小朋友就要離開。
+:::zh
+樣例 2：輸入 `6 3 1`，輸出 `5`。共 6 位小朋友，每次傳給右邊第 3 位，第 1 次收到球就要離開：
+:::
 
-這場遊戲的過程如下，括號代表收到球的一位小朋友：
+## Trace 2 · 過程 2
 
 ```text
 (1) 2 3 4 5 6
@@ -76,6 +80,14 @@
 5
 ```
 
-## 特殊條件
+## Special Cases · 特殊條件
 
-- 輸入數據中，有 2 個數據 $T = 1$
+:::en
+- Two tests have T = 1.
+- Time limit: 0.5 s.
+:::
+
+:::zh
+- 有 2 個數據 T = 1。
+- 時限：0.5 秒。
+:::

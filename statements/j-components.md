@@ -1,30 +1,39 @@
-# 連通分量 (components)
+<!-- bilingual -->
+## Description · 題目說明
 
-> 此網站版本改用 Markdown 題面，範例輸入 / 輸出直接對齊 `data` 內的 `*-0.in` / `*-0.out`，避免題面與測資不一致。
+:::en
+An undirected graph has N nodes (numbered 1 to N) and E edges. Count its connected components.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`components`|
-|組別|`J`|
-|測資目錄|`data/J/components`|
-|原始 PDF|`J-components.pdf`|
-|對齊範例|`components-0.in` / `components-0.out`|
+:::zh
+給定一個有 N 個節點（編號 1 至 N）和 E 條邊的無向圖，請計算圖中連通分量的數量。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-給定一個包含 N 個節點和 E 條邊的無向圖，節點編號從 1 到 N，請計算圖中連通分量（connected
-components）的數量。
+:::en
+Line 1: two integers N (1 ≤ N ≤ 1000) and E (0 ≤ E ≤ 5000).
 
-## 輸入格式
+Next E lines: two integers u and v (1 ≤ u, v ≤ N): an edge between u and v.
+:::
 
-第一行包含兩個正整數 N（1 ≤ N ≤ 1000）和 E（0 ≤ E ≤ 5000），以空格分隔。
-接下來 E 行，每行包含兩個整數 u、v（1 ≤ u, v ≤ N），表示節點 u 和 v 之間有一條邊。
+:::zh
+第 1 行：兩個整數 N（1 ≤ N ≤ 1000）和 E（0 ≤ E ≤ 5000）。
 
-## 輸出格式
+接下來 E 行：每行兩個整數 u、v（1 ≤ u, v ≤ N），表示 u 和 v 之間有一條邊。
+:::
 
-一行，輸出連通分量的數量。
+## Output · 輸出格式
 
-## 範例輸入
+:::en
+One line: the number of connected components.
+:::
+
+:::zh
+一行：連通分量的數量。
+:::
+
+## Sample Input · 範例輸入
 
 ```text
 5 3
@@ -33,12 +42,18 @@ components）的數量。
 4 5
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 2
 ```
 
-## 說明
+## Explanation · 說明
 
-節點 {1,2,3} 為一個連通分量，節點 {4,5} 為另一個連通分量，共 2 個。
+:::en
+Nodes {1, 2, 3} form one component and {4, 5} form another: 2 in total.
+:::
+
+:::zh
+節點 {1, 2, 3} 是一個連通分量，{4, 5} 是另一個，共 2 個。
+:::

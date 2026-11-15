@@ -1,34 +1,41 @@
-# 13 · Standard Deviation Challenge
+<!-- bilingual -->
+## Description · 題目說明
 
-> Beginner Python 課堂練習。此題已整理成 Problems 題目範本，可直接修改本 Markdown 題面和 `data/Beginner/f5b-13-standard-deviation` 測資。
+:::en
+Read some integers. Print the mean, the standard deviation, and the list of values greater than `mean + std`.
+:::
 
-|項目|內容|
-|---|---|
-|任務名稱|`f5b-13-standard-deviation`|
-|組別|`Beginner`|
-|測資目錄|`data/Beginner/f5b-13-standard-deviation`|
-|來源|`F5B_2025_2026_20260416.ipynb`|
-|對齊範例|`f5b-13-standard-deviation-0.in` / `f5b-13-standard-deviation-0.out`|
+:::zh
+讀入一些整數。輸出平均數、標準差，以及所有大於 `平均數 + 標準差` 的數組成的列表。
+:::
 
-## 題目說明
+## Input · 輸入格式
 
-Input integers. Print the mean, standard deviation, and the list of values greater than `mean + std`.
+:::en
+One line of integers separated by spaces.
+:::
 
-## 輸入格式
+:::zh
+一行整數，以空格分隔。
+:::
 
-Standard input follows the sample format below.
+## Output · 輸出格式
 
-## 輸出格式
+:::en
+Three lines: the mean, the standard deviation (2 decimal places), and the list. Follow the sample exactly.
+:::
 
-Print exactly the required result for the given task.
+:::zh
+三行：平均數、標準差（2 位小數）和列表。格式請完全依照範例。
+:::
 
-## 範例輸入
+## Sample Input · 範例輸入
 
 ```text
 10 12 15 18 20 22 25 30 5 8
 ```
 
-## 範例輸出
+## Sample Output · 範例輸出
 
 ```text
 16.5
@@ -36,11 +43,24 @@ Print exactly the required result for the given task.
 [25, 30]
 ```
 
-## 提示
+## Hints · 提示
 
-- Use population standard deviation, as returned by `numpy.std`.
+:::en
+- Use the population standard deviation (the value returned by `numpy.std`).
+:::
 
-## 限制
+:::zh
+- 使用母體標準差（即 `numpy.std` 的結果）。
+:::
 
+## Constraints · 限制
+
+:::en
 - Language: Python 3 or C++17.
-- Follow the output format exactly, including labels such as `Total:`, `Sum:`, or `Answer:` where shown.
+- Your output must match the sample output exactly, including labels such as `Sum:` and every space.
+:::
+
+:::zh
+- 語言：Python 3 或 C++17。
+- 輸出必須和範例輸出完全一樣，包括 `Sum:` 之類的標籤和每一個空格。
+:::
