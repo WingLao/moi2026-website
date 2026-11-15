@@ -7,6 +7,7 @@ import { getProblemLearningSupport } from '@/lib/problem-learning-support';
 import { readProblemStatementBySlug } from '@/lib/problem-statements';
 import { renderStatementMarkdown } from '@/lib/statement-markdown';
 import { getUserDisplayName } from '@/lib/user-display';
+import WhiteboardPanel from './WhiteboardPanel';
 
 export default async function ProblemDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -261,6 +262,8 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
           </section>
         </div>
       </section>
+
+      {session?.user ? <WhiteboardPanel problemId={problem.id} isAdmin={session.user.role === 'ADMIN'} /> : null}
     </main>
   );
 }

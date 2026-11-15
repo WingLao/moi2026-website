@@ -50,6 +50,7 @@ model User {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   submissions    Submission[]
+  whiteboards    WhiteboardVersion[]
 }
 
 model Problem {
@@ -70,6 +71,7 @@ model Problem {
   updatedAt     DateTime      @updatedAt
   testCases     TestCase[]
   submissions   Submission[]
+  whiteboards   WhiteboardVersion[]
 }
 
 model TestCase {
@@ -126,4 +128,17 @@ model ImportReport {
   summary   String
   detail    String
   createdAt DateTime @default(now())
+}
+
+model WhiteboardVersion {
+  id        String   @id @default(cuid())
+  userId    String
+  problemId String
+  data      Json
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem   Problem  @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@index([userId, problemId, createdAt])
+  @@index([problemId])
 }

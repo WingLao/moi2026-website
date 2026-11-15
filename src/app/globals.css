@@ -578,3 +578,95 @@ summary {
     min-height: 1180px;
   }
 }
+
+/* ---------- Whiteboard side panel ---------- */
+.wb-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  box-shadow: var(--shadow);
+}
+
+html.wb-open .site-header,
+html.wb-open .site-shell {
+  margin-right: var(--wb-width);
+}
+
+html.wb-open .wb-toggle {
+  display: none;
+}
+
+.wb-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -8px 0 30px rgba(23, 32, 51, 0.08);
+}
+
+.wb-panel.wb-full {
+  left: 0;
+  width: auto;
+  z-index: 70;
+}
+
+.wb-resize {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 1;
+}
+
+.wb-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.wb-bar select {
+  max-width: 200px;
+}
+
+.wb-spacer {
+  flex: 1;
+}
+
+.wb-status {
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--surface-muted);
+}
+
+.wb-frame {
+  flex: 1;
+  width: 100%;
+  border: 0;
+}
+
+@media (max-width: 900px) {
+  html.wb-open .site-header,
+  html.wb-open .site-shell {
+    margin-right: 0;
+  }
+
+  .wb-panel {
+    left: 0;
+    width: auto !important;
+  }
+
+  .wb-resize {
+    display: none;
+  }
+}
