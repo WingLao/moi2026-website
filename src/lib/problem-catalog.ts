@@ -171,6 +171,7 @@ const CONTEST_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'csps2025-p14364', title: 'CSP-S 2025 Staff Hiring · 員工招聘', level: 'CSPS', dataDirName: 'csps2025-p14364', statementFilename: 'csps2025-p14364.md', timeLimitMs: 2000, memoryLimitMb: 512 },
   { slug: 'noip2020-p7113', title: 'NOIP2020 Drainage System · 排水系統', level: 'NOIP', dataDirName: 'noip2020-p7113', statementFilename: 'noip2020-p7113.md', timeLimitMs: 1000, memoryLimitMb: 512 },
   { slug: 'noip2020-p7114', title: 'NOIP2020 String Matching · 字串匹配', level: 'NOIP', dataDirName: 'noip2020-p7114', statementFilename: 'noip2020-p7114.md', timeLimitMs: 1000, memoryLimitMb: 512 },
+  { slug: 'noip2020-p7115', title: 'NOIP2020 Moving Balls · 移球遊戲', level: 'NOIP', dataDirName: 'noip2020-p7115', statementFilename: 'noip2020-p7115.md', timeLimitMs: 1000, memoryLimitMb: 512 },
   { slug: 'noip2020-p7116', title: 'NOIP2020 WeChat Steps · 微信步數', level: 'NOIP', dataDirName: 'noip2020-p7116', statementFilename: 'noip2020-p7116.md', timeLimitMs: 1000, memoryLimitMb: 512 },
   { slug: 'noip2021-p7960', title: 'NOIP2021 Counting Off · 報數', level: 'NOIP', dataDirName: 'noip2021-p7960', statementFilename: 'noip2021-p7960.md', timeLimitMs: 1000, memoryLimitMb: 512 },
   { slug: 'noip2021-p7961', title: 'NOIP2021 Sequence · 數列', level: 'NOIP', dataDirName: 'noip2021-p7961', statementFilename: 'noip2021-p7961.md', timeLimitMs: 1000, memoryLimitMb: 512 },
