@@ -910,3 +910,15 @@ button:not(.secondary) .bi-zh,
   margin: 4px 0 0;
   padding: 0;
 }
+
+.lesson-card {
+  border-color: #c7d7fe;
+  background: var(--primary-soft);
+}
+
+.lesson-links {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding-left: 18px;
+}

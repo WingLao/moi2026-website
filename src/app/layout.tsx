@@ -30,6 +30,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
                 <Link href="/quiz"><Bi en="CSP Quiz" zh="選擇題" /></Link>
                 <Link href="/leaderboard"><Bi en="Leaderboard" zh="排名榜" /></Link>
                 <Link href="/teaching"><Bi en="Lessons" zh="演算法教學" /></Link>
+                <a href="https://algorithm-cdsj5it2008.flowershow.me/" target="_blank" rel="noreferrer"><Bi en="Training path ↗" zh="培訓路線" /></a>
                 {isAdmin ? <Link href="/admin"><Bi en="Admin" zh="管理" /></Link> : null}
               </nav>
             </div>

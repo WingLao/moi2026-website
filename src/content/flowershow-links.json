@@ -1,0 +1,610 @@
+{
+ "train-l0-02b-average": [
+  {
+   "en": "Lesson page L0-02B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-02B 平均分（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-02%E3%83%BB%E8%AE%8A%E6%95%B8%E8%88%87%E5%9E%8B%E5%88%A5/L0-02B_%E5%B9%B3%E5%9D%87%E5%88%86_average_202611121545"
+  },
+  {
+   "en": "Unit L0-02 lesson (in Chinese)",
+   "zh": "單元 L0-02：變數與型別",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-02%E3%83%BB%E8%AE%8A%E6%95%B8%E8%88%87%E5%9E%8B%E5%88%A5"
+  }
+ ],
+ "train-l0-01b-clock": [
+  {
+   "en": "Lesson page L0-01B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-01B 秒數換時間（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-01%E3%83%BB%E7%AC%AC%E4%B8%80%E5%80%8B%E7%A8%8B%E5%BC%8F/L0-01B_%E7%A7%92%E6%95%B8%E6%8F%9B%E6%99%82%E9%96%93_clock_202611121545"
+  },
+  {
+   "en": "Unit L0-01 lesson (in Chinese)",
+   "zh": "單元 L0-01：第一個程式",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-01%E3%83%BB%E7%AC%AC%E4%B8%80%E5%80%8B%E7%A8%8B%E5%BC%8F"
+  }
+ ],
+ "train-l0-04b-collatz": [
+  {
+   "en": "Lesson page L0-04B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-04B 冰雹數（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88/L0-04B_%E5%86%B0%E9%9B%B9%E6%95%B8_collatz_202611121545"
+  },
+  {
+   "en": "Unit L0-04 lesson (in Chinese)",
+   "zh": "單元 L0-04：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "train-l0-04a-digits": [
+  {
+   "en": "Lesson page L0-04A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-04A 數字和（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88/L0-04A_%E6%95%B8%E5%AD%97%E5%92%8C_digits_202611121545"
+  },
+  {
+   "en": "Unit L0-04 lesson (in Chinese)",
+   "zh": "單元 L0-04：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "train-l0-02a-distance": [
+  {
+   "en": "Lesson page L0-02A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-02A 長跑總距離（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-02%E3%83%BB%E8%AE%8A%E6%95%B8%E8%88%87%E5%9E%8B%E5%88%A5/L0-02A_%E9%95%B7%E8%B7%91%E7%B8%BD%E8%B7%9D%E9%9B%A2_distance_202611121545"
+  },
+  {
+   "en": "Unit L0-02 lesson (in Chinese)",
+   "zh": "單元 L0-02：變數與型別",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-02%E3%83%BB%E8%AE%8A%E6%95%B8%E8%88%87%E5%9E%8B%E5%88%A5"
+  }
+ ],
+ "train-l1-03c-divisible": [
+  {
+   "en": "Lesson page L1-03C: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L1-03C 整除區間（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8/L1-03C_%E6%95%B4%E9%99%A4%E5%8D%80%E9%96%93_divisible_202611121545"
+  },
+  {
+   "en": "Unit L1-03 lesson (in Chinese)",
+   "zh": "單元 L1-03：前綴和與餘數計數",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8"
+  }
+ ],
+ "train-l0-08b-hindex": [
+  {
+   "en": "Lesson page L0-08B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-08B H指數（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F/L0-08B_H%E6%8C%87%E6%95%B8_hindex_202611121545"
+  },
+  {
+   "en": "Unit L0-08 lesson (in Chinese)",
+   "zh": "單元 L0-08：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  }
+ ],
+ "train-l0-07b-peak": [
+  {
+   "en": "Lesson page L0-07B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-07B 山頂（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B/L0-07B_%E5%B1%B1%E9%A0%82_peak_202611121545"
+  },
+  {
+   "en": "Unit L0-07 lesson (in Chinese)",
+   "zh": "單元 L0-07：for + if 搜尋",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B"
+  }
+ ],
+ "train-l0-07a-positions": [
+  {
+   "en": "Lesson page L0-07A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-07A 找出所有位置（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B/L0-07A_%E6%89%BE%E5%87%BA%E6%89%80%E6%9C%89%E4%BD%8D%E7%BD%AE_positions_202611121545"
+  },
+  {
+   "en": "Unit L0-07 lesson (in Chinese)",
+   "zh": "單元 L0-07：for + if 搜尋",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B"
+  }
+ ],
+ "train-l1-03a-range": [
+  {
+   "en": "Lesson page L1-03A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L1-03A 區間和（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8/L1-03A_%E5%8D%80%E9%96%93%E5%92%8C_range_202611121545"
+  },
+  {
+   "en": "Unit L1-03 lesson (in Chinese)",
+   "zh": "單元 L1-03：前綴和與餘數計數",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8"
+  }
+ ],
+ "train-l0-01a-stationery": [
+  {
+   "en": "Lesson page L0-01A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-01A 買文具（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-01%E3%83%BB%E7%AC%AC%E4%B8%80%E5%80%8B%E7%A8%8B%E5%BC%8F/L0-01A_%E8%B2%B7%E6%96%87%E5%85%B7_stationery_202611121545"
+  },
+  {
+   "en": "Unit L0-01 lesson (in Chinese)",
+   "zh": "單元 L0-01：第一個程式",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-01%E3%83%BB%E7%AC%AC%E4%B8%80%E5%80%8B%E7%A8%8B%E5%BC%8F"
+  }
+ ],
+ "train-l0-08a-swaps": [
+  {
+   "en": "Lesson page L0-08A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-08A 冒泡交換次數（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F/L0-08A_%E5%86%92%E6%B3%A1%E4%BA%A4%E6%8F%9B%E6%AC%A1%E6%95%B8_swaps_202611121545"
+  },
+  {
+   "en": "Unit L0-08 lesson (in Chinese)",
+   "zh": "單元 L0-08：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  }
+ ],
+ "train-l0-03a-ticket": [
+  {
+   "en": "Lesson page L0-03A: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-03A 車票價格（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-03%E3%83%BB%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7/L0-03A_%E8%BB%8A%E7%A5%A8%E5%83%B9%E6%A0%BC_ticket_202611121545"
+  },
+  {
+   "en": "Unit L0-03 lesson (in Chinese)",
+   "zh": "單元 L0-03：條件判斷",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-03%E3%83%BB%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"
+  }
+ ],
+ "train-l1-03b-treasure": [
+  {
+   "en": "Lesson page L1-03B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L1-03B 寶藏地圖（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8/L1-03B_%E5%AF%B6%E8%97%8F%E5%9C%B0%E5%9C%96_treasure_202611121545"
+  },
+  {
+   "en": "Unit L1-03 lesson (in Chinese)",
+   "zh": "單元 L1-03：前綴和與餘數計數",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E/L1-03%E3%83%BB%E5%89%8D%E7%B6%B4%E5%92%8C%E8%88%87%E9%A4%98%E6%95%B8%E8%A8%88%E6%95%B8"
+  }
+ ],
+ "train-l0-03b-triangle": [
+  {
+   "en": "Lesson page L0-03B: diagrams and hints (in Chinese)",
+   "zh": "培訓題目頁：L0-03B 三角形（圖解、提示）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-03%E3%83%BB%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7/L0-03B_%E4%B8%89%E8%A7%92%E5%BD%A2_triangle_202611121545"
+  },
+  {
+   "en": "Unit L0-03 lesson (in Chinese)",
+   "zh": "單元 L0-03：條件判斷",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-03%E3%83%BB%E6%A2%9D%E4%BB%B6%E5%88%A4%E6%96%B7"
+  }
+ ],
+ "beginner-f5b-01-number-sequences": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-02-even-squares": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-03-factorial-5": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-04-even-sum": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-05-divisible-by-13": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-23-alternating-series": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "beginner-f5b-26-alternating-reciprocal-sum": [
+  {
+   "en": "Unit L0-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-04 加練：迴圈",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-04%E3%83%BB%E8%BF%B4%E5%9C%88"
+  }
+ ],
+ "moi-skip7": [
+  {
+   "en": "Unit L0-05 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-05 加練：迴圈進階",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-06-reverse-multiplication-table": [
+  {
+   "en": "Unit L0-05 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-05 加練：迴圈進階",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "moi-seat": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-11-count-average": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-27-pair-sum-finder": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-coin": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-round": [
+  {
+   "en": "Unit L0-06 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-06 加練：一維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-08-list-statistics": [
+  {
+   "en": "Unit L0-07 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-07 加練：for + if 搜尋",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-07%E3%83%BBfor%E8%88%87if%E6%90%9C%E5%B0%8B"
+  }
+ ],
+ "moi-neighbor": [
+  {
+   "en": "Unit L0-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-08 加練：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  }
+ ],
+ "beginner-f5b-30-closest-pair-difference": [
+  {
+   "en": "Unit L0-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-08 加練：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  }
+ ],
+ "p-sort": [
+  {
+   "en": "Unit L0-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-08 加練：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  },
+  {
+   "en": "Level L0 overview — contest check, needs units L0-08 (in Chinese)",
+   "zh": "L0 真題檢驗（需要單元 L0-08）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-gaps": [
+  {
+   "en": "Unit L0-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-08 加練：雙層迴圈排序",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80/L0-08%E3%83%BB%E9%9B%99%E5%B1%A4%E8%BF%B4%E5%9C%88%E6%8E%92%E5%BA%8F"
+  },
+  {
+   "en": "Level L0 overview — contest check, needs units L0-08 (in Chinese)",
+   "zh": "L0 真題檢驗（需要單元 L0-08）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-18-first-unique-character": [
+  {
+   "en": "Unit L0-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-09 加練：字串與字元",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-19-most-frequent-word": [
+  {
+   "en": "Unit L0-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-09 加練：字串與字元",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-21-roman-to-integer": [
+  {
+   "en": "Unit L0-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-09 加練：字串與字元",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "moi-div3": [
+  {
+   "en": "Unit L0-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-11 加練：遞迴入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "dp-01-fibonacci-number": [
+  {
+   "en": "Unit L0-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-11 加練：遞迴入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-stairs": [
+  {
+   "en": "Unit L0-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-11 加練：遞迴入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-letters": [
+  {
+   "en": "Unit L0-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-11 加練：遞迴入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "beginner-f5b-29-row-sum-champion": [
+  {
+   "en": "Unit L0-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-12 加練：二維陣列",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-grade": [
+  {
+   "en": "Unit L0-13 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-13 加練：結構體與 sort",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-islands": [
+  {
+   "en": "Unit L0-14 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-14 加練：方格搜尋入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "p-steps": [
+  {
+   "en": "Unit L0-14 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L0-14 加練：方格搜尋入門",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L0%E3%83%BB%E5%85%A5%E9%96%80"
+  }
+ ],
+ "j-sortrank": [
+  {
+   "en": "Unit L1-02 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-02 加練：排序與運算量估算",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "beginner-f5b-25-audit": [
+  {
+   "en": "Unit L1-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-04 加練：差分與雙指標",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-partner": [
+  {
+   "en": "Unit L1-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-04 加練：差分與雙指標",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-inversions": [
+  {
+   "en": "Unit L1-08 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-08 加練：遞迴、分治與回溯",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "beginner-f5b-22-minimum-coins": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "beginner-f5b-24-match-equipment": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "ga-01-lemonade-change": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "ga-02-maximum-units-truck": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "ga-03-non-overlapping-intervals": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "ga-04-task-scheduler": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "ga-05-item-stacking": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-schedule": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-parttime": [
+  {
+   "en": "Unit L1-09 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-09 加練：貪心",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-components": [
+  {
+   "en": "Unit L1-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-11 加練：BFS / DFS",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-spread": [
+  {
+   "en": "Unit L1-11 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-11 加練：BFS / DFS",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "moi-food": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "moi-teams": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "dp-02-herb-picking": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "dp-03-coin-change": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "dp-04-longest-increasing-subsequence": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "dp-05-edit-distance": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-lis": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "j-exchange": [
+  {
+   "en": "Unit L1-12 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-12 加練：基礎動態規劃",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "s-climb": [
+  {
+   "en": "Unit L1-05 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-05 加練：二分與三分",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  },
+  {
+   "en": "Level L2 overview — contest check, needs units L1-05 (in Chinese)",
+   "zh": "L2 真題檢驗（需要單元 L1-05）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L2%E3%83%BB%E6%8F%90%E9%AB%98"
+  }
+ ],
+ "moi-run": [
+  {
+   "en": "Unit L1-05 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-05 加練：二分與三分",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "moi-buildings": [
+  {
+   "en": "Unit L1-07 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L1-07 加練：模擬與枚舉",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L1%E3%83%BB%E5%9F%BA%E7%A4%8E"
+  }
+ ],
+ "moi-safepath": [
+  {
+   "en": "Unit L2-02 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L2-02 加練：最短路",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L2%E3%83%BB%E6%8F%90%E9%AB%98"
+  }
+ ],
+ "s-comm": [
+  {
+   "en": "Unit L2-04 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L2-04 加練：拓撲排序、強連通與 DAG",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L2%E3%83%BB%E6%8F%90%E9%AB%98"
+  }
+ ],
+ "s-balls": [
+  {
+   "en": "Unit L2-10 lesson — this is extra practice for it (in Chinese)",
+   "zh": "單元 L2-10 加練：動態規劃進階",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L2%E3%83%BB%E6%8F%90%E9%AB%98"
+  }
+ ]
+}

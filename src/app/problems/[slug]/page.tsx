@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
+import { FLOWERSHOW_URL, getLessonLinks } from '@/lib/flowershow-links';
 import { getProblemPdfDownloadUrl, getProblemPdfUrl } from '@/lib/pdf';
 import { getProblemCatalogEntryBySlug, getProblemDataDirName } from '@/lib/problem-catalog';
 import { prisma } from '@/lib/prisma';
@@ -43,6 +44,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   const validCases = problem.testCases.filter((testCase) => testCase.isValid).length;
   const submissions = problem.submissions;
   const catalog = getProblemCatalogEntryBySlug(problem.slug);
+  const lessons = getLessonLinks(problem.slug);
 
   return (
     <main className="page">
@@ -81,6 +83,27 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
         </div>
 
         <div className="problem-side">
+          <section className="card lesson-card">
+            <h2 style={{ marginTop: 0 }}><Bi en="Learn first" zh="先學再做" /></h2>
+            {lessons.length ? (
+              <ul className="lesson-links">
+                {lessons.map((lesson) => (
+                  <li key={lesson.url}>
+                    <a href={lesson.url} target="_blank" rel="noreferrer" className="inline-link">
+                      <Bi block en={lesson.en} zh={lesson.zh} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="small-text" style={{ margin: '8px 0 0' }}>
+                <a href={FLOWERSHOW_URL} target="_blank" rel="noreferrer" className="inline-link">
+                  <Bi block en="Training path: lessons from beginner to contest level (in Chinese)" zh="培訓路線網站：由入門到比賽的課程" />
+                </a>
+              </p>
+            )}
+          </section>
+
           <section className="card">
             <h2 style={{ marginTop: 0 }}><Bi en="Submit" zh="提交" /></h2>
             {session?.user ? (
