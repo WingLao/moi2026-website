@@ -86,7 +86,8 @@ export function auditProblemAssets(root: string, entry: ProblemCatalogEntry): Pr
     const statement = fs.readFileSync(statementPath, 'utf8');
 
     // Headings may be bilingual, e.g. "## Input · 輸入格式".
-    if (!/^## .*輸入格式/m.test(statement) || !/^## .*輸出格式/m.test(statement)) {
+    const isIoi = fs.existsSync(path.join(root, 'data', entry.level, dataDirName, 'ioi', 'problem.json'));
+    if (!isIoi && (!/^## .*輸入格式/m.test(statement) || !/^## .*輸出格式/m.test(statement))) {
       warnings.push(`Statement structure incomplete: ${entry.statementFilename}`);
     }
   }

@@ -19,6 +19,7 @@ enum ProblemLevel {
   P
   J
   S
+  IOI
 }
 
 enum SubmissionStatus {

@@ -16,7 +16,7 @@ export default async function LeaderboardPage() {
 
   const rows = users
     .map((user) => {
-      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string; level: 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' }>();
+      const bestByProblem = new Map<string, { score: number; reachedAt: Date; problemCode: string; level: 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'IOI' }>();
       for (const submission of user.submissions) {
         const reachedAt = submission.reachedScoreAt ?? submission.judgedAt ?? submission.queuedAt;
         const previous = bestByProblem.get(submission.problemId);
@@ -51,8 +51,8 @@ export default async function LeaderboardPage() {
         <p className="subtle" style={{ marginTop: 10 }}>
           <Bi
             block
-            en="Your best score on each problem counts, multiplied by the level weight: Beginner ×0.1, Greedy ×0.5, DP ×1, P ×1, J ×2, S ×3. If two totals are equal, whoever reached it first ranks higher."
-            zh="每題取你的最高分，再乘以程度權重：入門 ×0.1、貪心 ×0.5、動態規劃 ×1、P 組 ×1、J 組 ×2、S 組 ×3。總分相同時，先達到該分數的排前。"
+            en="Your best score on each problem counts, multiplied by the level weight: Beginner ×0.1, Greedy ×0.5, DP ×1, P ×1, J ×2, S ×3, IOI ×4. If two totals are equal, whoever reached it first ranks higher."
+            zh="每題取你的最高分，再乘以程度權重：入門 ×0.1、貪心 ×0.5、動態規劃 ×1、P 組 ×1、J 組 ×2、S 組 ×3、IOI ×4。總分相同時，先達到該分數的排前。"
           />
         </p>
       </section>

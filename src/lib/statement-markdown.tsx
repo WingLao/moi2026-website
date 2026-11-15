@@ -1,11 +1,20 @@
 import type { ReactNode } from 'react';
 
 function renderInline(text: string, keyPrefix: string) {
-  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)\s]+\))/g);
 
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
       return <code key={`${keyPrefix}-${index}`}>{part.slice(1, -1)}</code>;
+    }
+    const link = part.match(/^\[([^\]]+)\]\(([^)\s]+)\)$/);
+    if (link) {
+      const external = /^https?:/.test(link[2]);
+      return (
+        <a key={`${keyPrefix}-${index}`} href={link[2]} className="inline-link" {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}>
+          {link[1]}
+        </a>
+      );
     }
     if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
       return <strong key={`${keyPrefix}-${index}`}>{part.slice(2, -2)}</strong>;

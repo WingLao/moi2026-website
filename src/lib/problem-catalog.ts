@@ -1,4 +1,4 @@
-export type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S';
+export type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'IOI';
 
 export type ProblemCatalogEntry = {
   slug: string;
@@ -97,12 +97,23 @@ const MOI_PRACTICE_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'moi-teams', title: 'Team Building · 團隊', level: 'J', dataDirName: 'moi-teams', statementFilename: 'moi-teams.md' },
 ];
 
+// IOI 2026 (official task archive; judged with the official graders by scripts/ioi-judge.py)
+const IOI_PROBLEMS: readonly ProblemCatalogEntry[] = [
+  { slug: 'ioi2026-ballmachine', title: 'IOI 2026 Day 1 Ball Machine · 發球機', level: 'IOI', dataDirName: 'ioi2026-ballmachine', statementFilename: 'ioi2026-ballmachine.md' },
+  { slug: 'ioi2026-monuments', title: 'IOI 2026 Day 1 Monuments · 紀念碑', level: 'IOI', dataDirName: 'ioi2026-monuments', statementFilename: 'ioi2026-monuments.md' },
+  { slug: 'ioi2026-tiling', title: 'IOI 2026 Day 1 Tiling Game · 砌瓷磚遊戲', level: 'IOI', dataDirName: 'ioi2026-tiling', statementFilename: 'ioi2026-tiling.md' },
+  { slug: 'ioi2026-classroom', title: 'IOI 2026 Day 2 Classroom Game · 課堂遊戲', level: 'IOI', dataDirName: 'ioi2026-classroom', statementFilename: 'ioi2026-classroom.md' },
+  { slug: 'ioi2026-magiccity', title: 'IOI 2026 Day 2 Magic City · 魔法城', level: 'IOI', dataDirName: 'ioi2026-magiccity', statementFilename: 'ioi2026-magiccity.md' },
+  { slug: 'ioi2026-partition', title: 'IOI 2026 Day 2 Partition · 分組問題', level: 'IOI', dataDirName: 'ioi2026-partition', statementFilename: 'ioi2026-partition.md' },
+];
+
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
   ...F5B_BEGINNER_PROBLEMS,
   ...GREEDY_ALGORITHM_PROBLEMS,
   ...DYNAMIC_PROGRAMMING_PROBLEMS,
   ...TRAINING_PROBLEMS,
   ...MOI_PRACTICE_PROBLEMS,
+  ...IOI_PROBLEMS,
   { slug: 'p-gaps', title: 'Gaps · 差別', dataDirName: 'gaps', level: 'P', statementFilename: 'p-gaps.md', pdfFilename: 'P-gaps.pdf' },
   { slug: 'p-letters', title: 'Fill in the Letters · 填字遊戲', dataDirName: 'letters', level: 'P', statementFilename: 'p-letters.md', pdfFilename: 'P-letters.pdf' },
   { slug: 'p-round', title: 'Round and Round · 轉轉轉', dataDirName: 'round', level: 'P', statementFilename: 'p-round.md', pdfFilename: 'P-round.pdf' },

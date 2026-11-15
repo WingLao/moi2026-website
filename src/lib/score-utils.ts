@@ -1,4 +1,4 @@
-type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S';
+type ProblemLevel = 'Beginner' | 'GA' | 'DP' | 'P' | 'J' | 'S' | 'IOI';
 
 const LEVEL_MULTIPLIER: Record<ProblemLevel, number> = {
   Beginner: 0.1,
@@ -7,6 +7,7 @@ const LEVEL_MULTIPLIER: Record<ProblemLevel, number> = {
   P: 1,
   J: 2,
   S: 3,
+  IOI: 4,
 };
 
 export function getLevelMultiplier(level: ProblemLevel) {

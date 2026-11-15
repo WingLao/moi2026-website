@@ -18,6 +18,64 @@ type JudgeResult = {
   message: string;
 };
 
+type IoiSubtask = { index: number; points: number; status: string; message: string; time_ms: number };
+
+/** IOI task: every placeholder testcase k stands for subtask k; points come from the official checker/manager. */
+async function judgeIoi(
+  id: string,
+  language: string,
+  sourcePath: string,
+  ioiDir: string,
+  workDir: string,
+  testCases: { id: string; index: number }[],
+) {
+  const fail = async (status: 'COMPILE_ERROR' | 'FAILED', compileOutput: string) => {
+    await prisma.submission.update({ where: { id }, data: { status, compileOutput, judgedAt: new Date() } });
+  };
+  if (language !== 'cpp') {
+    await fail('COMPILE_ERROR', 'IOI tasks accept C++ only. IOI 題目只接受 C++。');
+    return;
+  }
+  const run = spawnSync('python3', [path.join(__dirname, 'ioi-judge.py'), ioiDir, sourcePath, path.join(workDir, 'ioi')], {
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024,
+    timeout: 15 * 60 * 1000,
+  });
+  let report: { compile_error?: string; subtasks?: IoiSubtask[] };
+  try {
+    report = JSON.parse(run.stdout);
+  } catch {
+    await fail('FAILED', `IOI judge error: ${(run.stderr || run.error?.message || '').slice(-2000)}`);
+    return;
+  }
+  if (report.compile_error !== undefined) {
+    await fail('COMPILE_ERROR', report.compile_error);
+    return;
+  }
+  const byIndex = new Map((report.subtasks ?? []).map((s) => [s.index, s]));
+  let totalScore = 0;
+  for (const testCase of testCases) {
+    const sub = byIndex.get(testCase.index);
+    const statusMap: Record<string, TestCaseStatus> = { AC: 'AC', WA: 'WA', TLE: 'TLE', RE: 'RE' };
+    const result = {
+      status: sub ? statusMap[sub.status] ?? 'WA' : ('SKIPPED' as TestCaseStatus),
+      score: sub ? Math.round(sub.points) : 0,
+      timeMs: sub?.time_ms ?? null,
+      stdout: '',
+      stderr: '',
+      message: sub?.message ?? '',
+    };
+    totalScore += result.score;
+    await prisma.testCaseResult.upsert({
+      where: { submissionId_testCaseId: { submissionId: id, testCaseId: testCase.id } },
+      update: result,
+      create: { submissionId: id, testCaseId: testCase.id, ...result },
+    });
+  }
+  const judgedAt = new Date();
+  await prisma.submission.update({ where: { id }, data: { status: 'FINISHED', score: totalScore, judgedAt, reachedScoreAt: judgedAt } });
+}
+
 async function judgeSubmission(id: string) {
   const submission = await prisma.submission.findUnique({
     where: { id },
@@ -35,6 +93,14 @@ async function judgeSubmission(id: string) {
   try {
     const sourcePath = path.join(workDir, submission.language === 'cpp' ? 'main.cpp' : 'main.py');
     fs.writeFileSync(sourcePath, submission.sourceCode);
+
+    // IOI tasks (data dir has ioi/problem.json): judged by scripts/ioi-judge.py with the official graders.
+    const firstCase = submission.problem.testCases[0];
+    const ioiDir = firstCase ? path.join(path.dirname(resolveStoredPath(firstCase.inputPath)), 'ioi') : '';
+    if (ioiDir && fs.existsSync(path.join(ioiDir, 'problem.json'))) {
+      await judgeIoi(id, submission.language, sourcePath, ioiDir, workDir, submission.problem.testCases);
+      return;
+    }
 
     let executablePath = sourcePath;
     if (submission.language === 'cpp') {

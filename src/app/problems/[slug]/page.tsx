@@ -1,7 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Bi from '@/components/Bi';
 import { auth } from '@/lib/auth';
+import { getDataRoot } from '@/lib/data-root';
 import { FLOWERSHOW_URL, getLessonLinks } from '@/lib/flowershow-links';
 import { getProblemPdfDownloadUrl, getProblemPdfUrl } from '@/lib/pdf';
 import { getProblemCatalogEntryBySlug, getProblemDataDirName } from '@/lib/problem-catalog';
@@ -45,6 +48,8 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
   const submissions = problem.submissions;
   const catalog = getProblemCatalogEntryBySlug(problem.slug);
   const lessons = getLessonLinks(problem.slug);
+  const ioiTemplatePath = catalog ? path.join(getDataRoot(), 'data', catalog.level, getProblemDataDirName(catalog), 'ioi', 'template.cpp') : '';
+  const ioiTemplate = ioiTemplatePath && fs.existsSync(ioiTemplatePath) ? fs.readFileSync(ioiTemplatePath, 'utf8') : null;
 
   return (
     <main className="page">
@@ -113,7 +118,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                   <Bi en="Language" zh="語言" />
                   <select name="language" defaultValue="cpp">
                     <option value="cpp">C++17</option>
-                    <option value="python">Python 3</option>
+                    {ioiTemplate ? null : <option value="python">Python 3</option>}
                   </select>
                 </label>
                 <label className="dense-list">
@@ -123,7 +128,7 @@ export default async function ProblemDetail({ params }: { params: Promise<{ slug
                     required
                     minLength={1}
                     rows={18}
-                    defaultValue={'#include <iostream>\nusing namespace std;\n\nint main() {\n  return 0;\n}\n'}
+                    defaultValue={ioiTemplate ?? '#include <iostream>\nusing namespace std;\n\nint main() {\n  return 0;\n}\n'}
                     className="mono"
                   />
                 </label>

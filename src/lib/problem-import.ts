@@ -37,9 +37,14 @@ export async function importProblems(projectRoot?: string) {
     const remainder = 100 - baseScore * audit.cases.length;
     const importedIndexes: number[] = [];
 
+    // IOI tasks: one placeholder testcase per subtask whose .out holds the subtask score
+    const isIoi = fs.existsSync(path.join(audit.dataDir, 'ioi', 'problem.json'));
+
     for (let index = 0; index < audit.cases.length; index += 1) {
       const testCase = audit.cases[index];
-      const score = baseScore + (index < remainder ? 1 : 0);
+      const score = isIoi && testCase.outputFile
+        ? Math.round(Number(fs.readFileSync(path.join(audit.dataDir, testCase.outputFile), 'utf8').trim()) || 0)
+        : baseScore + (index < remainder ? 1 : 0);
       const inputPath = toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.inputFile)), root);
       const outputPath = testCase.outputFile ? toStoredPath(fs.realpathSync(path.join(audit.dataDir, testCase.outputFile)), root) : null;
 
