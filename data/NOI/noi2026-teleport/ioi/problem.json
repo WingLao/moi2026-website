@@ -1,0 +1,1 @@
+{"protocol_version": 2, "code": "teleport", "name": "teleport", "time_limit": 3.5, "memory_limit": 1073741824, "score_precision": 2, "task_type": "Batch", "task_type_params": ["grader", ["", ""], "comparator"], "feedback_level": "oi_restricted"}

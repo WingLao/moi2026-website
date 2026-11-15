@@ -205,6 +205,12 @@ const CONTEST_PROBLEMS: readonly ProblemCatalogEntry[] = [
   { slug: 'noi2025-p13274', title: 'NOI2025 Ternary Operator · 三目運算子', level: 'NOI', dataDirName: 'noi2025-p13274', statementFilename: 'noi2025-p13274.md', timeLimitMs: 2000, memoryLimitMb: 512 },
   { slug: 'noi2025-p13275', title: 'NOI2025 Sets · 集合', level: 'NOI', dataDirName: 'noi2025-p13275', statementFilename: 'noi2025-p13275.md', timeLimitMs: 2000, memoryLimitMb: 512 },
   { slug: 'noi2025-p13276', title: 'NOI2025 Absolute Defense · 絕對防禦', level: 'NOI', dataDirName: 'noi2025-p13276', statementFilename: 'noi2025-p13276.md', timeLimitMs: 4000, memoryLimitMb: 1024 },
+  { slug: 'noi2026-segment', title: 'NOI2026 Segments · 線段', level: 'NOI', dataDirName: 'noi2026-segment', statementFilename: 'noi2026-segment.md', timeLimitMs: 2500, memoryLimitMb: 512 },
+  { slug: 'noi2026-teleport', title: 'NOI2026 Teleport · 傳送', level: 'NOI', dataDirName: 'noi2026-teleport', statementFilename: 'noi2026-teleport.md', timeLimitMs: 3500, memoryLimitMb: 1024 },
+  { slug: 'noi2026-pudding', title: 'NOI2026 Pudding · 布丁', level: 'NOI', dataDirName: 'noi2026-pudding', statementFilename: 'noi2026-pudding.md', timeLimitMs: 10000, memoryLimitMb: 1024 },
+  { slug: 'noi2026-median', title: 'NOI2026 Median · 中位數', level: 'NOI', dataDirName: 'noi2026-median', statementFilename: 'noi2026-median.md', timeLimitMs: 1000, memoryLimitMb: 1024 },
+  { slug: 'noi2026-kapok', title: 'NOI2026 Kapok · 木棉', level: 'NOI', dataDirName: 'noi2026-kapok', statementFilename: 'noi2026-kapok.md', timeLimitMs: 2000, memoryLimitMb: 1024 },
+  { slug: 'noi2026-rainbow', title: 'NOI2026 Rainbow Tree · 彩虹樹', level: 'NOI', dataDirName: 'noi2026-rainbow', statementFilename: 'noi2026-rainbow.md', timeLimitMs: 1000, memoryLimitMb: 1024 },
 ];
 
 export const PROBLEM_CATALOG: readonly ProblemCatalogEntry[] = [
