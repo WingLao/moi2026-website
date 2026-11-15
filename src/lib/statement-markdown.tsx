@@ -210,7 +210,10 @@ export function renderStatementMarkdown(markdown: string): ReactNode[] {
       continue;
     }
 
-    const paragraphLines: string[] = [];
+    // Always consume at least the current line, so a line that looks like the start of another
+    // block but isn't (e.g. "|" without a table separator, a stray ":::") can never loop forever.
+    const paragraphLines: string[] = [line];
+    index += 1;
     while (index < lines.length) {
       const candidate = lines[index].trim();
       if (
