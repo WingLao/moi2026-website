@@ -606,5 +606,47 @@
    "zh": "單元 L2-10 加練：動態規劃進階",
    "url": "https://algorithm-cdsj5it2008.flowershow.me/L2%E3%83%BB%E6%8F%90%E9%AB%98"
   }
+ ],
+ "ioi2026-monuments": [
+  {
+   "en": "Level L3 overview — contest check, needs units L1-09、L2-07 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L1-09、L2-07）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
+ ],
+ "ioi2026-ballmachine": [
+  {
+   "en": "Level L3 overview — contest check, needs units L2-06、L3-11 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L2-06、L3-11）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
+ ],
+ "ioi2026-tiling": [
+  {
+   "en": "Level L3 overview — contest check, needs units L3-10、L3-11 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L3-10、L3-11）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
+ ],
+ "ioi2026-classroom": [
+  {
+   "en": "Level L3 overview — contest check, needs units L3-11 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L3-11）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
+ ],
+ "ioi2026-magiccity": [
+  {
+   "en": "Level L3 overview — contest check, needs units L3-10 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L3-10）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
+ ],
+ "ioi2026-partition": [
+  {
+   "en": "Level L3 overview — contest check, needs units L3-11 (in Chinese)",
+   "zh": "L3 真題檢驗（需要單元 L3-11）",
+   "url": "https://algorithm-cdsj5it2008.flowershow.me/L3%E3%83%BB%E9%81%B8%E6%89%8B"
+  }
  ]
 }
