@@ -72,9 +72,11 @@ async function judgeSubmission(id: string) {
       } else {
         const input = fs.readFileSync(resolveStoredPath(testCase.inputPath));
         const expected = fs.readFileSync(resolveStoredPath(testCase.outputPath), 'utf8');
+        // maxBuffer: Node's default (1 MB) cuts off large outputs and they were reported as Runtime Error.
+        const runOptions = { input, encoding: 'utf8' as const, timeout: submission.problem.timeLimitMs, maxBuffer: 64 * 1024 * 1024 };
         const run = submission.language === 'cpp'
-          ? spawnSync(executablePath, { input, encoding: 'utf8', timeout: submission.problem.timeLimitMs })
-          : spawnSync('python3', [executablePath], { input, encoding: 'utf8', timeout: submission.problem.timeLimitMs });
+          ? spawnSync(executablePath, runOptions)
+          : spawnSync('python3', [executablePath], runOptions);
 
         result.stdout = run.stdout || '';
         result.stderr = run.stderr || '';
